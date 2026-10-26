@@ -1,0 +1,85 @@
+{% extends 'master.html' %}
+
+{% block title %}
+    Iniciar sesión | Dodo
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5 col-lg-4">
+
+            <div class="card shadow border-0">
+                <div class="card-header text-center text-white py-4"
+                     style="background-color: #660033;">
+
+                    <h2 class="mb-1">Dodo</h2>
+                    <p class="mb-0">Sistema de gestión farmacéutica</p>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <h4 class="text-center mb-4">Iniciar sesión</h4>
+
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            {{ error }}
+                        </div>
+                    {% endif %}
+
+                    <form action="{% url 'usuarios:login' %}" method="post">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="correo" class="form-label">
+                                Correo electrónico
+                            </label>
+
+                            <input type="email"
+                                   class="form-control"
+                                   id="correo"
+                                   name="correo"
+                                   placeholder="correo@ejemplo.com"
+                                   required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="contrasenia" class="form-label">
+                                Contraseña
+                            </label>
+
+                            <input type="password"
+                                   class="form-control"
+                                   id="contrasenia"
+                                   name="contrasenia"
+                                   placeholder="Ingresa tu contraseña"
+                                   required>
+                        </div>
+
+                        <button type="submit"
+                                class="btn text-white w-100"
+                                style="background-color: #660033;">
+                            Iniciar sesión
+                        </button>
+
+                    </form>
+
+                </div>
+
+                <div class="card-footer text-center py-3"
+                     style="background-color: #faf7f5;">
+
+                    <small class="text-muted">
+                        Dodo · Sistema de farmacia
+                    </small>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
