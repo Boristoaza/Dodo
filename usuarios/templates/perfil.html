@@ -1,0 +1,294 @@
+{% extends 'master.html' %}
+
+{% block title %}
+    Mi empresa | Dodo
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="mb-1">Farmacia La Económica</h3>
+            <p class="text-muted mb-0">Administración de empresa</p>
+        </div>
+
+        <span class="badge rounded-pill px-3 py-2"
+              style="background-color: #e8f5e9; color: #2e7d32;">
+            Empresa activa
+        </span>
+    </div>
+
+    <!-- Resumen -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <div class="rounded-3 p-3 text-white"
+                         style="background-color: #660033;">
+                        <i class="bi bi-shop fs-3"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-0">2</h4>
+                        <span class="text-muted">Sucursales</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <div class="rounded-3 p-3 text-white"
+                         style="background-color: #660033;">
+                        <i class="bi bi-people fs-3"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-0">4</h4>
+                        <span class="text-muted">Empleados</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <div class="rounded-3 p-3 text-white"
+                         style="background-color: #660033;">
+                        <i class="bi bi-person-badge fs-3"></i>
+                    </div>
+                    <div>
+                        <h6 class="mb-1">Representante legal</h6>
+                        <span class="text-muted">Administrador de la empresa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Sucursales y empleados -->
+        <div class="col-lg-8">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0">Mis sucursales</h5>
+
+                <a href="#" class="btn btn-sm text-white"
+                   style="background-color: #660033;">
+                    <i class="bi bi-plus-lg me-1"></i>
+                    Nueva sucursal
+                </a>
+            </div>
+
+            <!-- Sucursal 1 -->
+            <div class="card border-0 shadow-sm mb-3">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="d-flex gap-3">
+                            <div class="rounded-3 p-3"
+                                 style="background-color: #f5eaf0; color: #660033;">
+                                <i class="bi bi-shop fs-3"></i>
+                            </div>
+
+                            <div>
+                                <h6 class="mb-1">Sucursal Centro</h6>
+                                <p class="text-muted small mb-2">
+                                    <i class="bi bi-geo-alt me-1"></i>
+                                    Av. 9 de Octubre, Guayaquil
+                                </p>
+                                <span class="badge bg-success">Activa</span>
+                            </div>
+                        </div>
+
+                        <a href="#" class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-eye me-1"></i> Ver
+                        </a>
+                    </div>
+
+                    <hr>
+
+                    <h6 class="mb-3">
+                        <i class="bi bi-people me-2"></i>Empleados
+                    </h6>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle text-white d-flex align-items-center justify-content-center"
+                                 style="background-color: #660033; width: 38px; height: 38px;">
+                                <i class="bi bi-person"></i>
+                            </div>
+                            <div>
+                                <div class="fw-semibold">Carlos Mendoza</div>
+                                <small class="text-muted">Cajero</small>
+                            </div>
+                        </div>
+                        <span class="badge bg-light text-dark">Activo</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle text-white d-flex align-items-center justify-content-center"
+                                 style="background-color: #660033; width: 38px; height: 38px;">
+                                <i class="bi bi-person"></i>
+                            </div>
+                            <div>
+                                <div class="fw-semibold">María López</div>
+                                <small class="text-muted">Cajera</small>
+                            </div>
+                        </div>
+                        <span class="badge bg-light text-dark">Activo</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Sucursal 2 -->
+            <div class="card border-0 shadow-sm mb-3">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="d-flex gap-3">
+                            <div class="rounded-3 p-3"
+                                 style="background-color: #f5eaf0; color: #660033;">
+                                <i class="bi bi-shop fs-3"></i>
+                            </div>
+
+                            <div>
+                                <h6 class="mb-1">Sucursal Alborada</h6>
+                                <p class="text-muted small mb-2">
+                                    <i class="bi bi-geo-alt me-1"></i>
+                                    Sector La Alborada, Guayaquil
+                                </p>
+                                <span class="badge bg-success">Activa</span>
+                            </div>
+                        </div>
+
+                        <a href="#" class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-eye me-1"></i> Ver
+                        </a>
+                    </div>
+
+                    <hr>
+
+                    <h6 class="mb-3">
+                        <i class="bi bi-people me-2"></i>Empleados
+                    </h6>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle text-white d-flex align-items-center justify-content-center"
+                                 style="background-color: #660033; width: 38px; height: 38px;">
+                                <i class="bi bi-person"></i>
+                            </div>
+                            <div>
+                                <div class="fw-semibold">José Ramírez</div>
+                                <small class="text-muted">Cajero</small>
+                            </div>
+                        </div>
+                        <span class="badge bg-light text-dark">Activo</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle text-white d-flex align-items-center justify-content-center"
+                                 style="background-color: #660033; width: 38px; height: 38px;">
+                                <i class="bi bi-person"></i>
+                            </div>
+                            <div>
+                                <div class="fw-semibold">Ana Torres</div>
+                                <small class="text-muted">Cajera</small>
+                            </div>
+                        </div>
+                        <span class="badge bg-light text-dark">Activo</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Información de la empresa y representante -->
+        <div class="col-lg-4">
+
+            <!-- Empresa -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white py-3">
+                    <h6 class="mb-0">
+                        <i class="bi bi-building me-2"
+                           style="color: #660033;"></i>
+                        Información de la empresa
+                    </h6>
+                </div>
+
+                <div class="card-body">
+
+                    <p class="text-muted small mb-1">Razón social</p>
+                    <p class="fw-semibold">Farmacia La Económica</p>
+
+                    <p class="text-muted small mb-1">RUC</p>
+                    <p class="fw-semibold">0991234567001</p>
+
+                    <p class="text-muted small mb-1">Dirección</p>
+                    <p class="fw-semibold">Guayaquil, Ecuador</p>
+
+                    <p class="text-muted small mb-1">Correo empresarial</p>
+                    <p class="fw-semibold">contacto@economica.com</p>
+
+                    <p class="text-muted small mb-1">Teléfono</p>
+                    <p class="fw-semibold mb-0">04 234 5678</p>
+
+                </div>
+            </div>
+
+            <!-- Representante legal -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white py-3">
+                    <h6 class="mb-0">
+                        <i class="bi bi-person-vcard me-2"
+                           style="color: #660033;"></i>
+                        Mi información
+                    </h6>
+                </div>
+
+                <div class="card-body text-center">
+
+                    <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center text-white"
+                         style="background-color: #660033; width: 70px; height: 70px;">
+                        <i class="bi bi-person-fill fs-1"></i>
+                    </div>
+
+                    <h6 class="mb-1">Roberto Sánchez</h6>
+                    <p class="text-muted small mb-3">Representante legal</p>
+
+                    <div class="text-start">
+                        <p class="text-muted small mb-1">Correo electrónico</p>
+                        <p class="fw-semibold">roberto@economica.com</p>
+
+                        <p class="text-muted small mb-1">Teléfono</p>
+                        <p class="fw-semibold">099 123 4567</p>
+                    </div>
+
+                    <a href="#" class="btn btn-outline-secondary w-100">
+                        <i class="bi bi-pencil me-1"></i>
+                        Editar mi información
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -4,6 +4,14 @@
     Dodo
 {% endblock %}
 
+{% if user.is_authenticated %}
+  
 {% block content %}
-
+  
 {% endblock %}
+
+{% else %} 
+  
+  {% include 'login.html' %}
+
+{% endif %}

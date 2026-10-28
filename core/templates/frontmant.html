@@ -1,0 +1,437 @@
+{% extends 'master.html' %}
+
+{% block title %}
+    Panel de administración | Dodo
+{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Estilos del Dashboard sin Cards ni Bordes */
+    .stat-badge {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+        transition: transform 0.2s ease;
+    }
+
+    .stat-badge-primary {
+        background-color: rgba(102, 0, 51, 0.08);
+        color: #660033;
+    }
+
+    .stat-badge-amber {
+        background-color: rgba(255, 152, 0, 0.12);
+        color: #e65100;
+    }
+
+    .quick-access-item {
+        background-color: #f8fafc;
+        border-radius: 14px;
+        padding: 1.25rem;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border: 1px solid transparent;
+    }
+
+    .quick-access-item:hover {
+        background-color: #ffffff;
+        color: inherit;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        border-color: #e2e8f0;
+    }
+
+    /* Estilos de Tabla Limpia */
+    .table-custom {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table-custom th {
+        background-color: #f8fafc;
+        color: #475569;
+        font-weight: 600;
+        font-size: 0.825rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0.85rem 1.25rem;
+        border-bottom: 1px solid #e2e8f0;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .table-custom td {
+        padding: 1rem 1.25rem;
+        color: #334155;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 0.95rem;
+    }
+
+    .table-custom tbody tr:hover td {
+        background-color: #f8fafc;
+    }
+
+    /* Badges de estado */
+    .badge-status {
+        padding: 0.35em 0.75em;
+        font-weight: 500;
+        font-size: 0.8rem;
+        border-radius: 20px;
+    }
+
+    .badge-status-active {
+        background-color: #dcfce7;
+        color: #15803d;
+    }
+
+    .badge-status-inactive {
+        background-color: #fee2e2;
+        color: #b91c1c;
+    }
+
+    /* Buscador con estilo */
+    .search-input-group .form-control {
+        border: 1px solid #e2e8f0;
+        background-color: #f8fafc;
+        border-radius: 10px;
+        padding-left: 2.5rem;
+        font-size: 0.9rem;
+    }
+
+    .search-input-group .form-control:focus {
+        background-color: #ffffff;
+        border-color: #660033;
+        box-shadow: 0 0 0 4px rgba(102, 0, 51, 0.1);
+    }
+
+    .search-input-group {
+        position: relative;
+    }
+
+    .search-input-group i {
+        position: absolute;
+        left: 0.9rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+        z-index: 4;
+    }
+
+    /* Botón principal estilo marca */
+    .btn-brand {
+        background-color: #660033;
+        color: #ffffff;
+        border-radius: 10px;
+        padding: 0.65rem 1.3rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 12px rgba(102, 0, 51, 0.2);
+    }
+
+    .btn-brand:hover {
+        background-color: #4d0026;
+        color: #ffffff;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(102, 0, 51, 0.3);
+    }
+
+    .avatar-admin {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background-color: #660033;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+</style>
+
+<div class="container-fluid py-4 px-3 px-md-5" style="max-width: 1280px;">
+
+    <!-- Encabezado -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-5">
+        <div>
+            <h2 class="fw-bold mb-1" style="color: #0f172a;">Panel de administración</h2>
+            <p class="text-muted mb-0">
+                Gestiona las empresas registradas y supervisa el estado general de Dodo.
+            </p>
+        </div>
+
+        <a href="{% url 'core:registrar_cliente' %}" class="btn btn-brand d-inline-flex align-items-center gap-2">
+            <i class="bi bi-plus-lg"></i>
+            <span>Registrar cliente</span>
+        </a>
+    </div>
+
+    <!-- Indicadores libres sin tarjeta encajonada -->
+    <div class="row g-4 mb-5">
+
+        <div class="col-6 col-md-3">
+            <div class="d-flex align-items-center gap-3 p-2">
+                <div class="stat-badge stat-badge-primary">
+                    <i class="bi bi-buildings"></i>
+                </div>
+                <div>
+                    <span class="text-muted small fw-medium d-block">Empresas</span>
+                    <span class="h3 fw-bold mb-0" style="color: #0f172a;">3</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="d-flex align-items-center gap-3 p-2">
+                <div class="stat-badge stat-badge-amber">
+                    <i class="bi bi-shop"></i>
+                </div>
+                <div>
+                    <span class="text-muted small fw-medium d-block">Sucursales</span>
+                    <span class="h3 fw-bold mb-0" style="color: #0f172a;">6</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="d-flex align-items-center gap-3 p-2">
+                <div class="stat-badge stat-badge-primary">
+                    <i class="bi bi-people"></i>
+                </div>
+                <div>
+                    <span class="text-muted small fw-medium d-block">Usuarios</span>
+                    <span class="h3 fw-bold mb-0" style="color: #0f172a;">9</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="d-flex align-items-center gap-3 p-2">
+                <div class="stat-badge stat-badge-amber">
+                    <i class="bi bi-check2-circle"></i>
+                </div>
+                <div>
+                    <span class="text-muted small fw-medium d-block">Activas</span>
+                    <span class="h3 fw-bold mb-0" style="color: #0f172a;">3</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Accesos Rápidos -->
+    <div class="mb-5">
+        <h6 class="fw-bold text-uppercase text-secondary small mb-3" style="letter-spacing: 0.05em;">
+            Accesos rápidos
+        </h6>
+
+        <div class="row g-3">
+            <div class="col-12 col-md-4">
+                <a href="{% url 'core:registrar_cliente' %}" class="quick-access-item">
+                    <div class="stat-badge stat-badge-primary">
+                        <i class="bi bi-person-plus"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold text-dark mb-0">Registrar cliente</div>
+                        <small class="text-muted">Nueva empresa y su representante</small>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <a href="#clientes" class="quick-access-item">
+                    <div class="stat-badge stat-badge-amber">
+                        <i class="bi bi-buildings"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold text-dark mb-0">Mis clientes</div>
+                        <small class="text-muted">Consultar directorio de empresas</small>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <a href="#perfil" class="quick-access-item">
+                    <div class="stat-badge stat-badge-primary">
+                        <i class="bi bi-person-gear"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold text-dark mb-0">Mi perfil</div>
+                        <small class="text-muted">Ajustes del administrador</small>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla de clientes en pantalla libre -->
+    <div class="mb-5" id="clientes">
+
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-3">
+            <div>
+                <h4 class="fw-bold mb-0" style="color: #0f172a;">Mis clientes</h4>
+                <p class="text-muted small mb-0">Empresas registradas en la plataforma</p>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+                <div class="search-input-group flex-grow-1">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="buscarCliente" class="form-control" placeholder="Buscar cliente...">
+                </div>
+
+                <a href="{% url 'core:registrar_cliente' %}" class="btn btn-brand btn-sm text-nowrap d-inline-flex align-items-center gap-1 py-2 px-3">
+                    <i class="bi bi-plus-lg"></i>
+                    <span>Nuevo</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle table-custom mb-0" id="tablaClientes">
+                <thead>
+                    <tr>
+                        <th class="ps-3">Empresa</th>
+                        <th>RUC</th>
+                        <th>Representante</th>
+                        <th>Sucursales</th>
+                        <th>Estado</th>
+                        <th class="text-end pe-3">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="ps-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="stat-badge stat-badge-primary" style="width: 38px; height: 38px; font-size: 1rem;">
+                                    <i class="bi bi-capsule"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold text-dark">Soyuz S.A.</div>
+                                    <small class="text-muted">Farmacia</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="font-monospace text-secondary small">0991234567001</td>
+                        <td>Juan Pérez</td>
+                        <td><span class="fw-semibold">2</span> sucursales</td>
+                        <td>
+                            <span class="badge badge-status badge-status-active">Activa</span>
+                        </td>
+                        <td class="text-end pe-3">
+                            <button type="button" class="btn btn-sm btn-light border text-secondary" title="Ver detalles">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="ps-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="stat-badge stat-badge-primary" style="width: 38px; height: 38px; font-size: 1rem;">
+                                    <i class="bi bi-capsule"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold text-dark">Farmacia Central</div>
+                                    <small class="text-muted">Farmacia</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="font-monospace text-secondary small">0992345678001</td>
+                        <td>María López</td>
+                        <td><span class="fw-semibold">3</span> sucursales</td>
+                        <td>
+                            <span class="badge badge-status badge-status-active">Activa</span>
+                        </td>
+                        <td class="text-end pe-3">
+                            <button type="button" class="btn btn-sm btn-light border text-secondary" title="Ver detalles">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="ps-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="stat-badge stat-badge-primary" style="width: 38px; height: 38px; font-size: 1rem;">
+                                    <i class="bi bi-capsule"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold text-dark">Botica del Norte</div>
+                                    <small class="text-muted">Farmacia</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="font-monospace text-secondary small">0993456789001</td>
+                        <td>Carlos Gómez</td>
+                        <td><span class="fw-semibold">1</span> sucursal</td>
+                        <td>
+                            <span class="badge badge-status badge-status-inactive">Inactiva</span>
+                        </td>
+                        <td class="text-end pe-3">
+                            <button type="button" class="btn btn-sm btn-light border text-secondary" title="Ver detalles">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="py-3 px-2">
+            <small class="text-muted">
+                <i class="bi bi-info-circle me-1"></i> Mostrando empresas registradas. Conecta esta tabla con tus datos reales de Django.
+            </small>
+        </div>
+
+    </div>
+
+    <!-- Perfil del administrador integrado -->
+    <div class="pt-4 border-top" id="perfil">
+        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="avatar-admin">
+                    <i class="bi bi-person"></i>
+                </div>
+                <div>
+                    <h5 class="fw-bold mb-0" style="color: #0f172a;">Perfil del administrador</h5>
+                    <p class="text-muted small mb-0">Panel principal de administración de Dodo</p>
+                    <span class="badge bg-light text-secondary border mt-1">
+                        <i class="bi bi-shield-check me-1"></i>Acceso Admin
+                    </span>
+                </div>
+            </div>
+
+            <a href="{% url 'usuarios:perfil' %}" class="btn btn-outline-secondary rounded-3">
+                <i class="bi bi-person me-1"></i>
+                Ver mi perfil
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const buscarCliente = document.getElementById('buscarCliente');
+    const tablaClientes = document.getElementById('tablaClientes');
+
+    buscarCliente.addEventListener('input', function () {
+        const texto = this.value.toLowerCase();
+        const filas = tablaClientes.querySelectorAll('tbody tr');
+
+        filas.forEach(function (fila) {
+            const contenido = fila.textContent.toLowerCase();
+            fila.style.display = contenido.includes(texto) ? '' : 'none';
+        });
+    });
+</script>
+
+{% endblock %}
