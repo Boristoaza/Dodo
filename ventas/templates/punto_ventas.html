@@ -1,0 +1,820 @@
+
+{% extends 'master.html' %}
+
+{% block title %}
+Punto de Venta | Dodo
+{% endblock %}
+
+{% block content %}
+
+<style>
+    :root {
+        --dodo-primary: #660033;
+        --dodo-secondary: #ff9800;
+        --dodo-background: #faf7f5;
+    }
+
+    .pos-container {
+        height: calc(100vh - 85px);
+        min-height: 600px;
+        display: flex;
+        gap: 15px;
+        padding: 15px;
+        background: var(--dodo-background);
+    }
+
+    .pos-products {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .pos-header {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+
+    .pos-search {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 12px 15px;
+    }
+
+    .pos-search:focus {
+        border-color: var(--dodo-primary);
+        box-shadow: 0 0 0 3px #66003318;
+    }
+
+    .pos-categories {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        margin-top: 15px;
+    }
+
+    .category-btn {
+        border: 1px solid #e5e0e2;
+        background: white;
+        padding: 8px 15px;
+        border-radius: 7px;
+        white-space: nowrap;
+        font-size: 13px;
+    }
+
+    .category-btn.active,
+    .category-btn:hover {
+        background: var(--dodo-primary);
+        color: white;
+        border-color: var(--dodo-primary);
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+        gap: 12px;
+        overflow-y: auto;
+        padding: 2px 5px 10px 2px;
+    }
+
+    .product-card {
+        background: white;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: .15s;
+    }
+
+    .product-card:hover {
+        border-color: var(--dodo-primary);
+        box-shadow: 0 3px 12px #00000012;
+    }
+
+    .product-image {
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f7f3f5;
+        color: var(--dodo-primary);
+        font-size: 38px;
+    }
+
+    .product-info {
+        padding: 12px;
+    }
+
+    .product-name {
+        font-size: 13px;
+        font-weight: 600;
+        min-height: 38px;
+    }
+
+    .product-price {
+        color: var(--dodo-primary);
+        font-weight: 700;
+        font-size: 16px;
+        margin-top: 8px;
+    }
+
+    .pos-cart {
+        width: 370px;
+        min-width: 320px;
+        background: white;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 2px 10px #00000008;
+    }
+
+    .cart-header {
+        padding: 18px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .cart-items {
+        flex: 1;
+        overflow-y: auto;
+        padding: 12px;
+    }
+
+    .cart-item {
+        padding: 12px 5px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .quantity-control button {
+        border: 1px solid #ddd;
+        background: white;
+        border-radius: 5px;
+        width: 27px;
+        height: 27px;
+    }
+
+    .quantity-control button:hover {
+        background: var(--dodo-primary);
+        color: white;
+    }
+
+    .cart-footer {
+        padding: 18px;
+        border-top: 1px solid #eee;
+    }
+
+    .total-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 9px;
+        font-size: 14px;
+    }
+
+    .total-final {
+        font-size: 23px;
+        font-weight: 800;
+        color: var(--dodo-primary);
+        border-top: 1px solid #eee;
+        padding-top: 13px;
+    }
+
+    .btn-dodo {
+        background: var(--dodo-primary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px;
+    }
+
+    .btn-dodo:hover {
+        background: #800040;
+        color: white;
+    }
+
+    .btn-orange {
+        background: var(--dodo-secondary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px;
+    }
+
+    .btn-orange:hover {
+        background: #e68900;
+        color: white;
+    }
+
+    .empty-cart {
+        text-align: center;
+        padding: 50px 10px;
+        color: #999;
+    }
+
+    @media(max-width: 800px) {
+        .pos-container {
+            height: auto;
+            flex-direction: column;
+        }
+
+        .pos-products {
+            min-height: 550px;
+        }
+
+        .pos-cart {
+            width: 100%;
+            min-height: 450px;
+        }
+    }
+</style>
+
+<div class="pos-container">
+
+    <!-- PRODUCTOS -->
+    <section class="pos-products">
+
+        <div class="pos-header">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <div>
+                    <h5 class="fw-bold mb-1" style="color:#660033">
+                        <i class="bi bi-shop me-2"></i>
+                        Punto de Venta
+                    </h5>
+                    <small class="text-muted">Terminal de ventas</small>
+                </div>
+
+                <span class="badge text-bg-light border">
+                    <i class="bi bi-circle-fill text-success me-1"></i>
+                    Caja activa
+                </span>
+
+            </div>
+
+            <input type="text"
+                   id="buscarProducto"
+                   class="form-control pos-search"
+                   placeholder="Buscar producto o escanear código de barras...">
+
+            <div class="pos-categories">
+
+                <button class="category-btn active" data-category="all">
+                    Todos
+                </button>
+
+                <button class="category-btn" data-category="medicamentos">
+                    Medicamentos
+                </button>
+
+                <button class="category-btn" data-category="vitaminas">
+                    Vitaminas
+                </button>
+
+                <button class="category-btn" data-category="cuidado">
+                    Cuidado personal
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+
+            {% for producto in productos %}
+
+            <div class="product-card"
+                 data-name="{{ producto.nombre_prodcuto|lower }}"
+                 data-category="{{ producto.categoria|default:'otros'|lower }}"
+                 data-id="{{ producto.id }}"
+                 data-price="{{ producto.precio_venta }}">
+
+                <div class="product-image">
+                    <i class="bi bi-capsule"></i>
+                </div>
+
+                <div class="product-info">
+
+                    <div class="product-name">
+                        {{ producto.nombre_prodcuto }}
+                    </div>
+
+                    <div class="product-price">
+                        ${{ producto.precio_venta|floatformat:2 }}
+                    </div>
+
+                    <small class="text-muted">
+                        <i class="bi bi-plus-circle me-1"></i>
+                        Agregar al carrito
+                    </small>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="text-center text-muted p-5">
+                <i class="bi bi-box-seam fs-1"></i>
+                <p class="mt-2">No hay productos registrados.</p>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- CARRITO -->
+    <aside class="pos-cart">
+
+        <div class="cart-header">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <h6 class="fw-bold mb-0">
+                    <i class="bi bi-cart3 me-2" style="color:#660033"></i>
+                    Orden actual
+                </h6>
+
+                <span class="badge rounded-pill"
+                      style="background:#660033"
+                      id="cartCount">0</span>
+
+            </div>
+
+            <div class="mt-3">
+
+                <label class="form-label small text-muted">
+                    Cliente
+                </label>
+
+                <div class="input-group">
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Consumidor final"
+                           id="cliente">
+
+                    <button class="btn btn-outline-secondary"
+                            type="button">
+                        <i class="bi bi-person-plus"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="cart-items" id="cartItems">
+
+            <div class="empty-cart" id="emptyCart">
+
+                <i class="bi bi-cart-x fs-1"></i>
+
+                <p class="mt-3 mb-1 fw-semibold">
+                    Carrito vacío
+                </p>
+
+                <small>
+                    Selecciona productos para comenzar una venta.
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="cart-footer">
+
+            <div class="total-row">
+                <span>Subtotal</span>
+                <span id="subtotal">$0.00</span>
+            </div>
+
+            <div class="total-row">
+                <span>IVA</span>
+                <span id="iva">$0.00</span>
+            </div>
+
+            <div class="total-row total-final">
+                <span>Total</span>
+                <span id="total">$0.00</span>
+            </div>
+
+            <button class="btn btn-dodo w-100 mt-3"
+                    id="btnCobrar"
+                    disabled>
+
+                <i class="bi bi-cash-stack me-2"></i>
+                Cobrar
+
+            </button>
+
+            <button class="btn btn-outline-secondary w-100 mt-2"
+                    id="btnLimpiar"
+                    type="button">
+
+                <i class="bi bi-trash me-2"></i>
+                Cancelar orden
+
+            </button>
+
+        </div>
+
+    </aside>
+
+</div>
+
+
+<!-- MODAL DE COBRO -->
+<div class="modal fade" id="modalCobro" tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content border-0">
+
+            <div class="modal-header text-white"
+                 style="background:#660033">
+
+                <h5 class="modal-title">
+                    <i class="bi bi-cash-coin me-2"></i>
+                    Procesar pago
+                </h5>
+
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"></button>
+
+            </div>
+
+            <div class="modal-body p-4">
+
+                <div class="text-center mb-4">
+
+                    <small class="text-muted">Total a pagar</small>
+
+                    <h2 class="fw-bold" style="color:#660033"
+                        id="modalTotal">$0.00</h2>
+
+                </div>
+
+                <label class="form-label">Método de pago</label>
+
+                <select class="form-select mb-3" id="metodoPago">
+
+                    <option value="efectivo">Efectivo</option>
+                    <option value="tarjeta">Tarjeta</option>
+                    <option value="transferencia">Transferencia</option>
+
+                </select>
+
+                <label class="form-label">Monto recibido</label>
+
+                <input type="number"
+                       class="form-control form-control-lg"
+                       id="montoRecibido"
+                       min="0"
+                       step="0.01"
+                       placeholder="0.00">
+
+                <div class="d-flex justify-content-between mt-3">
+
+                    <span class="text-muted">Cambio</span>
+
+                    <strong id="cambio" style="color:#660033">
+                        $0.00
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="btn btn-light"
+                        data-bs-dismiss="modal">
+                    Volver
+                </button>
+
+                <button class="btn btn-orange"
+                        id="btnConfirmar">
+                    Confirmar pago
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    let carrito = [];
+
+    const formato = valor => '$' + valor.toFixed(2);
+
+    const productos = document.querySelectorAll('.product-card');
+
+    // AGREGAR PRODUCTOS
+
+    productos.forEach(producto => {
+
+        producto.addEventListener('click', function() {
+
+            const id = this.dataset.id;
+            const nombre = this.dataset.name;
+            const precio = parseFloat(this.dataset.price);
+
+            if (!Number.isFinite(precio)) return;
+
+            const existente = carrito.find(p => p.id === id);
+
+            if (existente) {
+                existente.cantidad++;
+            } else {
+                carrito.push({
+                    id,
+                    nombre,
+                    precio,
+                    cantidad: 1
+                });
+            }
+
+            actualizarCarrito();
+
+        });
+
+    });
+
+
+    // MOSTRAR CARRITO
+
+    function actualizarCarrito() {
+
+        const contenedor = document.getElementById('cartItems');
+
+        contenedor.innerHTML = '';
+
+        let cantidadTotal = 0;
+
+        if (carrito.length === 0) {
+
+            contenedor.innerHTML = `
+                <div class="empty-cart">
+                    <i class="bi bi-cart-x fs-1"></i>
+                    <p class="mt-3 mb-1 fw-semibold">Carrito vacío</p>
+                    <small>Selecciona productos para comenzar una venta.</small>
+                </div>
+            `;
+
+        }
+
+        carrito.forEach((producto, index) => {
+
+            cantidadTotal += producto.cantidad;
+
+            contenedor.innerHTML += `
+
+                <div class="cart-item">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+                            <div class="fw-semibold small">
+                                ${producto.nombre}
+                            </div>
+
+                            <small class="text-muted">
+                                ${formato(producto.precio)} c/u
+                            </small>
+                        </div>
+
+                        <div class="fw-bold small">
+                            ${formato(producto.precio * producto.cantidad)}
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+
+                        <div class="quantity-control d-flex align-items-center gap-2">
+
+                            <button onclick="cambiarCantidad(${index}, -1)">
+                                -
+                            </button>
+
+                            <span class="small fw-bold">
+                                ${producto.cantidad}
+                            </span>
+
+                            <button onclick="cambiarCantidad(${index}, 1)">
+                                +
+                            </button>
+
+                        </div>
+
+                        <button class="btn btn-sm text-danger"
+                                onclick="eliminarProducto(${index})">
+
+                            <i class="bi bi-trash"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+        const subtotal = carrito.reduce(
+            (suma, p) => suma + p.precio * p.cantidad, 0
+        );
+
+        // IVA ilustrativo del 15%; conectar con la configuración tributaria.
+        const iva = subtotal * 0.15;
+
+        const total = subtotal + iva;
+
+        document.getElementById('cartCount').textContent = cantidadTotal;
+        document.getElementById('subtotal').textContent = formato(subtotal);
+        document.getElementById('iva').textContent = formato(iva);
+        document.getElementById('total').textContent = formato(total);
+
+        document.getElementById('btnCobrar').disabled =
+            carrito.length === 0;
+
+    }
+
+
+    // MODIFICAR CANTIDADES
+
+    function cambiarCantidad(index, cantidad) {
+
+        carrito[index].cantidad += cantidad;
+
+        if (carrito[index].cantidad <= 0) {
+            carrito.splice(index, 1);
+        }
+
+        actualizarCarrito();
+
+    }
+
+
+    // ELIMINAR PRODUCTO
+
+    function eliminarProducto(index) {
+
+        carrito.splice(index, 1);
+
+        actualizarCarrito();
+
+    }
+
+
+    // BUSCADOR
+
+    document.getElementById('buscarProducto')
+        .addEventListener('input', function() {
+
+            const texto = this.value.toLowerCase();
+
+            productos.forEach(producto => {
+
+                const nombre = producto.dataset.name;
+
+                producto.style.display =
+                    nombre.includes(texto) ? '' : 'none';
+
+            });
+
+        });
+
+
+    // CATEGORÍAS
+
+    document.querySelectorAll('.category-btn').forEach(boton => {
+
+        boton.addEventListener('click', function() {
+
+            document.querySelectorAll('.category-btn')
+                .forEach(b => b.classList.remove('active'));
+
+            this.classList.add('active');
+
+            const categoria = this.dataset.category;
+
+            productos.forEach(producto => {
+
+                const coincide =
+                    categoria === 'all' ||
+                    producto.dataset.category.includes(categoria);
+
+                producto.style.display = coincide ? '' : 'none';
+
+            });
+
+        });
+
+    });
+
+
+    // LIMPIAR ORDEN
+
+    document.getElementById('btnLimpiar')
+        .addEventListener('click', function() {
+
+            carrito = [];
+
+            actualizarCarrito();
+
+        });
+
+
+    // ABRIR MODAL DE COBRO
+
+    const modalElemento = document.getElementById('modalCobro');
+
+    document.getElementById('btnCobrar')
+        .addEventListener('click', function() {
+
+            const total = carrito.reduce(
+                (suma, p) => suma + p.precio * p.cantidad, 0
+            ) * 1.15;
+
+            document.getElementById('modalTotal').textContent =
+                formato(total);
+
+            document.getElementById('montoRecibido').value = '';
+
+            document.getElementById('cambio').textContent = '$0.00';
+
+            bootstrap.Modal.getOrCreateInstance(modalElemento).show();
+
+        });
+
+
+    // CALCULAR CAMBIO
+
+    document.getElementById('montoRecibido')
+        .addEventListener('input', function() {
+
+            const recibido = parseFloat(this.value) || 0;
+
+            const total = parseFloat(
+                document.getElementById('modalTotal')
+                    .textContent.replace('$', '')
+            );
+
+            document.getElementById('cambio').textContent =
+                formato(Math.max(0, recibido - total));
+
+        });
+
+
+    // CONFIRMAR PAGO (INTERFAZ)
+
+    document.getElementById('btnConfirmar')
+        .addEventListener('click', function() {
+
+            const total = parseFloat(
+                document.getElementById('modalTotal')
+                    .textContent.replace('$', '')
+            );
+
+            const recibido = parseFloat(
+                document.getElementById('montoRecibido').value
+            );
+
+            const metodo = document.getElementById('metodoPago').value;
+
+            if (metodo === 'efectivo' &&
+                (!Number.isFinite(recibido) || recibido < total)) {
+
+                alert('El monto recibido es insuficiente.');
+                return;
+
+            }
+
+            if (metodo !== 'efectivo' &&
+                (!Number.isFinite(recibido) || recibido < total)) {
+
+                alert('Ingresa el monto del pago.');
+                return;
+
+            }
+
+            alert('Interfaz de pago lista. Falta conectar el registro de la venta en Django.');
+
+        });
+
+</script>
+
+{% endblock %}

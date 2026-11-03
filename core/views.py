@@ -3,19 +3,20 @@ from django.contrib.auth.decorators import login_required
 from .models import Empresas
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import logout
 
 def main_view(request):
      if not request.user.is_authenticated:
         return redirect('usuarios:login')
-     return render(request, 'home.html')
+     return render(request, 'main.html')
 
 @login_required
-def home_view(request):
-    return render(request,'home.html')
+def aplicaciones_view(request):
+    return render(request,'aplicaciones_panel.html')
 
 @login_required
-def frontmant_view(request):
-    return render(request,'frontmant.html')
+def superadmin_view(request):
+    return render(request, 'superadmin.html')
 
 
 @login_required
@@ -59,3 +60,7 @@ def registrar_cliente(request):
             )
 
     return render(request, 'registro_cliente.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login.html')

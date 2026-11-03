@@ -21,5 +21,17 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls',namespace='core')),
     path('', include('usuarios.urls',namespace='usuarios')),
+    path('',include('productos.urls',namespace='productos')),
+    path('',include('inventario.urls',namespace='inventario')),
+    path('',include('ventas.urls',namespace='ventas')),
+    path('',include('proveedores.urls',namespace='proveedores')),
+    path('',include('compras.urls',namespace='compras')),
+    path('',include('administracion.urls',namespace='administracion')),
+    path('',include('empresas.urls',namespace='empresas')),
+
+
+
+
+
     path("__reload__/", include("django_browser_reload.urls")),
 ]

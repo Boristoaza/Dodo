@@ -1,0 +1,164 @@
+{% extends 'master.html' %}
+
+{% block title %}
+Administración general | Dodo
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- ENCABEZADO -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Administración general</h3>
+            <p class="text-muted mb-0">
+                Panel de control de la plataforma Dodo
+            </p>
+        </div>
+
+        <span class="badge bg-dark p-2">
+            <i class="bi bi-shield-lock me-1"></i>
+            Superusuario
+        </span>
+    </div>
+
+    <!-- INDICADORES -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1">Empresas registradas</p>
+                            <h3 class="fw-bold mb-0">
+                                {{ total_empresas|default:0 }}
+                            </h3>
+                        </div>
+                        <i class="bi bi-building fs-1 text-secondary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1">Sucursales registradas</p>
+                            <h3 class="fw-bold mb-0">
+                                {{ total_sucursales|default:0 }}
+                            </h3>
+                        </div>
+                        <i class="bi bi-shop fs-1 text-secondary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1">Empleados registrados</p>
+                            <h3 class="fw-bold mb-0">
+                                {{ total_empleados|default:0 }}
+                            </h3>
+                        </div>
+                        <i class="bi bi-people fs-1 text-secondary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ACCESOS DE ADMINISTRACIÓN -->
+    <h5 class="fw-bold mb-3">Gestión de la plataforma</h5>
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-buildings fs-2 text-secondary"></i>
+
+                    <h5 class="fw-bold mt-3">Empresas</h5>
+
+                    <p class="text-muted">
+                        Consulta y administra las empresas registradas
+                        en Dodo.
+                    </p>
+
+                    <a href=""
+                       class="btn btn-outline-dark w-100">
+                        Ver empresas
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-shop fs-2 text-secondary"></i>
+
+                    <h5 class="fw-bold mt-3">Sucursales</h5>
+
+                    <p class="text-muted">
+                        Consulta las sucursales pertenecientes
+                        a cada empresa.
+                    </p>
+
+                    <a href=""
+                       class="btn btn-outline-dark w-100">
+                        Ver sucursales
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-person-badge fs-2 text-secondary"></i>
+
+                    <h5 class="fw-bold mt-3">Empleados</h5>
+
+                    <p class="text-muted">
+                        Consulta los empleados y las sucursales
+                        donde trabajan.
+                    </p>
+
+                    <a href=""
+                       class="btn btn-outline-dark w-100">
+                        Ver empleados
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- INFORMACIÓN GENERAL -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <h5 class="fw-bold mb-3">
+                <i class="bi bi-info-circle me-2"></i>
+                Información del sistema
+            </h5>
+
+            <p class="text-muted mb-0">
+                Desde este panel puedes supervisar las empresas,
+                sucursales y empleados que forman parte de la
+                plataforma Dodo.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

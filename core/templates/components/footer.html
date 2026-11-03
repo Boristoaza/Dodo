@@ -1,18 +1,46 @@
-<footer class="text-center text-white py-3 mt-5"
-        style="background-color: #660033;">
+<footer class="text-white py-4 mt-auto border-top border-opacity-10" style="background-color: #55002a; border-color: #ff9800 !important;">
+    <div class="container px-4">
+        <div class="row align-items-center gy-3">
+            
+            <!-- Columna Izquierda: Logo y Copyright -->
+            <div class="col-md-6 text-center text-md-start">
+                <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-2 mb-1">
+                    <i class="bi bi-capsule fs-6" style="color: #ff9800;"></i>
+                    <span class="fw-bold tracking-wide">Dodo Pharma System</span>
+                </div>
+                <p class="text-white-50 small mb-0">
+                    &copy; <span id="current-year"></span> Dodo. Todos los derechos reservados.
+                </p>
+            </div>
 
-    <div class="container">
+            <!-- Columna Derecha: Enlaces o Versión -->
+            <div class="col-md-6 text-center text-md-end">
+                <ul class="list-inline mb-0 small">
+                    <li class="list-inline-item">
+                        <a href="{% url 'core:aplicaiones' %}" class="text-white-50 text-decoration-none footer-link">Inicio</a>
+                    </li>
+                    <li class="list-inline-item text-white-50 px-1">&bull;</li>
+                    <li class="list-inline-item">
+                        <span class="text-white-50">Versión 1.0</span>
+                    </li>
+                </ul>
+            </div>
 
-        <p class="mb-1">
-            <strong>Dodo</strong> · Sistema de Gestión Farmacéutica
-        </p>
-
-        <small>
-            Sistema desarrollado por Soyuz S.A. |
-            Versión 1.0 |
-            © 2026 Todos los derechos reservados.
-        </small>
-
+        </div>
     </div>
-
 </footer>
+
+<!-- Estilos rápidos para el Footer -->
+<style>
+    .footer-link {
+        transition: color 0.2s ease;
+    }
+    .footer-link:hover {
+        color: #ff9800 !important;
+    }
+</style>
+
+<!-- Script pequeño para poner el año actual automáticamente -->
+<script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+</script>

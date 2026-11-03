@@ -1,0 +1,589 @@
+
+{% extends 'master.html' %}
+
+{% block title %}
+Compras | Dodo
+{% endblock %}
+
+{% block content %}
+
+<style>
+    :root {
+        --dodo-primary: #660033;
+        --dodo-secondary: #ff9800;
+        --dodo-background: #faf7f5;
+    }
+
+    .compras-container {
+        background: var(--dodo-background);
+        min-height: calc(100vh - 80px);
+        padding: 25px;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .page-title {
+        color: var(--dodo-primary);
+        font-weight: 700;
+    }
+
+    .btn-dodo {
+        background: var(--dodo-primary);
+        color: white;
+        border: none;
+        border-radius: 7px;
+        padding: 10px 17px;
+    }
+
+    .btn-dodo:hover {
+        background: #800040;
+        color: white;
+    }
+
+    .btn-orange {
+        background: var(--dodo-secondary);
+        color: white;
+        border: none;
+        border-radius: 7px;
+        padding: 10px 17px;
+    }
+
+    .btn-orange:hover {
+        background: #e68900;
+        color: white;
+    }
+
+    .stat-card {
+        background: white;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        padding: 18px;
+        height: 100%;
+    }
+
+    .stat-icon {
+        width: 43px;
+        height: 43px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9px;
+        background: #f5eaf0;
+        color: var(--dodo-primary);
+        font-size: 20px;
+    }
+
+    .stat-number {
+        font-size: 25px;
+        font-weight: 700;
+        color: #292929;
+    }
+
+    .stat-label {
+        font-size: 13px;
+        color: #888;
+    }
+
+    .section-card {
+        background: white;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 100%;
+    }
+
+    .section-header {
+        padding: 17px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .shortcut-card {
+        background: white;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        padding: 18px;
+        height: 100%;
+        transition: .15s;
+        text-decoration: none;
+        display: block;
+        color: inherit;
+    }
+
+    .shortcut-card:hover {
+        border-color: var(--dodo-primary);
+        background: #fdf9fb;
+        color: inherit;
+    }
+
+    .shortcut-icon {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 9px;
+        background: #f5eaf0;
+        color: var(--dodo-primary);
+        font-size: 21px;
+        margin-bottom: 13px;
+    }
+
+    .shortcut-title {
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    .shortcut-description {
+        color: #888;
+        font-size: 12px;
+        margin-bottom: 0;
+    }
+
+    .table thead th {
+        background: #faf7f5;
+        color: #666;
+        font-size: 12px;
+        text-transform: uppercase;
+        padding: 14px;
+        white-space: nowrap;
+    }
+
+    .table tbody td {
+        padding: 14px;
+        vertical-align: middle;
+        font-size: 13px;
+    }
+
+    .status {
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+    }
+
+    .status-pending {
+        background: #fff3df;
+        color: #b87500;
+    }
+
+    .status-completed {
+        background: #e6f5ec;
+        color: #198754;
+    }
+
+    .status-received {
+        background: #e8efff;
+        color: #315eae;
+    }
+
+    .amount {
+        color: var(--dodo-primary);
+        font-weight: 700;
+    }
+
+    .action-btn {
+        width: 32px;
+        height: 32px;
+        border: 1px solid #eee;
+        background: white;
+        border-radius: 6px;
+        color: #666;
+    }
+
+    .action-btn:hover {
+        color: var(--dodo-primary);
+        border-color: var(--dodo-primary);
+    }
+
+    @media(max-width: 768px) {
+        .compras-container {
+            padding: 15px;
+        }
+    }
+</style>
+
+
+<div class="compras-container">
+
+    <!-- ENCABEZADO -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h4 class="page-title mb-1">
+                <i class="bi bi-cart-check me-2"></i>
+                Compras
+            </h4>
+
+            <small class="text-muted">
+                Gestión de compras y abastecimiento
+            </small>
+
+        </div>
+
+        <a href="#" class="btn btn-dodo">
+
+            <i class="bi bi-plus-lg me-2"></i>
+            Nueva compra
+
+        </a>
+
+    </div>
+
+
+    <!-- ESTADÍSTICAS -->
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-3 col-sm-6">
+
+            <div class="stat-card">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+                        <div class="stat-label">Total de compras</div>
+
+                        <div class="stat-number">
+                            {{ total_compras|default:"0" }}
+                        </div>
+                    </div>
+
+                    <div class="stat-icon">
+                        <i class="bi bi-receipt"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3 col-sm-6">
+
+            <div class="stat-card">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+                        <div class="stat-label">Compras pendientes</div>
+
+                        <div class="stat-number">
+                            {{ compras_pendientes|default:"0" }}
+                        </div>
+                    </div>
+
+                    <div class="stat-icon">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3 col-sm-6">
+
+            <div class="stat-card">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+                        <div class="stat-label">Mercancía recibida</div>
+
+                        <div class="stat-number">
+                            {{ compras_recibidas|default:"0" }}
+                        </div>
+                    </div>
+
+                    <div class="stat-icon">
+                        <i class="bi bi-box-seam"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3 col-sm-6">
+
+            <div class="stat-card">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+                        <div class="stat-label">Cuentas por pagar</div>
+
+                        <div class="stat-number">
+                            ${{ cuentas_por_pagar|default:"0.00" }}
+                        </div>
+                    </div>
+
+                    <div class="stat-icon">
+                        <i class="bi bi-cash-stack"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ACCESOS DIRECTOS -->
+
+    <div class="mb-4">
+
+        <h6 class="fw-bold mb-3">
+            Operaciones de compras
+        </h6>
+
+        <div class="row g-3">
+
+            <div class="col-md-3 col-sm-6">
+
+                <a href="#" class="shortcut-card">
+
+                    <div class="shortcut-icon">
+                        <i class="bi bi-cart-plus"></i>
+                    </div>
+
+                    <div class="shortcut-title">
+                        Nueva compra
+                    </div>
+
+                    <p class="shortcut-description">
+                        Registrar productos adquiridos a proveedores.
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <div class="col-md-3 col-sm-6">
+
+                <a href="#" class="shortcut-card">
+
+                    <div class="shortcut-icon">
+                        <i class="bi bi-clipboard2-check"></i>
+                    </div>
+
+                    <div class="shortcut-title">
+                        Recepción de mercancía
+                    </div>
+
+                    <p class="shortcut-description">
+                        Registrar y verificar productos recibidos.
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <div class="col-md-3 col-sm-6">
+
+                <a href="#" class="shortcut-card">
+
+                    <div class="shortcut-icon">
+                        <i class="bi bi-receipt"></i>
+                    </div>
+
+                    <div class="shortcut-title">
+                        Historial de compras
+                    </div>
+
+                    <p class="shortcut-description">
+                        Consultar las compras realizadas.
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <div class="col-md-3 col-sm-6">
+
+                <a href="#" class="shortcut-card">
+
+                    <div class="shortcut-icon">
+                        <i class="bi bi-wallet2"></i>
+                    </div>
+
+                    <div class="shortcut-title">
+                        Cuentas por pagar
+                    </div>
+
+                    <p class="shortcut-description">
+                        Controlar facturas y pagos pendientes.
+                    </p>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ÚLTIMAS COMPRAS -->
+
+    <div class="section-card">
+
+        <div class="section-header">
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                <div>
+                    <h6 class="fw-bold mb-1">
+                        Últimas compras
+                    </h6>
+
+                    <small class="text-muted">
+                        Registro de las operaciones recientes
+                    </small>
+                </div>
+
+                <a href="#" class="btn btn-sm btn-outline-secondary">
+                    Ver todas
+                    <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table class="table table-hover mb-0">
+
+                <thead>
+
+                    <tr>
+                        <th>N.º Compra</th>
+                        <th>Proveedor</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for compra in compras %}
+
+                    <tr>
+
+                        <td class="fw-semibold">
+                            {{ compra.id }}
+                        </td>
+
+                        <td>
+                            {{ compra.proveedor }}
+                        </td>
+
+                        <td>
+                            {{ compra.fecha|date:"d/m/Y" }}
+                        </td>
+
+                        <td class="amount">
+                            ${{ compra.total|floatformat:2 }}
+                        </td>
+
+                        <td>
+
+                            {% if compra.estado == 'pendiente' %}
+
+                                <span class="status status-pending">
+                                    Pendiente
+                                </span>
+
+                            {% elif compra.estado == 'recibida' %}
+
+                                <span class="status status-received">
+                                    Recibida
+                                </span>
+
+                            {% elif compra.estado == 'completada' %}
+
+                                <span class="status status-completed">
+                                    Completada
+                                </span>
+
+                            {% else %}
+
+                                <span class="status status-pending">
+                                    {{ compra.estado }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td class="text-center">
+
+                            <a href="#" class="action-btn d-inline-flex align-items-center justify-content-center"
+                               title="Ver compra">
+
+                                <i class="bi bi-eye"></i>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="6" class="text-center py-5">
+
+                            <i class="bi bi-cart-x fs-1 text-muted"></i>
+
+                            <h6 class="mt-3">
+                                No hay compras registradas
+                            </h6>
+
+                            <p class="text-muted small">
+                                Cuando registres una compra aparecerá aquí.
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

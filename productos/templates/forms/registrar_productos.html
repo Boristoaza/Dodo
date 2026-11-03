@@ -1,0 +1,303 @@
+{% extends 'master.html' %}
+
+{% block title %}
+    Registrar producto | Dodo
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1" style="color: #660033;">
+                <i class="bi bi-box-seam me-2"></i>Registrar producto
+            </h3>
+            <p class="text-muted mb-0">
+                Registro de medicamentos, presentaciones, lotes e inventario.
+            </p>
+        </div>
+
+        <a href="javascript:history.back()" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Volver
+        </a>
+    </div>
+
+    <!-- Mensajes -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- 1. INFORMACIÓN GENERAL -->
+        <h5 class="fw-bold mb-3" style="color: #660033;">
+            <i class="bi bi-clipboard2-plus me-2" style="color: #ff9800;"></i>
+            Información general
+        </h5>
+
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Nombre del producto</label>
+                <input type="text" name="nombre_producto" class="form-control" required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Código de barras</label>
+                <input type="text" name="codigo_barras" class="form-control">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Marca / Laboratorio</label>
+                <input type="text" name="laboratorio" class="form-control">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Categoría</label>
+                <select name="categoria" class="form-select" required>
+                    <option value="">Seleccionar categoría</option>
+                    <option value="medicamento">Medicamento</option>
+                    <option value="vitamina">Vitamina</option>
+                    <option value="cuidado_personal">Cuidado personal</option>
+                    <option value="otros">Otros</option>
+                </select>
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <label class="form-label">Descripción</label>
+                <textarea name="descripcion" class="form-control" rows="2"></textarea>
+            </div>
+
+        </div>
+
+        <hr class="my-4">
+
+        <!-- 2. INFORMACIÓN FARMACÉUTICA -->
+        <h5 class="fw-bold mb-3" style="color: #660033;">
+            <i class="bi bi-capsule me-2" style="color: #ff9800;"></i>
+            Información farmacéutica
+        </h5>
+
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Principio activo</label>
+                <input type="text" name="principio_activo" class="form-control">
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Concentración</label>
+                <input type="text" name="concentracion" class="form-control"
+                       placeholder="Ej. 500 mg">
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Forma farmacéutica</label>
+                <select name="forma_farmaceutica" class="form-select">
+                    <option value="">Seleccionar</option>
+                    <option value="tableta">Tableta</option>
+                    <option value="capsula">Cápsula</option>
+                    <option value="jarabe">Jarabe</option>
+                    <option value="suspension">Suspensión</option>
+                    <option value="crema">Crema</option>
+                    <option value="inyectable">Inyectable</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Vía de administración</label>
+                <select name="via_administracion" class="form-select">
+                    <option value="">Seleccionar</option>
+                    <option value="oral">Oral</option>
+                    <option value="topica">Tópica</option>
+                    <option value="intramuscular">Intramuscular</option>
+                    <option value="intravenosa">Intravenosa</option>
+                    <option value="otra">Otra</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Requiere receta médica</label>
+                <select name="requiere_receta" class="form-select">
+                    <option value="False">No</option>
+                    <option value="True">Sí</option>
+                </select>
+            </div>
+
+        </div>
+
+        <hr class="my-4">
+
+        <!-- 3. PRESENTACIONES -->
+        <h5 class="fw-bold mb-3" style="color: #660033;">
+            <i class="bi bi-boxes me-2" style="color: #ff9800;"></i>
+            Presentaciones y cantidades
+        </h5>
+
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Pastillas por blíster</label>
+                <input type="number" name="pastillas_por_blister"
+                       class="form-control" min="1" value="1">
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Blísteres por caja</label>
+                <input type="number" name="blisteres_por_caja"
+                       class="form-control" min="1" value="1">
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Total de pastillas por caja</label>
+                <input type="number" name="pastillas_por_caja"
+                       class="form-control" min="1">
+            </div>
+
+        </div>
+
+        <hr class="my-4">
+
+        <!-- 4. COSTOS Y PRECIOS -->
+        <h5 class="fw-bold mb-3" style="color: #660033;">
+            <i class="bi bi-currency-dollar me-2" style="color: #ff9800;"></i>
+            Costos y precios de venta
+        </h5>
+
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Costo de compra por caja ($)</label>
+                <input type="number" step="0.0001" min="0"
+                       name="costo_caja" class="form-control">
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Costo de compra por blíster ($)</label>
+                <input type="number" step="0.0001" min="0"
+                       name="costo_blister" class="form-control">
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Costo de compra por pastilla ($)</label>
+                <input type="number" step="0.0001" min="0"
+                       name="costo_pastilla" class="form-control">
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Precio de venta por caja ($)</label>
+                <input type="number" step="0.01" min="0"
+                       name="precio_caja" class="form-control">
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Precio de venta por blíster ($)</label>
+                <input type="number" step="0.01" min="0"
+                       name="precio_blister" class="form-control">
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Precio de venta por pastilla ($)</label>
+                <input type="number" step="0.01" min="0"
+                       name="precio_pastilla" class="form-control">
+            </div>
+
+        </div>
+
+        <hr class="my-4">
+
+        <!-- 5. LOTE Y CADUCIDAD -->
+        <h5 class="fw-bold mb-3" style="color: #660033;">
+            <i class="bi bi-calendar2-x me-2" style="color: #ff9800;"></i>
+            Lote y fecha de caducidad
+        </h5>
+
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Número de lote</label>
+                <input type="text" name="numero_lote"
+                       class="form-control" required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Fecha de fabricación</label>
+                <input type="date" name="fecha_fabricacion"
+                       class="form-control">
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Fecha de caducidad</label>
+                <input type="date" name="fecha_caducidad"
+                       class="form-control" required>
+            </div>
+
+        </div>
+
+        <hr class="my-4">
+
+        <!-- 6. INVENTARIO -->
+        <h5 class="fw-bold mb-3" style="color: #660033;">
+            <i class="bi bi-box-seam me-2" style="color: #ff9800;"></i>
+            Inventario inicial
+        </h5>
+
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Cantidad de cajas</label>
+                <input type="number" name="stock_cajas"
+                       class="form-control" min="0" value="0">
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Cantidad de blísteres sueltos</label>
+                <input type="number" name="stock_blisteres"
+                       class="form-control" min="0" value="0">
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Cantidad de pastillas sueltas</label>
+                <input type="number" name="stock_pastillas"
+                       class="form-control" min="0" value="0">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Imagen del producto</label>
+                <input type="file" name="imagen"
+                       class="form-control" accept="image/*">
+            </div>
+
+        </div>
+
+        <hr class="my-4">
+
+        <!-- ACCIONES -->
+        <div class="d-flex justify-content-end gap-2 pb-4">
+
+            <button type="reset" class="btn btn-outline-secondary">
+                Limpiar
+            </button>
+
+            <button type="submit" class="btn text-white"
+                    style="background-color: #660033;">
+                <i class="bi bi-save me-1" style="color: #ff9800;"></i>
+                Guardar producto
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

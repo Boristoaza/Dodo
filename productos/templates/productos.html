@@ -1,0 +1,211 @@
+
+{% extends 'master.html' %}
+
+{% block title %}
+Productos | Dodo
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- Encabezado -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1" style="color: #660033;">
+                <i class="bi bi-box-seam me-2"></i>Productos
+            </h3>
+            <p class="text-muted mb-0">
+                Administración y control de inventario.
+            </p>
+        </div>
+
+        <a href="{% url 'productos:registrar_productos' %}"
+           class="btn text-white mt-3 mt-md-0"
+           style="background-color: #660033;">
+            <i class="bi bi-plus-lg me-1"></i>
+            Registrar producto
+        </a>
+    </div>
+
+    <!-- Resumen de inventario -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-12 col-sm-6 col-xl-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body d-flex align-items-center">
+                    <div class="rounded-3 p-3 me-3"
+                         style="background-color: rgba(102,0,51,.08); color:#660033;">
+                        <i class="bi bi-boxes fs-3"></i>
+                    </div>
+                    <div>
+                        <p class="text-muted mb-1 small">Total de productos</p>
+                        <h3 class="fw-bold mb-0" style="color:#660033;">
+                            {{ total_productos|default:0 }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body d-flex align-items-center">
+                    <div class="rounded-3 p-3 me-3 bg-success bg-opacity-10 text-success">
+                        <i class="bi bi-check-circle fs-3"></i>
+                    </div>
+                    <div>
+                        <p class="text-muted mb-1 small">Disponibles</p>
+                        <h3 class="fw-bold mb-0 text-success">
+                            {{ disponibles|default:0 }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body d-flex align-items-center">
+                    <div class="rounded-3 p-3 me-3 bg-warning bg-opacity-10 text-warning">
+                        <i class="bi bi-exclamation-triangle fs-3"></i>
+                    </div>
+                    <div>
+                        <p class="text-muted mb-1 small">Stock bajo</p>
+                        <h3 class="fw-bold mb-0 text-warning">
+                            {{ stock_bajo|default:0 }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Búsqueda -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+
+            <form method="GET" action="{% url 'productos:listar_productos' %}">
+                <div class="row g-2">
+
+                    <div class="col-12 col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white">
+                                <i class="bi bi-search text-muted"></i>
+                            </span>
+                            <input
+                                type="text"
+                                name="q"
+                                class="form-control shadow-none"
+                                placeholder="Buscar producto por nombre o código..."
+                                value="{{ request.GET.q|default:'' }}">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <button type="submit"
+                                class="btn w-100 text-white"
+                                style="background-color:#660033;">
+                            Buscar productos
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Tabla de productos -->
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <h6 class="fw-bold mb-0" style="color:#660033;">
+                <i class="bi bi-list-ul me-2"></i>
+                Productos registrados
+            </h6>
+
+            <a href="{% url 'productos:listar_productos' %}"
+               class="text-decoration-none small"
+               style="color:#660033;">
+                Ver todos
+            </a>
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Producto</th>
+                        <th>Existencias</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for producto in productos %}
+
+                    <tr>
+
+                        <td>
+                            <span class="fw-semibold text-dark">
+                                {{ producto.nombre_prodcuto }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="fw-semibold">
+                                {{ producto.stock }}
+                            </span>
+                        </td>
+
+                        <td>
+                            {% if producto.stock <= 0 %}
+                                <span class="badge bg-danger">
+                                    Agotado
+                                </span>
+                            {% elif producto.stock <= producto.stock_minimo %}
+                                <span class="badge bg-warning text-dark">
+                                    Stock bajo
+                                </span>
+                            {% else %}
+                                <span class="badge bg-success">
+                                    Disponible
+                                </span>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="3" class="text-center py-5">
+                            <i class="bi bi-inbox fs-1 text-muted"></i>
+                            <p class="text-muted mb-0 mt-2">
+                                No hay productos registrados.
+                            </p>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="card-footer bg-white text-muted small">
+            Control de existencias de Dodo.
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,17 +1,12 @@
 {% extends "master.html" %}
 
-{% block title %}
-    Dodo
-{% endblock %}
+{% block title %}Dodo{% endblock %}
 
-{% if user.is_authenticated %}
-  
 {% block content %}
-  
+
+<main>
+           {% include 'aplicaciones_panel.html' %}
+
+</main>
+
 {% endblock %}
-
-{% else %} 
-  
-  {% include 'login.html' %}
-
-{% endif %}
