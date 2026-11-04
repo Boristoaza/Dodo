@@ -2,44 +2,56 @@
     <div class="container-fluid px-4 py-1">
 
         <!-- Logo -->
-        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{% url 'core:aplicaiones' %}">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2"
+           href="{% url 'core:aplicaiones' %}">
+
             <div class="d-inline-flex align-items-center justify-content-center rounded-2 bg-white bg-opacity-10 p-1">
                 <i class="bi bi-capsule fs-5" style="color: #ff9800;"></i>
             </div>
+
             <span class="tracking-wide">Dodo</span>
         </a>
 
-        <!-- Iconos de aplicaciones y usuario -->
+        <!-- Iconos -->
         <div class="d-flex align-items-center gap-2">
 
-            <!-- Aplicaciones (Dashboard / Home) -->
-            <a href="{% url 'core:aplicaiones' %}" 
-               class="text-white text-decoration-none p-2 rounded-2 transition-all d-flex align-items-center justify-content-center navbar-icon-btn" 
-               aria-label="Aplicaciones" 
+            <!-- Aplicaciones -->
+            <a href="{% url 'core:aplicaiones' %}"
+               class="navbar-icon-btn text-white text-decoration-none p-2 rounded-2 d-flex align-items-center justify-content-center"
+               aria-label="Aplicaciones"
                title="Aplicaciones">
+
                 <i class="bi bi-grid-3x3-gap fs-5 text-warning"></i>
             </a>
 
             {% if user.is_authenticated %}
+
                 <div class="vr bg-white opacity-25 mx-1" style="height: 24px;"></div>
 
-                {% if user.is_staff %}
-                    <!-- Superusuario -->
-                    <a href="{% url 'core:superadmin' %}"
-                       class="text-white text-decoration-none p-2 rounded-2 transition-all d-flex align-items-center justify-content-center navbar-icon-btn"
-                       aria-label="Superusuario"
-                       title="Panel de Superusuario">
-                        <i class="bi bi-shield-lock-fill fs-5"></i>
-                    </a>
-                {% else %}
-                    <!-- Usuario Normal -->
+                {% if user.is_superuser %}
+
+                    <!-- Perfil del superusuario -->
                     <a href="{% url 'usuarios:perfil' %}"
-                       class="text-white text-decoration-none p-2 rounded-2 transition-all d-flex align-items-center justify-content-center navbar-icon-btn"
+                       class="navbar-icon-btn text-white text-decoration-none p-2 rounded-2 d-flex align-items-center justify-content-center"
+                       aria-label="Superusuario"
+                       title="Mi perfil">
+
+                        <i class="bi bi-gem fs-5 text-warning"></i>
+                    </a>
+
+                {% else %}
+
+                    <!-- Perfil del usuario normal -->
+                    <a href="{% url 'usuarios:perfil' %}"
+                       class="navbar-icon-btn text-white text-decoration-none p-2 rounded-2 d-flex align-items-center justify-content-center"
                        aria-label="Usuario"
-                       title="Mi Perfil">
+                       title="Mi perfil">
+
                         <i class="bi bi-person-circle fs-5"></i>
                     </a>
+
                 {% endif %}
+
             {% endif %}
 
         </div>
@@ -47,11 +59,11 @@
     </div>
 </nav>
 
-<!-- Estilos rápidos para el Navbar -->
 <style>
     .navbar-icon-btn {
         transition: background-color 0.2s ease, transform 0.2s ease;
     }
+
     .navbar-icon-btn:hover {
         background-color: rgba(255, 255, 255, 0.1);
         transform: translateY(-1px);

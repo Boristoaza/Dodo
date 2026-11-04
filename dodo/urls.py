@@ -29,9 +29,5 @@ urlpatterns = [
     path('',include('administracion.urls',namespace='administracion')),
     path('',include('empresas.urls',namespace='empresas')),
 
-
-
-
-
     path("__reload__/", include("django_browser_reload.urls")),
 ]

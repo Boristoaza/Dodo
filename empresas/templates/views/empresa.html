@@ -1,39 +1,38 @@
 {% extends 'master.html' %}
 
 {% block title %}
-    Registrar cliente | Dodo
+Registrar cliente | Dodo
 {% endblock %}
 
 {% block content %}
 
 <div class="container-fluid px-4 py-4">
 
-    <!-- Encabezado -->
+    <!-- ENCABEZADO -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h3 class="fw-bold mb-1" style="color: #660033;">
                 Registrar nuevo cliente
             </h3>
             <p class="text-muted mb-0">
-                Registra el representante legal y los datos de su empresa.
+                Registra un nuevo cliente y vincula su empresa a Dodo.
             </p>
         </div>
 
-        <a href="#"
-           class="btn btn-outline-secondary">
+        <a href="#" class="btn btn-outline-secondary">
             <i class="bi bi-arrow-left me-1"></i>
             Volver
         </a>
     </div>
 
-    <!-- Mensajes -->
+    <!-- MENSAJES -->
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }} alert-dismissible fade show"
                  role="alert">
                 {{ message }}
                 <button type="button" class="btn-close"
-                        data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                        data-bs-dismiss="alert"></button>
             </div>
         {% endfor %}
     {% endif %}
@@ -41,18 +40,31 @@
     <form method="POST">
         {% csrf_token %}
 
-        <!-- Datos del representante -->
+        <!-- REPRESENTANTE LEGAL -->
         <div class="card border-0 shadow-sm mb-4">
 
-            <div class="card-header bg-white py-3"
-                 style="border-bottom: 3px solid #660033;">
-                <h5 class="mb-0 fw-bold" style="color: #660033;">
-                    <i class="bi bi-person-badge me-2"></i>
-                    Datos del representante legal
-                </h5>
+            <div class="card-header bg-white border-0 px-4 pt-4 pb-3">
+                <div class="d-flex align-items-center">
+                    <div class="rounded-2 p-2 me-3"
+                         style="background-color: #f8edf2;">
+                        <i class="bi bi-person-badge fs-4"
+                           style="color: #660033;"></i>
+                    </div>
+
+                    <div>
+                        <h5 class="fw-bold mb-1" style="color: #660033;">
+                            Representante legal
+                        </h5>
+                        <small class="text-muted">
+                            Información personal y credenciales de acceso
+                        </small>
+                    </div>
+                </div>
             </div>
 
-            <div class="card-body p-4">
+            <div class="card-body px-4 pb-4">
+                <hr class="mt-0 mb-4">
+
                 <div class="row">
 
                     <div class="col-md-6 mb-3">
@@ -60,7 +72,8 @@
                             Nombres
                         </label>
                         <input type="text" name="nombre" id="nombre"
-                               class="form-control" required>
+                               class="form-control" placeholder="Nombres completos"
+                               required>
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -68,7 +81,8 @@
                             Apellidos
                         </label>
                         <input type="text" name="apellido" id="apellido"
-                               class="form-control" required>
+                               class="form-control" placeholder="Apellidos completos"
+                               required>
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -77,7 +91,7 @@
                         </label>
                         <input type="text" name="username" id="username"
                                class="form-control"
-                               placeholder="roberto98" required>
+                               placeholder="Ej. roberto98" required>
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -85,7 +99,8 @@
                             Correo personal
                         </label>
                         <input type="email" name="correo" id="correo"
-                               class="form-control" required>
+                               class="form-control"
+                               placeholder="correo@ejemplo.com" required>
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -93,45 +108,57 @@
                             Teléfono
                         </label>
                         <input type="tel" name="telefono" id="telefono"
-                               class="form-control" required>
+                               class="form-control"
+                               placeholder="Número de contacto" required>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="contrasenia"
-                               class="form-label fw-semibold">
+                        <label for="contrasenia" class="form-label fw-semibold">
                             Contraseña
                         </label>
                         <input type="password" name="contrasenia"
                                id="contrasenia" class="form-control"
-                               required>
+                               placeholder="Contraseña de acceso" required>
                     </div>
 
                 </div>
             </div>
         </div>
 
-        <!-- Datos de la empresa -->
+        <!-- EMPRESA -->
         <div class="card border-0 shadow-sm mb-4">
 
-            <div class="card-header bg-white py-3"
-                 style="border-bottom: 3px solid #ff9800;">
-                <h5 class="mb-0 fw-bold" style="color: #660033;">
-                    <i class="bi bi-building me-2"></i>
-                    Datos de la empresa
-                </h5>
+            <div class="card-header bg-white border-0 px-4 pt-4 pb-3">
+                <div class="d-flex align-items-center">
+                    <div class="rounded-2 p-2 me-3"
+                         style="background-color: #fff3e0;">
+                        <i class="bi bi-building fs-4"
+                           style="color: #ff9800;"></i>
+                    </div>
+
+                    <div>
+                        <h5 class="fw-bold mb-1" style="color: #660033;">
+                            Información de la empresa
+                        </h5>
+                        <small class="text-muted">
+                            Datos comerciales y ubicación del cliente
+                        </small>
+                    </div>
+                </div>
             </div>
 
-            <div class="card-body p-4">
+            <div class="card-body px-4 pb-4">
+                <hr class="mt-0 mb-4">
+
                 <div class="row">
 
                     <div class="col-md-6 mb-3">
-                        <label for="nombre_empresa"
-                               class="form-label fw-semibold">
+                        <label for="nombre_empresa" class="form-label fw-semibold">
                             Nombre de la empresa
                         </label>
                         <input type="text" name="nombre_empresa"
                                id="nombre_empresa" class="form-control"
-                               required>
+                               placeholder="Nombre comercial" required>
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -141,28 +168,27 @@
                         <input type="text" name="ruc" id="ruc"
                                class="form-control" maxlength="13"
                                minlength="13" pattern="[0-9]{13}"
+                               placeholder="0000000000000"
                                title="El RUC debe contener 13 números"
                                required>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="correo_empresa"
-                               class="form-label fw-semibold">
+                        <label for="correo_empresa" class="form-label fw-semibold">
                             Correo de la empresa
                         </label>
                         <input type="email" name="correo_empresa"
                                id="correo_empresa" class="form-control"
-                               required>
+                               placeholder="empresa@ejemplo.com" required>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="telefono_empresa"
-                               class="form-label fw-semibold">
+                        <label for="telefono_empresa" class="form-label fw-semibold">
                             Teléfono de la empresa
                         </label>
                         <input type="tel" name="telefono_empresa"
                                id="telefono_empresa" class="form-control"
-                               required>
+                               placeholder="Número de contacto" required>
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -170,41 +196,41 @@
                             Ciudad
                         </label>
                         <input type="text" name="ciudad" id="ciudad"
-                               class="form-control" required>
+                               class="form-control"
+                               placeholder="Ciudad" required>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="direccion"
-                               class="form-label fw-semibold">
+                        <label for="direccion" class="form-label fw-semibold">
                             Dirección
                         </label>
                         <input type="text" name="direccion" id="direccion"
-                               class="form-control" required>
+                               class="form-control"
+                               placeholder="Dirección de la empresa" required>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="actividad"
-                               class="form-label fw-semibold">
+                        <label for="actividad" class="form-label fw-semibold">
                             Actividad económica
                         </label>
                         <input type="text" name="actividad" id="actividad"
-                               class="form-control" required>
+                               class="form-control"
+                               placeholder="Actividad comercial" required>
                     </div>
 
                 </div>
             </div>
         </div>
 
-        <!-- Acciones -->
+        <!-- ACCIONES -->
         <div class="d-flex justify-content-end gap-2 mb-4">
 
-            <a href=""
-               class="btn btn-outline-secondary px-4">
+            <a href="#" class="btn btn-outline-secondary px-4">
                 Cancelar
             </a>
 
-            <button type="submit" class="btn text-white px-4"
-                    style="background-color: #660033;">
+            <button type="submit" class="btn px-4 fw-semibold"
+                    style="background-color: #ff9800; color: #660033;">
                 <i class="bi bi-person-plus me-1"></i>
                 Registrar cliente
             </button>
@@ -212,6 +238,7 @@
         </div>
 
     </form>
+
 </div>
 
 {% endblock %}

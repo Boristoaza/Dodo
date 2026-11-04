@@ -1,6 +1,6 @@
 from django.shortcuts import render , redirect
 from django.contrib.auth.decorators import login_required
-from .models import Empresas
+# from .models import Empresas
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -14,9 +14,9 @@ def main_view(request):
 def aplicaciones_view(request):
     return render(request,'aplicaciones_panel.html')
 
-@login_required
-def superadmin_view(request):
-    return render(request, 'superadmin.html')
+# @login_required
+# def superadmin_view(request):
+#     return render(request, 'superadmin.html')
 
 
 @login_required
