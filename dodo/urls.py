@@ -28,6 +28,8 @@ urlpatterns = [
     path('',include('compras.urls',namespace='compras')),
     path('',include('administracion.urls',namespace='administracion')),
     path('',include('empresas.urls',namespace='empresas')),
+    path('', include('facturacion.urls', namespace='facturacion')),
+
 
     path("__reload__/", include("django_browser_reload.urls")),
 ]

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'compras',
     'administracion',
     'empresas',
+    'facturacion',
 ]
 
 MIDDLEWARE = [

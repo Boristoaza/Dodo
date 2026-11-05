@@ -1,244 +1,260 @@
 {% extends 'master.html' %}
 
 {% block title %}
-Registrar cliente | Dodo
+Mi Empresa | Dodo
 {% endblock %}
 
 {% block content %}
+<style>
+    /* Estilos modernos y micro-interacciones */
+    .company-card {
+        border-radius: 16px;
+        background: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .stat-box {
+        border-radius: 12px;
+        background: rgba(248, 249, 250, 0.7);
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        transition: all 0.2s ease;
+    }
+    
+    .admin-card {
+        border-radius: 16px;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .admin-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.08) !important;
+    }
 
-<div class="container-fluid px-4 py-4">
+    .admin-card .arrow-icon {
+        transition: transform 0.2s ease;
+        display: inline-block;
+    }
+
+    .admin-card:hover .arrow-icon {
+        transform: translateX(4px);
+    }
+
+    .icon-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+    }
+</style>
+
+<div class="container-fluid px-4 py-4 max-w-7xl">
 
     <!-- ENCABEZADO -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
         <div>
-            <h3 class="fw-bold mb-1" style="color: #660033;">
-                Registrar nuevo cliente
-            </h3>
-            <p class="text-muted mb-0">
-                Registra un nuevo cliente y vincula su empresa a Dodo.
+            <h3 class="fw-bold tracking-tight mb-1" style="letter-spacing: -0.5px;">Mi Empresa</h3>
+            <p class="text-muted small mb-0">
+                Administra la información y configuración general de tu negocio.
             </p>
         </div>
-
-        <a href="#" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left me-1"></i>
-            Volver
-        </a>
     </div>
 
-    <!-- MENSAJES -->
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show"
-                 role="alert">
-                {{ message }}
-                <button type="button" class="btn-close"
-                        data-bs-dismiss="alert"></button>
-            </div>
-        {% endfor %}
-    {% endif %}
+    <!-- INFORMACIÓN GENERAL -->
+    <div class="card company-card shadow-sm mb-5">
+        <div class="card-body p-4 p-md-5">
 
-    <form method="POST">
-        {% csrf_token %}
-
-        <!-- REPRESENTANTE LEGAL -->
-        <div class="card border-0 shadow-sm mb-4">
-
-            <div class="card-header bg-white border-0 px-4 pt-4 pb-3">
-                <div class="d-flex align-items-center">
-                    <div class="rounded-2 p-2 me-3"
-                         style="background-color: #f8edf2;">
-                        <i class="bi bi-person-badge fs-4"
-                           style="color: #660033;"></i>
+            <!-- Hero header de empresa -->
+            <div class="d-flex justify-content-between align-items-start align-items-md-center flex-wrap gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="icon-wrapper shadow-sm" style="width: 64px; height: 64px; background: #f4eaf0; color: #660033;">
+                        <i class="bi bi-buildings-fill fs-3"></i>
                     </div>
-
                     <div>
-                        <h5 class="fw-bold mb-1" style="color: #660033;">
-                            Representante legal
-                        </h5>
-                        <small class="text-muted">
-                            Información personal y credenciales de acceso
-                        </small>
+                        <div class="d-flex align-items-center gap-2">
+                            <h4 class="fw-bold mb-0" style="letter-spacing: -0.3px;">{{ empresa.nombre_empresa }}</h4>
+                        </div>
+                        <span class="text-muted small">Panel principal de la organización</span>
                     </div>
                 </div>
+
+                <span class="badge rounded-pill px-3 py-2 fw-medium d-inline-flex align-items-center gap-1" style="background: #e5faf3; color: #168b69; font-size: 0.85rem;">
+                    <i class="bi bi-patch-check-fill fs-6"></i>
+                    Activa
+                </span>
             </div>
 
-            <div class="card-body px-4 pb-4">
-                <hr class="mt-0 mb-4">
+            <hr class="my-4 opacity-10">
 
-                <div class="row">
-
-                    <div class="col-md-6 mb-3">
-                        <label for="nombre" class="form-label fw-semibold">
-                            Nombres
-                        </label>
-                        <input type="text" name="nombre" id="nombre"
-                               class="form-control" placeholder="Nombres completos"
-                               required>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="apellido" class="form-label fw-semibold">
-                            Apellidos
-                        </label>
-                        <input type="text" name="apellido" id="apellido"
-                               class="form-control" placeholder="Apellidos completos"
-                               required>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="username" class="form-label fw-semibold">
-                            Nombre de usuario
-                        </label>
-                        <input type="text" name="username" id="username"
-                               class="form-control"
-                               placeholder="Ej. roberto98" required>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="correo" class="form-label fw-semibold">
-                            Correo personal
-                        </label>
-                        <input type="email" name="correo" id="correo"
-                               class="form-control"
-                               placeholder="correo@ejemplo.com" required>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="telefono" class="form-label fw-semibold">
-                            Teléfono
-                        </label>
-                        <input type="tel" name="telefono" id="telefono"
-                               class="form-control"
-                               placeholder="Número de contacto" required>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="contrasenia" class="form-label fw-semibold">
-                            Contraseña
-                        </label>
-                        <input type="password" name="contrasenia"
-                               id="contrasenia" class="form-control"
-                               placeholder="Contraseña de acceso" required>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- EMPRESA -->
-        <div class="card border-0 shadow-sm mb-4">
-
-            <div class="card-header bg-white border-0 px-4 pt-4 pb-3">
-                <div class="d-flex align-items-center">
-                    <div class="rounded-2 p-2 me-3"
-                         style="background-color: #fff3e0;">
-                        <i class="bi bi-building fs-4"
-                           style="color: #ff9800;"></i>
-                    </div>
-
-                    <div>
-                        <h5 class="fw-bold mb-1" style="color: #660033;">
-                            Información de la empresa
-                        </h5>
-                        <small class="text-muted">
-                            Datos comerciales y ubicación del cliente
-                        </small>
+            <!-- Grid de Métricas -->
+            <div class="row g-3">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="stat-box p-3 h-100">
+                        <div class="d-flex align-items-center gap-2 text-muted small fw-medium mb-2">
+                            <i class="bi bi-shop fs-6"></i>
+                            Sucursales
+                        </div>
+                        <h3 class="fw-bold mb-1" style="color: #660033;">
+                            {{ total_sucursales|default:"1" }}
+                        </h3>
+                        <span class="text-muted extra-small" style="font-size: 0.78rem;">Establecimientos activos</span>
                     </div>
                 </div>
-            </div>
 
-            <div class="card-body px-4 pb-4">
-                <hr class="mt-0 mb-4">
-
-                <div class="row">
-
-                    <div class="col-md-6 mb-3">
-                        <label for="nombre_empresa" class="form-label fw-semibold">
-                            Nombre de la empresa
-                        </label>
-                        <input type="text" name="nombre_empresa"
-                               id="nombre_empresa" class="form-control"
-                               placeholder="Nombre comercial" required>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="stat-box p-3 h-100">
+                        <div class="d-flex align-items-center gap-2 text-muted small fw-medium mb-2">
+                            <i class="bi bi-people fs-6"></i>
+                            Usuarios
+                        </div>
+                        <h3 class="fw-bold mb-1" style="color: #660033;">
+                            {{ total_usuarios|default:"1" }}
+                        </h3>
+                        <span class="text-muted extra-small" style="font-size: 0.78rem;">Cuentas registradas</span>
                     </div>
+                </div>
 
-                    <div class="col-md-6 mb-3">
-                        <label for="ruc" class="form-label fw-semibold">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="stat-box p-3 h-100">
+                        <div class="d-flex align-items-center gap-2 text-muted small fw-medium mb-2">
+                            <i class="bi bi-card-heading fs-6"></i>
                             RUC
-                        </label>
-                        <input type="text" name="ruc" id="ruc"
-                               class="form-control" maxlength="13"
-                               minlength="13" pattern="[0-9]{13}"
-                               placeholder="0000000000000"
-                               title="El RUC debe contener 13 números"
-                               required>
+                        </div>
+                        <h6 class="fw-bold mb-1 text-dark fs-5">
+                            {{ empresa.ruc }}
+                        </h6>
+                        <span class="text-muted extra-small" style="font-size: 0.78rem;">Identificación tributaria</span>
                     </div>
+                </div>
 
-                    <div class="col-md-6 mb-3">
-                        <label for="correo_empresa" class="form-label fw-semibold">
-                            Correo de la empresa
-                        </label>
-                        <input type="email" name="correo_empresa"
-                               id="correo_empresa" class="form-control"
-                               placeholder="empresa@ejemplo.com" required>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="stat-box p-3 h-100">
+                        <div class="d-flex align-items-center gap-2 text-muted small fw-medium mb-2">
+                            <i class="bi bi-calendar-event fs-6"></i>
+                            Registro
+                        </div>
+                        <h6 class="fw-bold mb-1 text-dark fs-5">
+                            {{ empresa.fecha_registro|date:"d/m/Y" }}
+                        </h6>
+                        <span class="text-muted extra-small" style="font-size: 0.78rem;">Fecha de alta</span>
                     </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="telefono_empresa" class="form-label fw-semibold">
-                            Teléfono de la empresa
-                        </label>
-                        <input type="tel" name="telefono_empresa"
-                               id="telefono_empresa" class="form-control"
-                               placeholder="Número de contacto" required>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="ciudad" class="form-label fw-semibold">
-                            Ciudad
-                        </label>
-                        <input type="text" name="ciudad" id="ciudad"
-                               class="form-control"
-                               placeholder="Ciudad" required>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="direccion" class="form-label fw-semibold">
-                            Dirección
-                        </label>
-                        <input type="text" name="direccion" id="direccion"
-                               class="form-control"
-                               placeholder="Dirección de la empresa" required>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="actividad" class="form-label fw-semibold">
-                            Actividad económica
-                        </label>
-                        <input type="text" name="actividad" id="actividad"
-                               class="form-control"
-                               placeholder="Actividad comercial" required>
-                    </div>
-
                 </div>
             </div>
+
         </div>
+    </div>
 
-        <!-- ACCIONES -->
-        <div class="d-flex justify-content-end gap-2 mb-4">
 
-            <a href="#" class="btn btn-outline-secondary px-4">
-                Cancelar
+    <!-- SECCIÓN ADMINISTRACIÓN -->
+    <div class="mb-3">
+        <h5 class="fw-bold mb-1">Administración</h5>
+        <p class="text-muted small mb-0">
+            Accesos directos a los módulos de gestión.
+        </p>
+    </div>
+
+    <div class="row g-3">
+
+        <!-- DATOS DE EMPRESA -->
+        <div class="col-md-6 col-xl-3">
+            <a href="" class="text-decoration-none">
+                <div class="card admin-card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="icon-wrapper mb-3" style="width: 48px; height: 48px; background: #f4eaf0; color: #660033;">
+                            <i class="bi bi-building fs-5"></i>
+                        </div>
+
+                        <h6 class="fw-bold text-dark mb-2">Datos de empresa</h6>
+
+                        <p class="text-muted small mb-4 flex-grow-1" style="line-height: 1.5;">
+                            Consulta y administra razón social, RUC, dirección fiscal y actividad económica.
+                        </p>
+
+                        <div class="small fw-bold d-flex align-items-center gap-1" style="color: #660033;">
+                            <span>Administrar</span>
+                            <i class="bi bi-arrow-right arrow-icon"></i>
+                        </div>
+                    </div>
+                </div>
             </a>
-
-            <button type="submit" class="btn px-4 fw-semibold"
-                    style="background-color: #ff9800; color: #660033;">
-                <i class="bi bi-person-plus me-1"></i>
-                Registrar cliente
-            </button>
-
         </div>
 
-    </form>
+
+        <!-- SUCURSALES -->
+        <div class="col-md-6 col-xl-3">
+            <a href="{% url 'empresas:sucursal' %}" class="text-decoration-none">
+                <div class="card admin-card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="icon-wrapper mb-3" style="width: 48px; height: 48px; background: #e5faf3; color: #168b69;">
+                            <i class="bi bi-shop fs-5"></i>
+                        </div>
+
+                        <h6 class="fw-bold text-dark mb-2">Sucursales</h6>
+
+                        <p class="text-muted small mb-4 flex-grow-1" style="line-height: 1.5;">
+                            Gestiona la apertura, datos y direcciones de tus diferentes puntos de venta.
+                        </p>
+
+                        <div class="small fw-bold d-flex align-items-center gap-1" style="color: #168b69;">
+                            <span>Administrar</span>
+                            <i class="bi bi-arrow-right arrow-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+        <!-- USUARIOS -->
+        <div class="col-md-6 col-xl-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card admin-card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="icon-wrapper mb-3" style="width: 48px; height: 48px; background: #f4eaf0; color: #660033;">
+                            <i class="bi bi-people fs-5"></i>
+                        </div>
+
+                        <h6 class="fw-bold text-dark mb-2">Usuarios</h6>
+
+                        <p class="text-muted small mb-4 flex-grow-1" style="line-height: 1.5;">
+                            Administra el personal, roles de usuario y permisos de acceso a la plataforma.
+                        </p>
+
+                        <div class="small fw-bold d-flex align-items-center gap-1" style="color: #660033;">
+                            <span>Administrar</span>
+                            <i class="bi bi-arrow-right arrow-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+        <!-- SUSCRIPCIÓN -->
+        <div class="col-md-6 col-xl-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card admin-card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="icon-wrapper mb-3" style="width: 48px; height: 48px; background: #e5faf3; color: #168b69;">
+                            <i class="bi bi-credit-card-2-front fs-5"></i>
+                        </div>
+
+                        <h6 class="fw-bold text-dark mb-2">Suscripción</h6>
+
+                        <p class="text-muted small mb-4 flex-grow-1" style="line-height: 1.5;">
+                            Revisa el plan contratado, historial de facturación y límites del servicio.
+                        </p>
+
+                        <div class="small fw-bold d-flex align-items-center gap-1" style="color: #168b69;">
+                            <span>Administrar</span>
+                            <i class="bi bi-arrow-right arrow-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
 
 </div>
-
 {% endblock %}

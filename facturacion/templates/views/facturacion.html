@@ -1,0 +1,378 @@
+
+{% extends 'master.html' %}
+
+{% block title %}
+Facturación | Dodo
+{% endblock %}
+
+{% block content %}
+<style>
+    /* Estilos dinámicos y micro-interacciones */
+    .btn-brand-primary {
+        background-color: #168b69;
+        color: #ffffff;
+        border: none;
+        transition: all 0.2s ease;
+    }
+    .btn-brand-primary:hover {
+        background-color: #127256;
+        color: #ffffff;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(22, 139, 105, 0.25);
+    }
+
+    /* Cards de métricas estilo KPI */
+    .kpi-card {
+        background: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 12px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .kpi-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    /* Módulos de facturación estilo Odoo */
+    .odoo-action-card {
+        background-color: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-left: 4px solid #660033 !important;
+        border-radius: 12px !important;
+        transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .odoo-action-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px -5px rgba(22, 139, 105, 0.12) !important;
+        border-color: rgba(22, 139, 105, 0.3) !important;
+        border-left-color: #168b69 !important; /* Verde secundario en hover */
+    }
+
+    .icon-box-soft {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.22s ease;
+    }
+
+    .odoo-action-card:hover .icon-box-soft-magenta {
+        background-color: #e5faf3 !important;
+        color: #168b69 !important;
+        transform: scale(1.05);
+    }
+
+    .odoo-action-card:hover .icon-box-soft-green {
+        transform: scale(1.05);
+    }
+
+    .action-arrow {
+        opacity: 0;
+        transform: translateX(-6px);
+        transition: all 0.2s ease;
+        color: #168b69;
+    }
+
+    .odoo-action-card:hover .action-arrow {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* Tabla estilizada */
+    .table-modern {
+        --bs-table-bg: transparent;
+    }
+    .table-modern th {
+        font-size: 0.72rem;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        color: #6c757d;
+        font-weight: 600;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    .table-modern td {
+        padding: 1rem 0.75rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        font-size: 0.88rem;
+    }
+    .table-modern tbody tr:last-child td {
+        border-bottom: none;
+    }
+    .table-modern tbody tr {
+        transition: background-color 0.15s ease;
+    }
+    .table-modern tbody tr:hover {
+        background-color: rgba(0, 0, 0, 0.015);
+    }
+</style>
+
+<div class="container-fluid px-4 py-4 max-w-7xl">
+
+    <!-- ENCABEZADO LIGERO Y MODERNO -->
+    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
+        <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="text-muted small">Gestión Tributaria</span>
+                <span class="text-muted small">/</span>
+                <span class="text-muted small">SRI Ecuador</span>
+            </div>
+            <h3 class="fw-bold tracking-tight mb-0" style="color: #660033; letter-spacing: -0.5px;">
+                Facturación Electrónica
+            </h3>
+        </div>
+
+        <a href="#"
+           class="btn btn-brand-primary fw-medium px-3.5 py-2 rounded-3 d-inline-flex align-items-center gap-2 shadow-sm">
+            <i class="bi bi-plus-lg"></i>
+            <span>Nueva factura</span>
+        </a>
+    </div>
+
+    <!-- RESUMEN DE METRICAS (KPIS) -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-sm-6 col-xl-3">
+            <div class="card kpi-card shadow-sm h-100 p-3">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted extra-small d-block text-uppercase fw-semibold mb-1" style="font-size: 0.7rem; letter-spacing: 0.5px;">Total Comprobantes</span>
+                        <h3 class="fw-bold mb-0" style="color: #660033;">
+                            {{ total_facturas|default:"0" }}
+                        </h3>
+                    </div>
+                    <div class="icon-box-soft" style="background: #f4eaf0; color: #660033;">
+                        <i class="bi bi-receipt fs-5"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-xl-3">
+            <div class="card kpi-card shadow-sm h-100 p-3">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted extra-small d-block text-uppercase fw-semibold mb-1" style="font-size: 0.7rem; letter-spacing: 0.5px;">Autorizadas</span>
+                        <h3 class="fw-bold mb-0" style="color: #168b69;">
+                            {{ facturas_autorizadas|default:"0" }}
+                        </h3>
+                    </div>
+                    <div class="icon-box-soft" style="background: #e5faf3; color: #168b69;">
+                        <i class="bi bi-check-circle-fill fs-5"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-xl-3">
+            <div class="card kpi-card shadow-sm h-100 p-3">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted extra-small d-block text-uppercase fw-semibold mb-1" style="font-size: 0.7rem; letter-spacing: 0.5px;">Pendientes</span>
+                        <h3 class="fw-bold mb-0" style="color: #b7791f;">
+                            {{ facturas_pendientes|default:"0" }}
+                        </h3>
+                    </div>
+                    <div class="icon-box-soft" style="background: #fff5df; color: #b7791f;">
+                        <i class="bi bi-clock-history fs-5"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-xl-3">
+            <div class="card kpi-card shadow-sm h-100 p-3">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted extra-small d-block text-uppercase fw-semibold mb-1" style="font-size: 0.7rem; letter-spacing: 0.5px;">Rechazadas</span>
+                        <h3 class="fw-bold mb-0 text-danger">
+                            {{ facturas_rechazadas|default:"0" }}
+                        </h3>
+                    </div>
+                    <div class="icon-box-soft" style="background: #fdeaea; color: #dc3545;">
+                        <i class="bi bi-x-circle-fill fs-5"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- OPCIONES DE FACTURACIÓN (ESTILO ODOO) -->
+    <div class="mb-3">
+        <h6 class="fw-bold text-muted text-uppercase mb-0" style="font-size: 0.75rem; letter-spacing: 0.8px;">
+            Módulos de Facturación
+        </h6>
+    </div>
+
+    <div class="row g-3 mb-5">
+
+        <!-- EMITIR -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card odoo-action-card shadow-sm h-100 p-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center me-2">
+                            <div class="icon-box-soft icon-box-soft-magenta me-3 flex-shrink-0" style="background: #f4eaf0; color: #660033;">
+                                <i class="bi bi-file-earmark-plus fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.95rem;">Emitir comprobante</h6>
+                                <span class="text-muted extra-small d-block" style="font-size: 0.78rem;">Facturas y notas</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-right action-arrow fs-6"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- COMPROBANTES -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card odoo-action-card shadow-sm h-100 p-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center me-2">
+                            <div class="icon-box-soft icon-box-soft-green me-3 flex-shrink-0" style="background: #e5faf3; color: #168b69;">
+                                <i class="bi bi-files fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.95rem;">Comprobantes</h6>
+                                <span class="text-muted extra-small d-block" style="font-size: 0.78rem;">Historial emitido</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-right action-arrow fs-6"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- SRI -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card odoo-action-card shadow-sm h-100 p-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center me-2">
+                            <div class="icon-box-soft icon-box-soft-magenta me-3 flex-shrink-0" style="background: #f4eaf0; color: #660033;">
+                                <i class="bi bi-cloud-arrow-up fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.95rem;">Conexión SRI</h6>
+                                <span class="text-muted extra-small d-block" style="font-size: 0.78rem;">Envío y firma digital</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-right action-arrow fs-6"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- CONFIGURACIÓN -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <a href="#" class="text-decoration-none">
+                <div class="card odoo-action-card shadow-sm h-100 p-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center me-2">
+                            <div class="icon-box-soft icon-box-soft-green me-3 flex-shrink-0" style="background: #e5faf3; color: #168b69;">
+                                <i class="bi bi-gear fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.95rem;">Configuración</h6>
+                                <span class="text-muted extra-small d-block" style="font-size: 0.78rem;">Puntos y secuencias</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-right action-arrow fs-6"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- TABLA DE HISTORIAL -->
+    <div class="card border-0 shadow-sm rounded-4" style="background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06) !important;">
+        <div class="card-body p-4">
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                <div>
+                    <h5 class="fw-bold mb-0" style="letter-spacing: -0.3px;">Últimos comprobantes</h5>
+                    <span class="text-muted small">Documentos procesados recientemente</span>
+                </div>
+
+                <a href="#" class="text-decoration-none small fw-bold d-inline-flex align-items-center gap-1" style="color: #660033;">
+                    <span>Ver todos</span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-modern align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Comprobante</th>
+                            <th>Cliente</th>
+                            <th>Fecha</th>
+                            <th>Total</th>
+                            <th class="text-end">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for factura in ultimas_facturas %}
+                        <tr>
+                            <td class="fw-bold" style="color: #660033;">
+                                {{ factura.numero_comprobante }}
+                            </td>
+                            <td class="fw-medium text-dark">
+                                {{ factura.cliente }}
+                            </td>
+                            <td class="text-muted">
+                                {{ factura.fecha_emision|date:"d/m/Y" }}
+                            </td>
+                            <td class="fw-bold text-dark">
+                                ${{ factura.total }}
+                            </td>
+                            <td class="text-end">
+                                {% if factura.estado == 'AUTORIZADO' %}
+                                    <span class="badge rounded-pill px-2.5 py-1.5 fw-medium" style="background: #e5faf3; color: #168b69; font-size: 0.75rem;">
+                                        <i class="bi bi-check-circle-fill me-1"></i> Autorizada
+                                    </span>
+                                {% elif factura.estado == 'PENDIENTE' %}
+                                    <span class="badge rounded-pill px-2.5 py-1.5 fw-medium" style="background: #fff5df; color: #b7791f; font-size: 0.75rem;">
+                                        <i class="bi bi-clock-fill me-1"></i> Pendiente
+                                    </span>
+                                {% elif factura.estado == 'RECHAZADO' %}
+                                    <span class="badge rounded-pill px-2.5 py-1.5 fw-medium" style="background: #fdeaea; color: #dc3545; font-size: 0.75rem;">
+                                        <i class="bi bi-x-circle-fill me-1"></i> Rechazada
+                                    </span>
+                                {% else %}
+                                    <span class="badge rounded-pill px-2.5 py-1.5 fw-medium bg-secondary-subtle text-secondary" style="font-size: 0.75rem;">
+                                        {{ factura.estado }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center py-5">
+                                <div class="icon-box-soft mx-auto mb-3" style="width: 54px; height: 54px; background: #e5faf3; color: #168b69; border-radius: 14px;">
+                                    <i class="bi bi-receipt fs-3"></i>
+                                </div>
+                                <h6 class="fw-bold text-dark mb-1">No hay comprobantes registrados</h6>
+                                <p class="text-muted small mb-0">
+                                    Las facturas emitidas recientemente aparecerán en este historial.
+                                </p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

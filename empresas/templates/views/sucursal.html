@@ -1,0 +1,184 @@
+{% extends 'master.html' %}
+
+{% block title %}
+Sucursales | Dodo
+{% endblock %}
+
+{% block content %}
+<style>
+    /* Estilos ligeros y micro-interacciones */
+    .btn-brand-primary {
+        background-color: #168b69;
+        color: #ffffff;
+        border: none;
+        transition: all 0.2s ease;
+    }
+    .btn-brand-primary:hover {
+        background-color: #127256;
+        color: #ffffff;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(22, 139, 105, 0.25);
+    }
+    
+    .stat-pill {
+        background: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 12px;
+    }
+
+    .branch-card {
+        background: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 14px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .branch-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05) !important;
+        border-color: rgba(22, 139, 105, 0.3);
+    }
+
+    .icon-box-soft {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<div class="container-fluid px-4 py-4 max-w-7xl">
+
+    <!-- ENCABEZADO LIGERO -->
+    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
+        <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <a href="" class="text-decoration-none small fw-semibold d-inline-flex align-items-center gap-1" style="color: #660033;">
+                    <i class="bi bi-arrow-left"></i>
+                    Mi Empresa
+                </a>
+                <span class="text-muted small">/</span>
+                <span class="text-muted small">Establecimientos</span>
+            </div>
+            <h3 class="fw-bold tracking-tight mb-0" style="letter-spacing: -0.5px;">Sucursales</h3>
+        </div>
+
+        <a href="{% url 'empresas:crear_sucursal' %}"
+           class="btn btn-brand-primary fw-medium px-3 py-2 rounded-3 d-inline-flex align-items-center gap-2 shadow-sm">
+            <i class="bi bi-plus-lg"></i>
+            <span>Nueva sucursal</span>
+        </a>
+    </div>
+
+    <!-- RESUMEN EN STRIP LIMPIDA -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-md-4">
+            <div class="stat-pill p-3 d-flex align-items-center gap-3 shadow-sm">
+                <div class="icon-box-soft" style="background: #f4eaf0; color: #660033;">
+                    <i class="bi bi-shop fs-5"></i>
+                </div>
+                <div>
+                    <span class="text-muted extra-small d-block text-uppercase fw-semibold" style="font-size: 0.7rem; letter-spacing: 0.5px;">Total Registradas</span>
+                    <h4 class="fw-bold mb-0" style="color: #660033;">{{ sucursales.count }}</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+            <div class="stat-pill p-3 d-flex align-items-center gap-3 shadow-sm">
+                <div class="icon-box-soft" style="background: #e5faf3; color: #168b69;">
+                    <i class="bi bi-building fs-5"></i>
+                </div>
+                <div>
+                    <span class="text-muted extra-small d-block text-uppercase fw-semibold" style="font-size: 0.7rem; letter-spacing: 0.5px;">Empresa</span>
+                    <h6 class="fw-bold text-dark mb-0 text-truncate" style="max-width: 200px;">{{ empresa.nombre_empresa }}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LISTADO -->
+    <div class="mb-3">
+        <h6 class="fw-bold text-muted text-uppercase mb-0" style="font-size: 0.75rem; letter-spacing: 0.8px;">Establecimientos</h6>
+    </div>
+
+    <div class="row g-3">
+        {% for sucursal in sucursales %}
+        <div class="col-md-6 col-xl-4">
+            <div class="card branch-card shadow-sm h-100">
+                <div class="card-body p-4 d-flex flex-column">
+                    
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="icon-box-soft" style="background: #f4eaf0; color: #660033;">
+                            <i class="bi bi-shop fs-5"></i>
+                        </div>
+                        <span class="badge rounded-pill px-2.5 py-1.5 fw-medium" style="background: #e5faf3; color: #168b69; font-size: 0.75rem;">
+                            Activa
+                        </span>
+                    </div>
+
+                    <h5 class="fw-bold text-dark mb-3" style="letter-spacing: -0.3px;">
+                        {{ sucursal.nombre_sucursal }}
+                    </h5>
+
+                    <!-- DATOS DE SUCURSAL CON ICONOS SUAVES -->
+                    <div class="d-flex flex-column gap-2 text-muted small flex-grow-1 mb-3">
+                        <div class="d-flex align-items-start gap-2">
+                            <i class="bi bi-geo-alt text-secondary mt-0.5"></i>
+                            <span class="text-dark-subtle">{{ sucursal.direccion|default:"Sin dirección registrada" }}</span>
+                        </div>
+
+                        {% if sucursal.ciudad %}
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-building-gear text-secondary"></i>
+                            <span>{{ sucursal.ciudad }}</span>
+                        </div>
+                        {% endif %}
+
+                        {% if sucursal.telefono %}
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-telephone text-secondary"></i>
+                            <span>{{ sucursal.telefono }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="pt-3 border-top border-light-subtle d-flex justify-content-end">
+                        <a href="#" class="btn btn-sm btn-light fw-medium text-muted rounded-2 px-3">
+                            Gestionar <i class="bi bi-chevron-right ms-1 extra-small"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+
+        <!-- ESTADO VACÍO LIGERO -->
+        <div class="col-12">
+            <div class="card border-0 shadow-sm rounded-4 text-center py-5" style="background: #ffffff;">
+                <div class="card-body py-4">
+                    <div class="icon-box-soft mx-auto mb-3" style="width: 56px; height: 56px; background: #e5faf3; color: #168b69; border-radius: 16px;">
+                        <i class="bi bi-shop-window fs-3"></i>
+                    </div>
+
+                    <h6 class="fw-bold text-dark mb-1">No hay sucursales registradas</h6>
+                    <p class="text-muted small mb-4 mx-auto" style="max-width: 360px;">
+                        Comienza registrando el primer punto de venta o establecimiento para tu empresa.
+                    </p>
+
+                    <a href="{% url 'empresas:crear_sucursal' %}"
+                       class="btn btn-brand-primary fw-medium px-4 py-2 rounded-3 d-inline-flex align-items-center gap-2">
+                        <i class="bi bi-plus-lg"></i>
+                        <span>Registrar sucursal</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

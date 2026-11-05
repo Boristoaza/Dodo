@@ -2,14 +2,41 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Empresas,Sucursales
 from django.contrib.auth.models import User
+from django.contrib import messages
+@login_required
+
+def empresa_view(request):
+    return render(request,'views/empresa.html')
 
 
-# Create your views here.
-def empresas_view(request):
-    return render(request,'empresa.html')
+def sucursal_view(request):
+    return render(request,'views/sucursal.html')
 
 @login_required
-def registrar_empresa_view(request):
+def crear_sucursal_view(request):
+
+    print(request.user.username)
+    if request.method == 'POST':
+        nombre_sucursal = request.POST.get('nombre_sucursal')
+        telefono = request.POST.get('telefono')
+        ciudad = request.POST.get('ciudad')
+        direccion = request.POST.get('direccion')
+
+        empresa = request.user.empresa
+
+        crear_sucursal = Sucursales.objects.create(
+            empresa=empresa,
+            nombre_sucursal=nombre_sucursal,
+            telefono=telefono,
+            ciudad=ciudad,
+            direccion=direccion,
+        )
+        messages.success(request, 'Sucursal registrada correctamente.')
+
+    return render(request,'forms/crear_sucursal.html')
+
+# @login_required
+# def registrar_empresa_view(request):
     if request.method == 'POST':
 
         # DATOS DEL REPRESENTANTE LEGAL
