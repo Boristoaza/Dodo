@@ -49,3 +49,13 @@ class Sucursales(models.Model):
 
     def __str__(self):
         return f'{self.nombre_sucursal} - {self.empresa.nombre_empresa}'
+
+
+class Empleados(models.Model):
+    nombre_empleado = models.CharField(max_length=100, blank=False, null=False)
+    cargo = models.CharField(max_length=100, blank=False, null=False)  # <-- Se agregó max_length
+    sucursal = models.ForeignKey('Sucursales', on_delete=models.CASCADE, blank=False, null=False) # <-- Es recomendable añadir on_delete
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.nombre_empleado} - {self.cargo}"

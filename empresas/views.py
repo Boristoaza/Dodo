@@ -35,6 +35,26 @@ def crear_sucursal_view(request):
 
     return render(request,'forms/crear_sucursal.html')
 
+def registrar_empleados(request):
+
+    usuario = User.objects.filter(username=request.user).first()
+    empresa = Empresas.objects.filter(usuario=usuario).first()
+    sucursal = Sucursales.objects.filter(empresa=empresa).all()
+
+    print(sucursal)
+
+    if request.method =='POST':
+        nombre_empleado = request.POST.get('nombre_empleado')
+        correo = request.POST.get('correo')
+        password = request.POST.get('password')
+        cargo = request.POST.get('cargo')
+        sucursal = request.POST.get('sucursal')
+
+
+        print(nombre_empleado,correo,password,cargo,sucursal)
+    contexto = {'sucursales':sucursal} 
+    return render(request,'views/registrar_empleados.html',contexto)
+
 # @login_required
 # def registrar_empresa_view(request):
     if request.method == 'POST':
