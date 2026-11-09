@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Empresas,Sucursales
+from .models import Empresas,Sucursales , Empleados
 from django.contrib.auth.models import User
 from django.contrib import messages
 @login_required
@@ -35,6 +35,18 @@ def crear_sucursal_view(request):
 
     return render(request,'forms/crear_sucursal.html')
 
+def listar_empleados(request):
+   empleados = Empleados.objects.select_related('sucursal')
+
+   for empleado in empleados:
+    print(empleado.nombre_empleado)
+    print(empleado.cargo)
+    print(empleado.sucursal)
+
+    print(empleados)
+    contexto = {'empleados':empleados}
+    return render(request,'views/listar_empleados.html',contexto)
+
 def registrar_empleados(request):
 
     usuario = User.objects.filter(username=request.user).first()
@@ -53,7 +65,7 @@ def registrar_empleados(request):
 
         print(nombre_empleado,correo,password,cargo,sucursal)
     contexto = {'sucursales':sucursal} 
-    return render(request,'views/registrar_empleados.html',contexto)
+    return render(request,'modals/registrar_empleados.html',contexto)
 
 # @login_required
 # def registrar_empresa_view(request):

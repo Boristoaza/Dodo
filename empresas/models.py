@@ -57,5 +57,9 @@ class Empleados(models.Model):
     sucursal = models.ForeignKey('Sucursales', on_delete=models.CASCADE, blank=False, null=False) # <-- Es recomendable añadir on_delete
     fecha = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = 'Empleado'
+        verbose_name_plural = 'Empleados'
+
     def __str__(self):
         return f"{self.nombre_empleado} - {self.cargo}"

@@ -1,3 +1,4 @@
+
 {% extends 'master.html' %}
 
 {% block title %}
@@ -6,79 +7,120 @@
 
 {% block content %}
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-5 col-lg-4">
+<div class="container-fluid p-0">
+    <div class="row g-0 min-vh-100">
 
-            <div class="card shadow border-0">
-                <div class="card-header text-center text-white py-4"
-                     style="background-color: #660033;">
+        <!-- LADO IZQUIERDO: LOGIN -->
+        <div class="col-md-6 d-flex align-items-center justify-content-center bg-white p-4">
 
-                    <h2 class="mb-1">Dodo</h2>
-                    <p class="mb-0">Sistema de gestión farmacéutica</p>
+            <div class="w-100" style="max-width: 400px;">
 
+                <div class="mb-5">
+                    <h2 style="color: #660033; font-weight: bold;">Dodo.</h2>
+                    <small class="text-muted">Sistema de gestión farmacéutica</small>
                 </div>
 
-                <div class="card-body p-4">
+                <h3 class="fw-bold mb-2">Bienvenido</h3>
+                <p class="text-muted mb-4">
+                    Ingresa tus credenciales para acceder a tu cuenta.
+                </p>
 
-                    <h4 class="text-center mb-4">Iniciar sesión</h4>
+                {% if error %}
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endif %}
 
-                    {% if error %}
-                        <div class="alert alert-danger">
-                            {{ error }}
-                        </div>
-                    {% endif %}
+                <form action="{% url 'usuarios:login' %}" method="post">
+                    {% csrf_token %}
 
-                    <form action="{% url 'usuarios:login' %}" method="post">
-                        {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="correo" class="form-label fw-semibold">
+                            Correo electrónico
+                        </label>
 
-                        <div class="mb-3">
-                            <label for="correo" class="form-label">
-                                Correo electrónico
-                            </label>
+                        <input type="email"
+                               class="form-control form-control-lg"
+                               id="correo"
+                               name="correo"
+                               placeholder="correo@ejemplo.com"
+                               required>
+                    </div>
 
-                            <input type="email"
-                                   class="form-control"
-                                   id="correo"
-                                   name="correo"
-                                   placeholder="correo@ejemplo.com"
-                                   required>
-                        </div>
+                    <div class="mb-4">
+                        <label for="contrasenia" class="form-label fw-semibold">
+                            Contraseña
+                        </label>
 
-                        <div class="mb-4">
-                            <label for="contrasenia" class="form-label">
-                                Contraseña
-                            </label>
+                        <input type="password"
+                               class="form-control form-control-lg"
+                               id="contrasenia"
+                               name="contrasenia"
+                               placeholder="Ingresa tu contraseña"
+                               required>
+                    </div>
 
-                            <input type="password"
-                                   class="form-control"
-                                   id="contrasenia"
-                                   name="contrasenia"
-                                   placeholder="Ingresa tu contraseña"
-                                   required>
-                        </div>
+                    <button type="submit"
+                            class="btn btn-lg text-white w-100"
+                            style="background-color: #660033;">
+                        Iniciar sesión
+                    </button>
 
-                        <button type="submit"
-                                class="btn text-white w-100"
-                                style="background-color: #660033;">
-                            Iniciar sesión
-                        </button>
+                </form>
 
-                    </form>
-
-                </div>
-
-                <div class="card-footer text-center py-3"
-                     style="background-color: #faf7f5;">
-
+                <div class="text-center mt-5">
                     <small class="text-muted">
-                        Dodo · Sistema de farmacia
+                        © 2026 Dodo · Todos los derechos reservados.
                     </small>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- LADO DERECHO: PRESENTACIÓN DODO -->
+        <div class="col-md-6 d-flex align-items-center justify-content-center text-white p-5"
+             style="background: linear-gradient(145deg, #660033, #320019);">
+
+            <div class="text-center" style="max-width: 500px;">
+
+                <h1 class="display-3 fw-bold mb-3" style="color: #ff9800;">
+                    Dodo.
+                </h1>
+
+                <h3 class="fw-semibold mb-4">
+                    Lleva tu negocio a otro nivel.
+                </h3>
+
+                <p class="fs-5 mb-5" style="color: #ead9e2;">
+                    Gestiona tu farmacia de manera inteligente.
+                    Controla tus productos, inventario, ventas y sucursales
+                    desde una sola plataforma.
+                </p>
+
+                <div class="p-4 rounded-4"
+                     style="background-color: rgba(255,255,255,0.08);">
+
+                    <h5 class="fw-bold mb-2">
+                        Todo tu negocio en un solo lugar.
+                    </h5>
+
+                    <p class="mb-0" style="color: #ead9e2;">
+                        Simplifica tu administración y dedica más tiempo
+                        al crecimiento de tu farmacia.
+                    </p>
 
                 </div>
+
+                <div class="mt-5">
+                    <small style="color: #d9b8c9;">
+                        Dodo. · Sistema farmacéutico
+                    </small>
+                </div>
+
             </div>
 
         </div>
+
     </div>
 </div>
 
