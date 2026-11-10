@@ -1,0 +1,138 @@
+{% extends 'master.html' %}
+
+{% block title %}
+Registrar empleado | Dodo
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <!-- Encabezado -->
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <div class="rounded-circle p-3 d-flex align-items-center justify-content-center"
+            style="width: 52px; height: 52px; background-color: #660033;">
+            <i class="bi bi-person-plus-fill fs-4 text-white"></i>
+        </div>
+        <div>
+            <h4 class="fw-bold mb-1">Registrar empleado</h4>
+            <p class="text-muted mb-0">Completa los datos para dar de alta un nuevo colaborador</p>
+        </div>
+    </div>
+
+    <form action="{% url 'empresas:registrar_empleado' %}" method="post">
+        {% csrf_token %}
+
+        <div class="card border-0 shadow-sm p-4">
+            <div class="row g-3">
+
+                <!-- Nombre completo -->
+                <div class="col-md-12">
+                    <label for="nombre_empleado" class="form-label fw-semibold text-secondary small">
+                        Nombre completo <span style="color: #660033;">*</span>
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-person"></i></span>
+                        <input type="text" name="nombre_empleado" id="nombre_empleado"
+                            class="form-control" placeholder="Ej. Juan Pérez González" required>
+                    </div>
+                </div>
+
+                <!-- Usuario -->
+                <div class="col-md-6">
+                    <label for="username" class="form-label fw-semibold text-secondary small">
+                        Nombre de usuario <span style="color: #660033;">*</span>
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-at"></i></span>
+                        <input type="text" name="username" id="username"
+                            class="form-control" placeholder="juanperez" required>
+                    </div>
+                </div>
+
+                <!-- Correo -->
+                <div class="col-md-6">
+                    <label for="correo" class="form-label fw-semibold text-secondary small">
+                        Correo electrónico <span style="color: #660033;">*</span>
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-envelope"></i></span>
+                        <input type="email" name="correo" id="correo"
+                            class="form-control" placeholder="correo@empresa.com" required>
+                    </div>
+                </div>
+
+                <!-- Contraseña -->
+                <div class="col-md-12">
+                    <label for="password" class="form-label fw-semibold text-secondary small">
+                        Contraseña <span style="color: #660033;">*</span>
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-lock"></i></span>
+                        <input type="password" name="password" id="password"
+                            class="form-control" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <!-- Cargo -->
+                <div class="col-md-6">
+                    <label for="cargo" class="form-label fw-semibold text-secondary small">
+                        Cargo / Puesto <span style="color: #660033;">*</span>
+                    </label>
+                    <select name="cargo" id="cargo" class="form-select" required>
+                        <option value="">Seleccione un cargo</option>
+                        {% for codigo, nombre in cargos %}
+                            <option value="{{ codigo }}">{{ nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Salario -->
+                <div class="col-md-6">
+                    <label for="salario" class="form-label fw-semibold text-secondary small">
+                        Salario <span style="color: #660033;">*</span>
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white fw-bold">$</span>
+                        <input type="number" step="0.01" min="0" name="salario" id="salario"
+                            class="form-control" placeholder="0.00" required>
+                    </div>
+                </div>
+
+                <!-- Sucursal -->
+                <div class="col-md-12">
+                    <label for="sucursal" class="form-label fw-semibold text-secondary small">
+                        Sucursal asignada <span style="color: #660033;">*</span>
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-geo-alt"></i></span>
+                        <select name="sucursal" id="sucursal" class="form-select" required>
+                            <option value="" disabled selected>Seleccione una sucursal</option>
+                            {% for sucursal in sucursales %}
+                                <option value="{{ sucursal.id }}">{{ sucursal.nombre_sucursal }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="d-flex justify-content-end gap-2 mt-4">
+            <a href="" class="btn btn-light border px-4">
+                Cancelar
+            </a>
+
+            <button type="submit" class="btn text-white px-4 fw-bold"
+                style="background-color: #660033;">
+                <i class="bi bi-person-check-fill me-1"></i>
+                Registrar empleado
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

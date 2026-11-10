@@ -52,9 +52,11 @@ class Sucursales(models.Model):
 
 
 class Empleados(models.Model):
+    empresa = models.ForeignKey(Empresas,on_delete=models.CASCADE,null=True,blank=True)
     nombre_empleado = models.CharField(max_length=100, blank=False, null=False)
-    cargo = models.CharField(max_length=100, blank=False, null=False)  # <-- Se agregó max_length
-    sucursal = models.ForeignKey('Sucursales', on_delete=models.CASCADE, blank=False, null=False) # <-- Es recomendable añadir on_delete
+    cargo = models.CharField(max_length=100, blank=False, null=False)  
+    sucursal = models.ForeignKey('Sucursales', on_delete=models.CASCADE, blank=False, null=False) 
+    salario = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     fecha = models.DateTimeField(auto_now_add=True)
 
     class Meta:

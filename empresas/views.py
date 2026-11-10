@@ -1,14 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import Empresas,Sucursales , Empleados
-from django.contrib.auth.models import User
+from usuarios.models import Cargos_laborales
+from django.contrib.auth.models import User 
 from django.contrib import messages
-@login_required
 
+@login_required
 def empresa_view(request):
     return render(request,'views/empresa.html')
 
-
+@login_required
 def sucursal_view(request):
     return render(request,'views/sucursal.html')
 
@@ -35,37 +36,63 @@ def crear_sucursal_view(request):
 
     return render(request,'forms/crear_sucursal.html')
 
+@login_required
 def listar_empleados(request):
-   empleados = Empleados.objects.select_related('sucursal')
-
-   for empleado in empleados:
-    print(empleado.nombre_empleado)
-    print(empleado.cargo)
-    print(empleado.sucursal)
-
-    print(empleados)
-    contexto = {'empleados':empleados}
-    return render(request,'views/listar_empleados.html',contexto)
-
-def registrar_empleados(request):
+    cargos_laborales = Cargos_laborales.Cargos.choices
 
     usuario = User.objects.filter(username=request.user).first()
     empresa = Empresas.objects.filter(usuario=usuario).first()
     sucursal = Sucursales.objects.filter(empresa=empresa).all()
+    empleados = Empleados.objects.select_related('sucursal')
 
-    print(sucursal)
+    contexto = {'empleados':empleados,'sucursales':sucursal, 'cargos': cargos_laborales,}
+    return render(request,'views/listar_empleados.html',contexto)
 
-    if request.method =='POST':
+@login_required
+def registrar_empleados(request):
+
+    empresa = Empresas.objects.get(usuario=request.user)
+
+    cargos_laborales = Cargos_laborales.Cargos.choices
+
+    sucursales = Sucursales.objects.filter(empresa=empresa)
+
+    contexto = {
+        'cargos': cargos_laborales,
+        'sucursales': sucursales,
+    }
+
+
+
+    if request.method == 'POST':
+
         nombre_empleado = request.POST.get('nombre_empleado')
         correo = request.POST.get('correo')
         password = request.POST.get('password')
         cargo = request.POST.get('cargo')
         sucursal = request.POST.get('sucursal')
+        salario = request.POST.get('salario')
+        username = request.POST.get('username')
 
+        if User.objects.filter(username=username).exists():
+            print('El usuario ya existe')
 
-        print(nombre_empleado,correo,password,cargo,sucursal)
-    contexto = {'sucursales':sucursal} 
-    return render(request,'modals/registrar_empleados.html',contexto)
+        else:
+            crear_empleado = User.objects.create_user(
+                username=username,
+                email=correo,
+                password=password
+            )
+
+            Empleados.objects.create(
+                empresa=empresa,
+                nombre_empleado=nombre_empleado,
+                cargo=cargo,
+                sucursal_id=sucursal,
+                salario=salario
+            )
+
+    return render(request, 'forms/registrar_empleados.html',contexto)
 
 # @login_required
 # def registrar_empresa_view(request):
