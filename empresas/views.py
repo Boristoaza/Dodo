@@ -51,6 +51,8 @@ def listar_empleados(request):
 @login_required
 def registrar_empleados(request):
 
+    
+
     empresa = Empresas.objects.get(usuario=request.user)
 
     cargos_laborales = Cargos_laborales.Cargos.choices

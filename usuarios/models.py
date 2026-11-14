@@ -24,11 +24,16 @@ class Roles(models.Model):
         }
 
 
-def rol_empleado():
-    return Roles.objects.get(
-        roles_in_dodo=Roles.Roles_dodo.EMPLEADO
-    ).pk
+# def rol_empleado():
+#     return Roles.objects.get(
+#         roles_in_dodo=Roles.Roles_dodo.EMPLEADO
+#     ).pk
 
+def rol_empleado():
+    rol, creado = Roles.objects.get_or_create(
+        roles_in_dodo=Roles.Roles_dodo.EMPLEADO
+    )
+    return rol.pk
 
 class Usuarios_roles(models.Model):
    usuario = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -63,3 +68,9 @@ class Cargos_laborales(models.Model):
 
     def __str__(self):
         return self.get_cargo_display()
+
+
+class Usuario_cargo_permiso(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    cargo = models.ForeignKey(Cargos_laborales, on_delete=models.CASCADE, blank=True, null=True)
+    permisos = models.ForeignKey(Roles, on_delete=models.CASCADE, default=rol_empleado)

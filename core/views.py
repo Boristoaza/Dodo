@@ -4,8 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import logout
+# from usuarios.models import Cargos_laborales , Roles , Usuarios_roles
 
 def main_view(request):
+
      if not request.user.is_authenticated:
         return redirect('usuarios:login')
      return render(request, 'main.html')
@@ -64,3 +66,4 @@ def registrar_cliente(request):
 def logout_view(request):
     logout(request)
     return redirect('login.html')
+
