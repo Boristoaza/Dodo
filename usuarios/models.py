@@ -1,6 +1,5 @@
 
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
 
@@ -26,14 +25,62 @@ class Cargo_laborales(models.Model):
         choices=Cargos.choices,
         default=Cargos.CAJERO
     )
+    class Meta:
+        verbose_name = 'Cargo_laboral'
+        verbose_name_plural = 'Cargo_laboreles'
 
-    def is_upperclass(self):
-        return self.cargo_laboral in {
-            self.Cargos.GERENTE,
-            self.Cargos.ADMINISTRADOR,
-            self.Cargos.SUPERVISOR,
-        }
+    def __str__(self):
+        return self.get_cargo_laboral_display()
 
-# class Permisos(models.Models):
-#     class Permiso (models.TextChoices):
-        
+
+class Modulos(models.Model):
+    nombre = models.CharField(max_length=100)
+    codigo = models.CharField(max_length=50, unique=True)
+    descripcion = models.TextField(blank=True)
+    estado = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = 'Modulo'
+        verbose_name_plural = 'Modulos'
+
+    def __str__(self):
+        return self.nombre
+
+
+class Permisos(models.Model):
+
+    class Acciones(models.TextChoices):
+        CONSULTAR = "view", _("Consultar")
+        CREAR = "add", _("Crear")
+        EDITAR = "change", _("Editar")
+        ELIMINAR = "delete", _("Eliminar")
+        APROBAR = "approve", _("Aprobar")
+        ANULAR = "cancel", _("Anular")
+        EXPORTAR = "export", _("Exportar")
+
+    modulo = models.ForeignKey(
+        Modulos,
+        on_delete=models.PROTECT,
+        related_name="permisos"
+    )
+
+    nombre = models.CharField(max_length=100)
+    codigo = models.CharField(max_length=100, unique=True)
+    accion = models.CharField(
+        max_length=10,
+        choices=Acciones.choices
+    )
+
+    class Meta:
+        verbose_name = 'Permiso'
+        verbose_name_plural = 'Permisos'
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=["modulo", "accion"],
+                name="unique_permiso_modulo_accion"
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.modulo.nombre} - {self.nombre}"
