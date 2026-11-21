@@ -12,6 +12,437 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
 
 </head>
+<style>
+    /* ==========================================================================
+   DODO ERP - Hoja de Estilo Corporativa Centralizada (SAP Fiori / Horizon)
+   ========================================================================== */
+
+:root {
+    /* Superficies y estructura */
+    --erp-shell-bg: #1D2D3E;
+    --erp-shell-border: #2B3F54;
+    --erp-shell-hover: #2A4158;
+    --erp-shell-active: #152230;
+
+    --erp-app-bg: #F5F6F7;
+    --erp-surface: #FFFFFF;
+    --erp-surface-subtle: #F8F9FA;
+    --erp-hover-bg: #EFF2F5;
+
+    /* Bordes */
+    --erp-border: #D9DEE3;
+    --erp-border-strong: #B8C2CC;
+    --erp-input-border: #CBD5E1;
+
+    /* Tipografía */
+    --erp-text-primary: #111827;
+    --erp-text-secondary: #4B5563;
+    --erp-text-muted: #6B7280;
+    --erp-text-shell: #F8FAFC;
+    --erp-text-shell-muted: #CBD5E1;
+    --erp-text-footer-muted: #94A3B8;
+
+    /* Acciones y acentos */
+    --erp-primary: #0A6ED1;
+    --erp-primary-hover: #0854A0;
+    --erp-primary-soft: #4DA3FF;
+    --erp-primary-tint: rgba(10, 110, 209, 0.08);
+
+    /* Semántica operativa (Farmacia / ERP) */
+    --erp-success-text: #107E3E;
+    --erp-success-bg: #EBF5F0;
+    --erp-success-border: #B7DFC9;
+
+    --erp-warning-text: #B95000;
+    --erp-warning-bg: #FEF7E6;
+    --erp-warning-border: #F8D38D;
+
+    --erp-danger-text: #BB0000;
+    --erp-danger-bg: #FDECEC;
+    --erp-danger-border: #F5B7B7;
+
+    /* Geometría */
+    --erp-radius-sm: 3px;
+    --erp-radius: 4px;
+}
+
+/* Base global */
+html,
+body {
+    background-color: var(--erp-app-bg);
+    color: var(--erp-text-primary);
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.erp-tabular {
+    font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------------------
+   Shell Bar (Navbar superior) y Footer unificados
+   -------------------------------------------------------------------------- */
+.dodo-shell-bar {
+    background-color: var(--erp-shell-bg);
+    border-bottom: 1px solid var(--erp-shell-border);
+    height: 48px;
+    min-height: 48px;
+}
+
+.dodo-brand {
+    color: var(--erp-text-shell);
+    letter-spacing: 0.04em;
+    font-size: 0.95rem;
+}
+
+.dodo-brand-mark {
+    font-weight: 700;
+    color: var(--erp-text-shell);
+}
+
+.dodo-brand-sub {
+    font-weight: 600;
+    font-size: 0.6875rem;
+    color: var(--erp-primary-soft);
+    border: 1px solid rgba(77, 163, 255, 0.35);
+    background-color: rgba(10, 110, 209, 0.18);
+    padding: 1px 5px;
+    border-radius: var(--erp-radius-sm);
+    letter-spacing: 0.06em;
+}
+
+.dodo-shell-divider {
+    width: 1px;
+    height: 22px;
+    background-color: var(--erp-shell-border);
+}
+
+.dodo-shell-btn {
+    color: var(--erp-text-shell-muted);
+    height: 34px;
+    min-width: 34px;
+    padding: 0 8px;
+    border-radius: var(--erp-radius);
+    border: 1px solid transparent;
+    font-size: 1rem;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.dodo-shell-btn:hover,
+.dodo-shell-btn:focus-visible {
+    background-color: var(--erp-shell-hover);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--erp-text-shell);
+}
+
+.dodo-shell-btn:active {
+    background-color: var(--erp-shell-active);
+}
+
+.dodo-user-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--erp-text-shell);
+    font-variant-numeric: tabular-nums;
+}
+
+.dodo-accent-icon {
+    color: var(--erp-primary-soft);
+}
+
+.dodo-footer {
+    background-color: var(--erp-shell-bg);
+    border-top: 1px solid var(--erp-shell-border);
+    color: var(--erp-text-shell);
+}
+
+.dodo-footer-brand {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--erp-text-shell);
+}
+
+.dodo-footer-badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--erp-primary-soft);
+    background-color: rgba(10, 110, 209, 0.18);
+    border: 1px solid rgba(77, 163, 255, 0.35);
+    padding: 1px 5px;
+    border-radius: var(--erp-radius-sm);
+}
+
+.dodo-footer-copy,
+.dodo-footer-version,
+.dodo-footer-sep,
+.dodo-footer-meta {
+    font-size: 0.75rem;
+    color: var(--erp-text-footer-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.dodo-footer-link {
+    color: var(--erp-text-shell-muted);
+    font-weight: 500;
+    transition: color 0.15s ease;
+}
+
+.dodo-footer-link:hover,
+.dodo-footer-link:focus-visible {
+    color: var(--erp-text-shell);
+    text-decoration: underline !important;
+    text-underline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   Cabecera Obligatoria de Vista + Botón "Volver"
+   -------------------------------------------------------------------------- */
+.dodo-page-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-bottom: 0.875rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--erp-border);
+}
+
+.dodo-page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.dodo-header-sep {
+    width: 1px;
+    height: 28px;
+    background-color: var(--erp-border);
+}
+
+.dodo-page-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--erp-text-primary);
+    letter-spacing: -0.01em;
+    margin: 0;
+}
+
+.dodo-page-subtitle {
+    font-size: 0.8125rem;
+    color: var(--erp-text-muted);
+    margin: 0;
+}
+
+/* Botón Volver estandarizado (obligatorio en pantallas operativas/secundarias) */
+.dodo-btn-back {
+    background-color: var(--erp-surface);
+    border: 1px solid var(--erp-input-border);
+    color: var(--erp-text-secondary);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    border-radius: var(--erp-radius);
+    padding: 0.4rem 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    text-decoration: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.dodo-btn-back:hover,
+.dodo-btn-back:focus-visible {
+    background-color: var(--erp-hover-bg);
+    border-color: #94A3B8;
+    color: var(--erp-text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Botones Corporativos
+   -------------------------------------------------------------------------- */
+.dodo-btn-primary {
+    background-color: var(--erp-primary);
+    border: 1px solid var(--erp-primary);
+    color: #FFFFFF;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border-radius: var(--erp-radius);
+    padding: 0.42rem 0.85rem;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.dodo-btn-primary:hover,
+.dodo-btn-primary:focus-visible {
+    background-color: var(--erp-primary-hover);
+    border-color: var(--erp-primary-hover);
+    color: #FFFFFF;
+}
+
+.dodo-btn-secondary {
+    background-color: var(--erp-surface);
+    border: 1px solid var(--erp-input-border);
+    color: var(--erp-text-primary);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    border-radius: var(--erp-radius);
+    padding: 0.4rem 0.75rem;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.dodo-btn-secondary:hover,
+.dodo-btn-secondary:focus-visible {
+    background-color: var(--erp-hover-bg);
+    border-color: #94A3B8;
+    color: var(--erp-text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Paneles, KPIs, Formularios y Tablas
+   -------------------------------------------------------------------------- */
+.dodo-panel,
+.dodo-card {
+    background-color: var(--erp-surface);
+    border: 1px solid var(--erp-border);
+    border-radius: var(--erp-radius);
+}
+
+.dodo-kpi-card {
+    background-color: var(--erp-surface);
+    border: 1px solid var(--erp-border);
+    border-top: 3px solid var(--erp-shell-bg);
+    border-radius: var(--erp-radius);
+}
+
+.dodo-kpi-card--accent {
+    border-top-color: var(--erp-primary);
+}
+
+.dodo-kpi-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--erp-text-muted);
+}
+
+.dodo-kpi-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--erp-text-primary);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+}
+
+.dodo-kpi-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--erp-radius);
+    background-color: var(--erp-surface-subtle);
+    border: 1px solid var(--erp-border);
+    color: var(--erp-text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+/* Inputs y selects compactos */
+.form-control,
+.form-select {
+    background-color: var(--erp-surface);
+    border: 1px solid var(--erp-input-border);
+    border-radius: var(--erp-radius);
+    color: var(--erp-text-primary);
+    font-size: 0.8125rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--erp-primary);
+    box-shadow: 0 0 0 2px rgba(10, 110, 209, 0.15);
+}
+
+.form-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--erp-text-secondary);
+    margin-bottom: 0.3rem;
+}
+
+/* Tablas de alta densidad */
+.dodo-table {
+    margin-bottom: 0;
+    font-size: 0.8125rem;
+}
+
+.dodo-table thead th {
+    background-color: var(--erp-surface-subtle);
+    color: var(--erp-text-secondary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid var(--erp-border);
+    padding: 0.55rem 0.75rem;
+    white-space: nowrap;
+}
+
+.dodo-table tbody td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid #E5E7EB;
+    color: var(--erp-text-primary);
+    vertical-align: middle;
+}
+
+.dodo-table tbody tr:hover {
+    background-color: var(--erp-hover-bg);
+}
+
+.dodo-num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Badges semánticos */
+.dodo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--erp-radius-sm);
+    border: 1px solid transparent;
+}
+
+.dodo-badge--success {
+    color: var(--erp-success-text);
+    background-color: var(--erp-success-bg);
+    border-color: var(--erp-success-border);
+}
+
+.dodo-badge--warning {
+    color: var(--erp-warning-text);
+    background-color: var(--erp-warning-bg);
+    border-color: var(--erp-warning-border);
+}
+
+.dodo-badge--danger {
+    color: var(--erp-danger-text);
+    background-color: var(--erp-danger-bg);
+    border-color: var(--erp-danger-border);
+}
+
+/* Bloque informativo / auditoría */
+.dodo-info-box {
+    background-color: var(--erp-surface-subtle);
+    border: 1px solid var(--erp-border);
+    border-left: 3px solid var(--erp-shell-bg);
+    border-radius: var(--erp-radius);
+}
+</style>
 
 <body class="min-vh-100 d-flex flex-column">
 
