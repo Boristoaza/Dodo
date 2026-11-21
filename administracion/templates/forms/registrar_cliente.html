@@ -1,27 +1,135 @@
-
 {% extends 'master.html' %}
 
-
 {% block content %}
+
+
+<div class="container-fluid py-4" style="background-color:rgb(236, 228, 228);">
+
+    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+        <div>
+            <h4 class="mb-1 fw-semibold">Registro de clientes</h4>
+            <small class="text-secondary">Administración / Clientes / Nuevo cliente</small>
+        </div>
+        <span class="badge rounded-0 text-bg-light border px-3 py-2">
+            NUEVO REGISTRO
+        </span>
+    </div>
+
     <form action="{% url 'administracion:crear_cliente' %}" method="post">
         {% csrf_token %}
-        <input type="text" name="nombre_empresa" placeholder="Nombre empres">
-        <br>
-        <input type="text" name="ruc" placeholder="ruc">
-        <br>
-        <input type="email" name="correo_empresa" placeholder="Correo empresa">
-        <br>
-        <input type="text" name="telefono_empresa" placeholder="Telefono empresa:">
-        <br>
-        <input type="text" name="ciudad" placeholder="ciudad:">
-        <br>
-        <input type="text" name="direccion" placeholder="direccion">
-        <br>
-        <input type="text" name="actividad" placeholder="actividad:">
 
+        <div class="card border-0 shadow-sm mb-4">
 
-        <button type="submit">crear cliente</button>
+            <div class="card-header bg-white py-3 border-bottom">
+                <h6 class="mb-0 fw-semibold">01. Información del usuario</h6>
+            </div>
+
+            <div class="card-body p-4">
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Nombre de usuario</label>
+                        <input type="text" name="username" class="form-control rounded-0"
+                            placeholder="Nombre de usuario">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Correo electrónico</label>
+                        <input type="text" name="correo_usuario" class="form-control rounded-0"
+                            placeholder="Correo del usuario">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Nombres</label>
+                        <input type="text" name="nombre" class="form-control rounded-0" placeholder="Nombres">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Apellidos</label>
+                        <input type="text" name="apellidos" class="form-control rounded-0" placeholder="Apellidos">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Contraseña</label>
+                        <input type="password" name="contrasenia" class="form-control rounded-0"
+                            placeholder="Contraseña">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Rol del usuario</label>
+                        <select name="rol" class="form-select rounded-0">
+                            <option value="empresario">Empresario</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm mb-4">
+
+            <div class="card-header bg-white py-3 border-bottom">
+                <h6 class="mb-0 fw-semibold">02. Información de la empresa</h6>
+            </div>
+
+            <div class="card-body p-4">
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Nombre de la empresa</label>
+                        <input type="text" name="nombre_empresa" class="form-control rounded-0"
+                            placeholder="Nombre de la empresa">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">RUC</label>
+                        <input type="text" name="ruc" class="form-control rounded-0" placeholder="Número de RUC">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Correo empresarial</label>
+                        <input type="email" name="correo_empresa" class="form-control rounded-0"
+                            placeholder="Correo de la empresa">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Teléfono</label>
+                        <input type="text" name="telefono_empresa" class="form-control rounded-0"
+                            placeholder="Teléfono empresarial">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Ciudad</label>
+                        <input type="text" name="ciudad" class="form-control rounded-0" placeholder="Ciudad">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Dirección</label>
+                        <input type="text" name="direccion" class="form-control rounded-0" placeholder="Dirección">
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label small fw-semibold">Actividad económica</label>
+                        <input type="text" name="actividad" class="form-control rounded-0"
+                            placeholder="Actividad de la empresa">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2 mb-4">
+            <button type="reset" class="btn btn-light border rounded-0 px-4">
+                Limpiar
+            </button>
+
+            <button type="submit" class="btn rounded-0 px-4 text-white" style="background-color: #0070b1;">
+                Crear cliente
+            </button>
+        </div>
 
     </form>
-{% endblock  %}
-    
+</div>
+
+{% endblock %}
