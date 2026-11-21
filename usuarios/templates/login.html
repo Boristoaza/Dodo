@@ -1,120 +1,132 @@
-
 {% extends 'master.html' %}
+{% load static %}
+
 
 {% block title %}
-    Iniciar sesión | Dodo
+Iniciar sesión | Dodo ERP
 {% endblock %}
-
 {% block content %}
 
 <div class="container-fluid p-0">
     <div class="row g-0 min-vh-100">
 
-        <!-- LADO IZQUIERDO: LOGIN -->
-        <div class="col-md-6 d-flex align-items-center justify-content-center bg-white p-4">
+        <!-- LADO IZQUIERDO: FORMULARIO DE ACCESO -->
+        <div class="col-lg-6 d-flex align-items-center justify-content-center p-4 p-md-5"
+            style="background-color: var(--erp-surface);">
 
             <div class="w-100" style="max-width: 400px;">
 
-                <div class="mb-5">
-                    <h2 style="color: #660033; font-weight: bold;">Dodo.</h2>
-                    <small class="text-muted">Sistema de gestión farmacéutica</small>
+                <div class="d-flex align-items-center gap-2 mb-4">
+                    <span class="dodo-brand-mark fs-4" style="color: var(--erp-shell-bg);">DODO</span>
+                    <span class="dodo-brand-sub">ERP FARMACIA</span>
                 </div>
 
-                <h3 class="fw-bold mb-2">Bienvenido</h3>
-                <p class="text-muted mb-4">
-                    Ingresa tus credenciales para acceder a tu cuenta.
+                <h1 class="h4 fw-semibold mb-1" style="color: var(--erp-text-primary);">
+                    Iniciar sesión
+                </h1>
+                <p class="mb-4" style="color: var(--erp-text-muted); font-size: 0.875rem;">
+                    Ingresa tus credenciales para acceder al panel operativo.
                 </p>
 
                 {% if error %}
-                    <div class="alert alert-danger">
-                        {{ error }}
-                    </div>
+                <div class="dodo-badge dodo-badge--danger w-100 justify-content-start py-2 px-3 mb-3" role="alert">
+                    {{ error }}
+                </div>
                 {% endif %}
 
-                <form action="{% url 'usuarios:login' %}" method="post">
+                <form action="{% url 'usuarios:login' %}" method="post" novalidate>
                     {% csrf_token %}
 
                     <div class="mb-3">
-                        <label for="correo" class="form-label fw-semibold">
+                        <label for="correo" class="form-label">
                             Correo electrónico
                         </label>
-
-                        <input type="email"
-                               class="form-control form-control-lg"
-                               id="correo"
-                               name="correo"
-                               placeholder="correo@ejemplo.com"
-                               required>
+                        <input type="email" class="form-control" id="correo" name="correo"
+                            placeholder="nombre@farmacia.com" autocomplete="username" required>
                     </div>
 
                     <div class="mb-4">
-                        <label for="contrasenia" class="form-label fw-semibold">
+                        <label for="contrasenia" class="form-label">
                             Contraseña
                         </label>
-
-                        <input type="password"
-                               class="form-control form-control-lg"
-                               id="contrasenia"
-                               name="contrasenia"
-                               placeholder="Ingresa tu contraseña"
-                               required>
+                        <input type="password" class="form-control" id="contrasenia" name="contrasenia"
+                            placeholder="Ingresa tu contraseña" autocomplete="current-password" required>
                     </div>
 
-                    <button type="submit"
-                            class="btn btn-lg text-white w-100"
-                            style="background-color: #660033;">
-                        Iniciar sesión
+                    <button type="submit" class="btn dodo-btn-primary w-100 py-2">
+                        Acceder al sistema
                     </button>
 
                 </form>
 
-                <div class="text-center mt-5">
-                    <small class="text-muted">
-                        © 2026 Dodo · Todos los derechos reservados.
+                <div class="dodo-info-box p-3 mt-4">
+                    <div class="fw-semibold" style="color: var(--erp-text-primary); font-size: 0.75rem;">
+                        Control centralizado de sucursales
+                    </div>
+                    <div class="mt-1" style="color: var(--erp-text-secondary); font-size: 0.75rem;">
+                        Inventario, lotes, vencimientos y punto de venta en tiempo real.
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <small class="erp-tabular" style="color: var(--erp-text-muted); font-size: 0.75rem;">
+                        © 2026 Dodo ERP · Todos los derechos reservados.
                     </small>
                 </div>
 
             </div>
         </div>
 
-        <!-- LADO DERECHO: PRESENTACIÓN DODO -->
-        <div class="col-md-6 d-flex align-items-center justify-content-center text-white p-5"
-             style="background: linear-gradient(145deg, #660033, #320019);">
+        <!-- LADO DERECHO: PRESENTACIÓN E IMAGEN DE FARMACIA -->
+        <div class="col-lg-6 d-flex align-items-center justify-content-center p-4 p-md-5"
+            style="background-color: var(--erp-shell-bg); border-left: 1px solid var(--erp-shell-border);">
 
-            <div class="text-center" style="max-width: 500px;">
+            <div class="w-100 text-white" style="max-width: 520px;">
 
-                <h1 class="display-3 fw-bold mb-3" style="color: #ff9800;">
-                    Dodo.
-                </h1>
+                <div class="overflow-hidden mb-4"
+                    style="border-radius: var(--erp-radius); border: 1px solid var(--erp-shell-border); max-height: 270px;">
 
-                <h3 class="fw-semibold mb-4">
-                    Lleva tu negocio a otro nivel.
-                </h3>
-
-                <p class="fs-5 mb-5" style="color: #ead9e2;">
-                    Gestiona tu farmacia de manera inteligente.
-                    Controla tus productos, inventario, ventas y sucursales
-                    desde una sola plataforma.
-                </p>
-
-                <div class="p-4 rounded-4"
-                     style="background-color: rgba(255,255,255,0.08);">
-
-                    <h5 class="fw-bold mb-2">
-                        Todo tu negocio en un solo lugar.
-                    </h5>
-
-                    <p class="mb-0" style="color: #ead9e2;">
-                        Simplifica tu administración y dedica más tiempo
-                        al crecimiento de tu farmacia.
-                    </p>
+                    <img src="/media/login/images.jpeg" alt="Farmacia" class="w-100 h-100 d-block"
+                        style="object-fit: cover;">
 
                 </div>
 
-                <div class="mt-5">
-                    <small style="color: #d9b8c9;">
-                        Dodo. · Sistema farmacéutico
-                    </small>
+                <span class="dodo-brand-sub d-inline-block mb-3">
+                    GESTIÓN FARMACÉUTICA INTEGRAL
+                </span>
+
+                <h2 class="h3 fw-semibold mb-2" style="color: var(--erp-text-shell);">
+                    Operación precisa en cada mostrador y sucursal
+                </h2>
+
+                <p class="mb-4" style="color: var(--erp-text-shell-muted); font-size: 0.875rem;">
+                    Centraliza el catálogo de medicamentos, control de stock, facturación y reportes
+                    diarios bajo una interfaz clara y de respuesta rápida.
+                </p>
+
+                <div class="row g-2">
+                    <div class="col-sm-6">
+                        <div class="p-3 h-100"
+                            style="background-color: var(--erp-shell-hover); border: 1px solid var(--erp-shell-border); border-radius: var(--erp-radius);">
+                            <div class="fw-semibold mb-1" style="color: var(--erp-text-shell); font-size: 0.8125rem;">
+                                Inventario y lotes
+                            </div>
+                            <div style="color: var(--erp-text-shell-muted); font-size: 0.75rem;">
+                                Trazabilidad de existencias y alertas operativas por sucursal.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-3 h-100"
+                            style="background-color: var(--erp-shell-hover); border: 1px solid var(--erp-shell-border); border-radius: var(--erp-radius);">
+                            <div class="fw-semibold mb-1" style="color: var(--erp-text-shell); font-size: 0.8125rem;">
+                                Caja y ventas
+                            </div>
+                            <div style="color: var(--erp-text-shell-muted); font-size: 0.75rem;">
+                                Flujo ágil en mostrador con registro auditable de operaciones.
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>

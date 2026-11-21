@@ -84,3 +84,13 @@ class Permisos(models.Model):
 
     def __str__(self):
         return f"{self.modulo.nombre} - {self.nombre}"
+
+
+class Roles(models.TextChoices):
+    SUPERUSUARIO = 'SUP', 'Superusuario'
+    ADMIN_EMPRESA = 'ADM', 'Administrador de empresa'
+    EMPLEADO = 'EMP', 'Empleado'
+
+    class Meta:
+        verbose_name = 'rol'
+        verbose_name_plural = 'Roles'
