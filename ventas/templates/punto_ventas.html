@@ -290,17 +290,19 @@ Punto de Venta | Dodo
                  data-price="{{ producto.precio_venta }}">
 
                 <div class="product-image">
-                    <i class="bi bi-capsule"></i>
+                    <i class="bi bi-capsule">
+                        <img src="/dodo/media/productos/paracetamol.jpeg" alt="">
+                    </i>
                 </div>
 
                 <div class="product-info">
 
                     <div class="product-name">
-                        {{ producto.nombre_prodcuto }}
+                        {{ producto.nombre_producto }}
                     </div>
 
                     <div class="product-price">
-                        ${{ producto.precio_venta|floatformat:2 }}
+                        ${{ producto.pastillas_por_caja|floatformat:2 }}
                     </div>
 
                     <small class="text-muted">

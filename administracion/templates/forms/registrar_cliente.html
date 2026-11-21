@@ -1,0 +1,27 @@
+
+{% extends 'master.html' %}
+
+
+{% block content %}
+    <form action="{% url 'administracion:crear_cliente' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="nombre_empresa" placeholder="Nombre empres">
+        <br>
+        <input type="text" name="ruc" placeholder="ruc">
+        <br>
+        <input type="email" name="correo_empresa" placeholder="Correo empresa">
+        <br>
+        <input type="text" name="telefono_empresa" placeholder="Telefono empresa:">
+        <br>
+        <input type="text" name="ciudad" placeholder="ciudad:">
+        <br>
+        <input type="text" name="direccion" placeholder="direccion">
+        <br>
+        <input type="text" name="actividad" placeholder="actividad:">
+
+
+        <button type="submit">crear cliente</button>
+
+    </form>
+{% endblock  %}
+    
