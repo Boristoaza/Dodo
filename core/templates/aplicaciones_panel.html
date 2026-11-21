@@ -1,76 +1,154 @@
-<!-- Estilos inspirados en Odoo: tarjetas limpias con borde de acento lateral -->
+<!-- Estilos corporativos estilo SAP Fiori Launchpad -->
 <style>
-    .odoo-app-card {
-        background-color: #ffffff;
-        border: 1px solid #e2e8f0 !important;
-        border-left: 4px solid #660033 !important;
-        /* Acento lateral característico de Odoo */
-        transition: all 0.2s ease-in-out;
+    :root {
+        --erp-app-bg: #F5F6F7;
+        --erp-surface: #FFFFFF;
+        --erp-surface-subtle: #F8F9FA;
+        --erp-hover-bg: #EFF2F5;
+        --erp-border: #D9DEE3;
+        --erp-input-border: #CBD5E1;
+        --erp-text-primary: #111827;
+        --erp-text-secondary: #4B5563;
+        --erp-text-muted: #6B7280;
+        --erp-primary: #0A6ED1;
+        --erp-primary-hover: #0854A0;
+        --erp-primary-tint: rgba(10, 110, 209, 0.08);
     }
 
-    .odoo-app-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 .5rem 1rem rgba(102, 0, 51, 0.08) !important;
-        border-color: #cbd5e1 !important;
-        border-left-color: #ff9800 !important;
-        /* Cambia a naranja al hacer hover */
+    body {
+        background-color: var(--erp-app-bg);
     }
 
-    .odoo-icon-box {
-        width: 48px;
-        height: 48px;
-        background-color: rgba(102, 0, 51, 0.06);
-        color: #660033;
+    .dodo-launchpad-header {
+        border-bottom: 1px solid var(--erp-border);
+    }
+
+    .dodo-launchpad-title {
+        color: var(--erp-text-primary);
+        font-size: 1.25rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+    }
+
+    .dodo-launchpad-subtitle {
+        color: var(--erp-text-muted);
+        font-size: 0.8125rem;
+    }
+
+    /* Buscador sobrio estilo ERP */
+    .dodo-search-group .input-group-text,
+    .dodo-search-group .form-control {
+        background-color: var(--erp-surface);
+        border-color: var(--erp-input-border);
+        font-size: 0.8125rem;
+        color: var(--erp-text-primary);
+        border-radius: 4px;
+    }
+
+    .dodo-search-group .form-control:focus {
+        border-color: var(--erp-primary);
+        box-shadow: 0 0 0 2px rgba(10, 110, 209, 0.15);
+    }
+
+    /* Tarjeta de módulo estilo SAP Tile */
+    .dodo-app-card {
+        background-color: var(--erp-surface);
+        border: 1px solid var(--erp-border) !important;
+        border-left: 3px solid var(--erp-primary) !important;
+        border-radius: 4px !important;
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .dodo-app-card:hover {
+        background-color: var(--erp-surface-subtle);
+        border-color: #B8C2CC !important;
+        border-left-color: var(--erp-primary-hover) !important;
+    }
+
+    .dodo-icon-box {
+        width: 42px;
+        height: 42px;
+        background-color: var(--erp-primary-tint);
+        color: var(--erp-primary);
+        border: 1px solid rgba(10, 110, 209, 0.16);
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 8px;
-        transition: all 0.2s ease;
+        border-radius: 4px;
+        font-size: 1.15rem;
+        transition: background-color 0.15s ease, color 0.15s ease;
     }
 
-    .odoo-app-card:hover .odoo-icon-box {
-        background-color: rgba(255, 152, 0, 0.12);
-        color: #ff9800;
+    .dodo-app-card:hover .dodo-icon-box {
+        background-color: var(--erp-primary);
+        color: #FFFFFF;
+    }
+
+    .dodo-card-title {
+        color: var(--erp-text-primary);
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+
+    .dodo-card-desc {
+        color: var(--erp-text-secondary);
+        font-size: 0.75rem;
+    }
+
+    /* Variante discreta para módulos administrativos/sistema */
+    .dodo-app-card--admin {
+        border-left-color: #1D2D3E !important;
+    }
+
+    .dodo-app-card--admin .dodo-icon-box {
+        background-color: rgba(29, 45, 62, 0.08);
+        color: #1D2D3E;
+        border-color: rgba(29, 45, 62, 0.16);
+    }
+
+    .dodo-app-card--admin:hover .dodo-icon-box {
+        background-color: #1D2D3E;
+        color: #FFFFFF;
     }
 </style>
 
-<div class="container py-5">
-    <!-- Cabecera de la vista al estilo Odoo Dashboard -->
-    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4 pb-3 border-bottom">
+<div class="container py-4">
+    <!-- Cabecera de la vista -->
+    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4 pb-3 dodo-launchpad-header">
         <div>
-            <h2 class="fw-bold mb-1" style="color: #660033;">
+            <h2 class="dodo-launchpad-title mb-1">
                 Aplicaciones
             </h2>
-            <p class="text-muted mb-0">
+            <p class="dodo-launchpad-subtitle mb-0">
                 Sistema de gestión farmacéutica Dodo
             </p>
         </div>
-        <!-- Opcional: Buscador rápido típico de Odoo -->
-        <div class="mt-3 mt-md-0" style="width: 250px;">
-            <div class="input-group input-group-sm">
-                <span class="input-group-text bg-white border-end-0" style="border-color: #e2e8f0;">
+
+        <!-- Buscador rápido -->
+        <div class="mt-3 mt-md-0" style="width: 260px;">
+            <div class="input-group input-group-sm dodo-search-group">
+                <span class="input-group-text border-end-0">
                     <i class="bi bi-search text-muted"></i>
                 </span>
-                <input type="text" class="form-control border-start-0 ps-0 shadow-none" placeholder="Buscar app..."
-                    style="border-color: #e2e8f0;">
+                <input type="text" id="dodoAppFilter" class="form-control border-start-0 ps-0" placeholder="Filtrar módulo...">
             </div>
         </div>
     </div>
 
     <!-- Cuadrícula de aplicaciones -->
-    <div class="row g-3">
+    <div class="row g-3" id="dodoAppGrid">
 
         <!-- Productos -->
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 dodo-app-item">
             <a href="{% url 'productos:productos' %}" class="text-decoration-none">
-                <div class="card odoo-app-card rounded-2 shadow-sm h-100 p-3">
+                <div class="card dodo-app-card h-100 p-3">
                     <div class="d-flex align-items-center">
-                        <div class="odoo-icon-box fs-4 me-3 flex-shrink-0">
+                        <div class="dodo-icon-box me-3 flex-shrink-0">
                             <i class="bi bi-box-seam"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1 text-dark">Productos</h6>
-                            <p class="text-muted small mb-0">Catálogo y precios</p>
+                            <h6 class="dodo-card-title mb-1">Productos</h6>
+                            <p class="dodo-card-desc mb-0">Catálogo y precios</p>
                         </div>
                     </div>
                 </div>
@@ -78,16 +156,16 @@
         </div>
 
         <!-- Inventario -->
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 dodo-app-item">
             <a href="{% url 'inventario:inventario' %}" class="text-decoration-none">
-                <div class="card odoo-app-card rounded-2 shadow-sm h-100 p-3">
+                <div class="card dodo-app-card h-100 p-3">
                     <div class="d-flex align-items-center">
-                        <div class="odoo-icon-box fs-4 me-3 flex-shrink-0">
+                        <div class="dodo-icon-box me-3 flex-shrink-0">
                             <i class="bi bi-boxes"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1 text-dark">Inventario</h6>
-                            <p class="text-muted small mb-0">Stock y almacenes</p>
+                            <h6 class="dodo-card-title mb-1">Inventario</h6>
+                            <p class="dodo-card-desc mb-0">Stock, lotes y almacenes</p>
                         </div>
                     </div>
                 </div>
@@ -95,16 +173,16 @@
         </div>
 
         <!-- Proveedores -->
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 dodo-app-item">
             <a href="{% url 'proveedores:proveedores' %}" class="text-decoration-none">
-                <div class="card odoo-app-card rounded-2 shadow-sm h-100 p-3">
+                <div class="card dodo-app-card h-100 p-3">
                     <div class="d-flex align-items-center">
-                        <div class="odoo-icon-box fs-4 me-3 flex-shrink-0">
+                        <div class="dodo-icon-box me-3 flex-shrink-0">
                             <i class="bi bi-truck"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1 text-dark">Proveedores</h6>
-                            <p class="text-muted small mb-0">Gestión de laboratorios</p>
+                            <h6 class="dodo-card-title mb-1">Proveedores</h6>
+                            <p class="dodo-card-desc mb-0">Gestión de laboratorios</p>
                         </div>
                     </div>
                 </div>
@@ -112,16 +190,16 @@
         </div>
 
         <!-- Compras -->
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 dodo-app-item">
             <a href="{% url 'compras:compras' %}" class="text-decoration-none">
-                <div class="card odoo-app-card rounded-2 shadow-sm h-100 p-3">
+                <div class="card dodo-app-card h-100 p-3">
                     <div class="d-flex align-items-center">
-                        <div class="odoo-icon-box fs-4 me-3 flex-shrink-0">
+                        <div class="dodo-icon-box me-3 flex-shrink-0">
                             <i class="bi bi-cart-plus"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1 text-dark">Compras</h6>
-                            <p class="text-muted small mb-0">Órdenes de compra</p>
+                            <h6 class="dodo-card-title mb-1">Compras</h6>
+                            <p class="dodo-card-desc mb-0">Órdenes de compra</p>
                         </div>
                     </div>
                 </div>
@@ -129,88 +207,91 @@
         </div>
 
         <!-- Ventas -->
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 dodo-app-item">
             <a href="{% url 'ventas:punto_venta' %}" class="text-decoration-none">
-                <div class="card odoo-app-card rounded-2 shadow-sm h-100 p-3">
+                <div class="card dodo-app-card h-100 p-3">
                     <div class="d-flex align-items-center">
-                        <div class="odoo-icon-box fs-4 me-3 flex-shrink-0">
+                        <div class="dodo-icon-box me-3 flex-shrink-0">
                             <i class="bi bi-cart-check"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1 text-dark">Ventas</h6>
-                            <p class="text-muted small mb-0">Facturación y POS</p>
+                            <h6 class="dodo-card-title mb-1">Ventas</h6>
+                            <p class="dodo-card-desc mb-0">Facturación y POS</p>
                         </div>
                     </div>
                 </div>
             </a>
         </div>
 
-        <!-- Usuarios -->
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <a href="" class="text-decoration-none">
-                <div class="card odoo-app-card rounded-2 shadow-sm h-100 p-3">
-                    <div class="d-flex align-items-center">
-                        <div class="odoo-icon-box fs-4 me-3 flex-shrink-0">
-                            <i class="bi bi-people"></i>
-                        </div>
-                        <div>
-                            <h6 class="fw-bold mb-1 text-dark">Clientes de Dodo</h6>
-                            <p class="text-muted small mb-0">Accesos y permisos</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <a href="{% url 'empresas:empresa' %}" class="text-decoration-none">
-                <div class="card odoo-app-card rounded-2 shadow-sm h-100 p-3">
-                    <div class="d-flex align-items-center">
-                        <div class="odoo-icon-box fs-4 me-3 flex-shrink-0">
-                            <i class="bi bi-building"></i>
-                        </div>
-                        <div>
-                            <h6 class="fw-bold mb-1 text-dark">Mi Empresa</h6>
-                            <p class="text-muted small mb-0">Empresa y sucursales</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
         <!-- Facturación -->
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 dodo-app-item">
             <a href="{% url 'facturacion:facturacion' %}" class="text-decoration-none">
-                <div class="card odoo-app-card rounded-2 shadow-sm h-100 p-3">
+                <div class="card dodo-app-card h-100 p-3">
                     <div class="d-flex align-items-center">
-                        <div class="odoo-icon-box fs-4 me-3 flex-shrink-0">
+                        <div class="dodo-icon-box me-3 flex-shrink-0">
                             <i class="bi bi-receipt"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1 text-dark">Facturación</h6>
-                            <p class="text-muted small mb-0">Comprobantes electrónicos y SRI</p>
+                            <h6 class="dodo-card-title mb-1">Facturación</h6>
+                            <p class="dodo-card-desc mb-0">Comprobantes electrónicos y SRI</p>
                         </div>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            {% if request.user.is_superuser %}
 
-            <a href="{% url 'administracion:administracion' %}" class="text-decoration-none">
-                <div class="card odoo-app-card rounded-2 shadow-sm h-100 p-3">
+        <!-- Mi Empresa -->
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 dodo-app-item">
+            <a href="{% url 'empresas:empresa' %}" class="text-decoration-none">
+                <div class="card dodo-app-card h-100 p-3">
                     <div class="d-flex align-items-center">
-                        <div class="odoo-icon-box fs-4 me-3 flex-shrink-0">
+                        <div class="dodo-icon-box me-3 flex-shrink-0">
+                            <i class="bi bi-building"></i>
+                        </div>
+                        <div>
+                            <h6 class="dodo-card-title mb-1">Mi Empresa</h6>
+                            <p class="dodo-card-desc mb-0">Empresa y sucursales</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Usuarios / Clientes -->
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 dodo-app-item">
+            <a href="" class="text-decoration-none">
+                <div class="card dodo-app-card h-100 p-3">
+                    <div class="d-flex align-items-center">
+                        <div class="dodo-icon-box me-3 flex-shrink-0">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <div>
+                            <h6 class="dodo-card-title mb-1">Clientes de Dodo</h6>
+                            <p class="dodo-card-desc mb-0">Accesos y permisos</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Administración (Solo Superusuario) -->
+        {% if request.user.is_superuser %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 dodo-app-item">
+            <a href="{% url 'administracion:administracion' %}" class="text-decoration-none">
+                <div class="card dodo-app-card dodo-app-card--admin h-100 p-3">
+                    <div class="d-flex align-items-center">
+                        <div class="dodo-icon-box me-3 flex-shrink-0">
                             <i class="bi bi-shield-lock"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1 text-dark">Administración</h6>
-                            <p class="text-muted small mb-0">Gestión general de Dodo</p>
+                            <h6 class="dodo-card-title mb-1">Administración</h6>
+                            <p class="dodo-card-desc mb-0">Gestión general de Dodo</p>
                         </div>
                     </div>
                 </div>
             </a>
-            {% endif %}
         </div>
+        {% endif %}
 
     </div>
-
 </div>

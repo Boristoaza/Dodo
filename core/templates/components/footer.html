@@ -1,8 +1,7 @@
-<footer class="text-white py-4 mt-auto border-top border-opacity-10" style="background-color: #55002a; border-color: #ff9800 !important;">
+<!-- <footer class="text-white py-4 mt-auto border-top border-opacity-10" style="background-color: #55002a; border-color: #ff9800 !important;">
     <div class="container px-4">
         <div class="row align-items-center gy-3">
             
-            <!-- Columna Izquierda: Logo y Copyright -->
             <div class="col-md-6 text-center text-md-start">
                 <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-2 mb-1">
                     <i class="bi bi-capsule fs-6" style="color: #ff9800;"></i>
@@ -13,7 +12,6 @@
                 </p>
             </div>
 
-            <!-- Columna Derecha: Enlaces o Versión -->
             <div class="col-md-6 text-center text-md-end">
                 <ul class="list-inline mb-0 small">
                     <li class="list-inline-item">
@@ -30,7 +28,6 @@
     </div>
 </footer>
 
-<!-- Estilos rápidos para el Footer -->
 <style>
     .footer-link {
         transition: color 0.2s ease;
@@ -40,7 +37,102 @@
     }
 </style>
 
-<!-- Script pequeño para poner el año actual automáticamente -->
+<script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+</script> -->
+
+<footer class="dodo-footer mt-auto py-3">
+    <div class="container-fluid px-4">
+        <div class="row align-items-center gy-2">
+
+            <!-- Columna Izquierda: Marca y Copyright -->
+            <div class="col-md-6 text-center text-md-start">
+                <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-2 mb-1">
+                    <span class="dodo-footer-brand">DODO PHARMA SYSTEM</span>
+                    <span class="dodo-footer-badge">ERP</span>
+                </div>
+                <p class="dodo-footer-copy mb-0">
+                    &copy; <span id="current-year"></span> Dodo. Todos los derechos reservados.
+                </p>
+            </div>
+
+            <!-- Columna Derecha: Navegación y Versión -->
+            <div class="col-md-6 text-center text-md-end">
+                <ul class="list-inline mb-0 dodo-footer-meta">
+                    <li class="list-inline-item">
+                        <a href="{% url 'core:aplicaiones' %}" class="text-decoration-none dodo-footer-link">Inicio</a>
+                    </li>
+                    <li class="list-inline-item dodo-footer-sep px-1">&bull;</li>
+                    <li class="list-inline-item">
+                        <span class="dodo-footer-version">Versión 1.0</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</footer>
+
+<style>
+    :root {
+        --erp-footer-bg: #1D2D3E;
+        --erp-footer-border: #2B3F54;
+        --erp-text-footer: #F8FAFC;
+        --erp-text-footer-muted: #94A3B8;
+        --erp-text-footer-link: #CBD5E1;
+        --erp-primary-soft: #4DA3FF;
+    }
+
+    .dodo-footer {
+        background-color: var(--erp-footer-bg);
+        border-top: 1px solid var(--erp-footer-border);
+        color: var(--erp-text-footer);
+    }
+
+    .dodo-footer-brand {
+        font-size: 0.8125rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: var(--erp-text-footer);
+    }
+
+    .dodo-footer-badge {
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        color: var(--erp-primary-soft);
+        background-color: rgba(10, 110, 209, 0.18);
+        border: 1px solid rgba(77, 163, 255, 0.35);
+        padding: 1px 5px;
+        border-radius: 3px;
+    }
+
+    .dodo-footer-copy,
+    .dodo-footer-version,
+    .dodo-footer-sep {
+        font-size: 0.75rem;
+        color: var(--erp-text-footer-muted);
+        font-variant-numeric: tabular-nums;
+    }
+
+    .dodo-footer-meta {
+        font-size: 0.75rem;
+    }
+
+    .dodo-footer-link {
+        color: var(--erp-text-footer-link);
+        font-weight: 500;
+        transition: color 0.15s ease;
+    }
+
+    .dodo-footer-link:hover,
+    .dodo-footer-link:focus-visible {
+        color: var(--erp-text-footer);
+        text-decoration: underline !important;
+        text-underline-offset: 3px;
+    }
+</style>
+
 <script>
     document.getElementById('current-year').textContent = new Date().getFullYear();
 </script>

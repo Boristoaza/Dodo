@@ -1,21 +1,15 @@
-<nav class="navbar navbar-dark shadow-sm" style="background-color: #660033;">
+<!-- <nav class="navbar navbar-dark shadow-sm" style="background-color: #660033;">
     <div class="container-fluid px-4 py-1">
 
-        <!-- Logo -->
         <a class="navbar-brand fw-bold d-flex align-items-center gap-2"
            href="{% url 'core:aplicaiones' %}">
 
-            <!-- <div class="d-inline-flex align-items-center justify-content-center rounded-2 bg-white bg-opacity-10 p-1">
-                <i class="bi bi-capsule fs-5" style="color: #ff9800;"></i>
-            </div> -->
-
+   
             <span class="tracking-wide">Dodo.</span>
         </a>
 
-        <!-- Iconos -->
         <div class="d-flex align-items-center gap-2">
 
-            <!-- Aplicaciones -->
             <a href="{% url 'core:aplicaiones' %}"
                class="navbar-icon-btn text-white text-decoration-none p-2 rounded-2 d-flex align-items-center justify-content-center"
                aria-label="Aplicaciones"
@@ -30,7 +24,6 @@
 
                 {% if user.is_superuser %}
 
-                    <!-- Perfil del superusuario -->
                     <a href="{% url 'usuarios:perfil' %}"
                        class="navbar-icon-btn text-white text-decoration-none p-2 rounded-2 d-flex align-items-center justify-content-center"
                        aria-label="Superusuario"
@@ -41,7 +34,6 @@
 
                 {% else %}
 
-                    <!-- Perfil del usuario normal -->
                     <a href="{% url 'usuarios:perfil' %}"
                        class="navbar-icon-btn text-white text-decoration-none p-2 rounded-2 d-flex align-items-center justify-content-center"
                        aria-label="Usuario"
@@ -68,5 +60,146 @@
         background-color: rgba(255, 255, 255, 0.1);
         transform: translateY(-1px);
         color: #ff9800 !important;
+    }
+</style> -->
+
+<nav class="navbar navbar-dark dodo-shell-bar p-0">
+    <div class="container-fluid px-3 h-100 d-flex align-items-center justify-content-between">
+
+        <!-- Logo -->
+        <a class="navbar-brand dodo-brand d-flex align-items-center gap-2 m-0 py-0 text-decoration-none"
+           href="{% url 'core:aplicaiones' %}">
+            <span class="dodo-brand-mark">Dodo.</span>
+            <span class="dodo-brand-sub">ERP</span>
+        </a>
+
+        <!-- Iconos y Contexto -->
+        <div class="d-flex align-items-center gap-1 h-100">
+
+            <!-- Aplicaciones (Launchpad / Módulos) -->
+            <a href="{% url 'core:aplicaiones' %}"
+               class="dodo-shell-btn d-flex align-items-center justify-content-center text-decoration-none"
+               aria-label="Aplicaciones"
+               title="Aplicaciones">
+                <i class="bi bi-grid-3x3-gap"></i>
+            </a>
+
+            {% if user.is_authenticated %}
+
+                <div class="dodo-shell-divider mx-1"></div>
+
+                {% if user.is_superuser %}
+
+                    <!-- Perfil del superusuario -->
+                    <a href="{% url 'usuarios:perfil' %}"
+                       class="dodo-shell-btn dodo-shell-user d-flex align-items-center gap-2 text-decoration-none"
+                       aria-label="Superusuario"
+                       title="Mi perfil (Superusuario)">
+                        <i class="bi bi-shield-check dodo-accent-icon"></i>
+                        <span class="d-none d-md-inline dodo-user-label">{{ user.get_username }}</span>
+                    </a>
+
+                {% else %}
+
+                    <!-- Perfil del usuario normal -->
+                    <a href="{% url 'usuarios:perfil' %}"
+                       class="dodo-shell-btn dodo-shell-user d-flex align-items-center gap-2 text-decoration-none"
+                       aria-label="Usuario"
+                       title="Mi perfil">
+                        <i class="bi bi-person-circle"></i>
+                        <span class="d-none d-md-inline dodo-user-label">{{ user.get_username }}</span>
+                    </a>
+
+                {% endif %}
+
+            {% endif %}
+
+        </div>
+
+    </div>
+</nav>
+
+<style>
+    :root {
+        --erp-shell-bg: #1D2D3E;
+        --erp-shell-border: #2B3F54;
+        --erp-shell-hover: #2A4158;
+        --erp-shell-active-bg: #152230;
+        --erp-text-shell: #F8FAFC;
+        --erp-text-shell-muted: #CBD5E1;
+        --erp-primary: #0A6ED1;
+        --erp-primary-soft: #4DA3FF;
+    }
+
+    .dodo-shell-bar {
+        background-color: var(--erp-shell-bg);
+        border-bottom: 1px solid var(--erp-shell-border);
+        height: 48px;
+        min-height: 48px;
+    }
+
+    .dodo-brand {
+        color: var(--erp-text-shell);
+        letter-spacing: 0.04em;
+        font-size: 0.95rem;
+    }
+
+    .dodo-brand-mark {
+        font-weight: 700;
+        color: var(--erp-text-shell);
+    }
+
+    .dodo-brand-sub {
+        font-weight: 600;
+        font-size: 0.7rem;
+        color: var(--erp-primary-soft);
+        border: 1px solid rgba(77, 163, 255, 0.35);
+        background-color: rgba(10, 110, 209, 0.18);
+        padding: 1px 5px;
+        border-radius: 3px;
+        letter-spacing: 0.06em;
+    }
+
+    .dodo-shell-divider {
+        width: 1px;
+        height: 22px;
+        background-color: var(--erp-shell-border);
+    }
+
+    .dodo-shell-btn {
+        color: var(--erp-text-shell-muted);
+        height: 34px;
+        min-width: 34px;
+        padding: 0 8px;
+        border-radius: 4px;
+        border: 1px solid transparent;
+        font-size: 1rem;
+        transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .dodo-shell-btn:hover,
+    .dodo-shell-btn:focus-visible {
+        background-color: var(--erp-shell-hover);
+        border-color: rgba(255, 255, 255, 0.12);
+        color: var(--erp-text-shell);
+    }
+
+    .dodo-shell-btn:active {
+        background-color: var(--erp-shell-active-bg);
+    }
+
+    .dodo-shell-user {
+        padding: 0 10px;
+    }
+
+    .dodo-user-label {
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: var(--erp-text-shell);
+        font-variant-numeric: tabular-nums;
+    }
+
+    .dodo-accent-icon {
+        color: var(--erp-primary-soft);
     }
 </style>
