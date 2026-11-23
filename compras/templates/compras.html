@@ -1,264 +1,92 @@
-
 {% extends 'master.html' %}
 
 {% block title %}
+
 Compras | Dodo
+
 {% endblock %}
 
 {% block content %}
 
-<style>
-    :root {
-        --dodo-primary: #660033;
-        --dodo-secondary: #ff9800;
-        --dodo-background: #faf7f5;
-    }
+<div class="container-fluid px-4 py-3">
 
-    .compras-container {
-        background: var(--dodo-background);
-        min-height: calc(100vh - 80px);
-        padding: 25px;
-    }
+    <!-- ENCABEZADO OBLIGATORIO CON BOTÓN VOLVER -->
 
-    .page-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 15px;
-        margin-bottom: 25px;
-    }
+    <div class="dodo-page-header">
 
-    .page-title {
-        color: var(--dodo-primary);
-        font-weight: 700;
-    }
+        <div class="dodo-page-header-left">
 
-    .btn-dodo {
-        background: var(--dodo-primary);
-        color: white;
-        border: none;
-        border-radius: 7px;
-        padding: 10px 17px;
-    }
+            <a href="{% url 'core:aplicaiones' %}"
+               class="dodo-btn-back"
+               title="Volver a Aplicaciones"
+               aria-label="Volver a Aplicaciones">
 
-    .btn-dodo:hover {
-        background: #800040;
-        color: white;
-    }
+                <i class="bi bi-arrow-left"></i>
+                <span>Volver</span>
 
-    .btn-orange {
-        background: var(--dodo-secondary);
-        color: white;
-        border: none;
-        border-radius: 7px;
-        padding: 10px 17px;
-    }
+            </a>
 
-    .btn-orange:hover {
-        background: #e68900;
-        color: white;
-    }
+            <div class="dodo-header-sep d-none d-sm-block"></div>
 
-    .stat-card {
-        background: white;
-        border: 1px solid #eee;
-        border-radius: 10px;
-        padding: 18px;
-        height: 100%;
-    }
+            <div>
 
-    .stat-icon {
-        width: 43px;
-        height: 43px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 9px;
-        background: #f5eaf0;
-        color: var(--dodo-primary);
-        font-size: 20px;
-    }
+                <h1 class="dodo-page-title">Compras</h1>
 
-    .stat-number {
-        font-size: 25px;
-        font-weight: 700;
-        color: #292929;
-    }
+                <p class="dodo-page-subtitle">
+                    Gestión de compras, abastecimiento y recepción de mercancía
+                </p>
 
-    .stat-label {
-        font-size: 13px;
-        color: #888;
-    }
-
-    .section-card {
-        background: white;
-        border: 1px solid #eee;
-        border-radius: 10px;
-        overflow: hidden;
-        height: 100%;
-    }
-
-    .section-header {
-        padding: 17px;
-        border-bottom: 1px solid #eee;
-    }
-
-    .shortcut-card {
-        background: white;
-        border: 1px solid #eee;
-        border-radius: 10px;
-        padding: 18px;
-        height: 100%;
-        transition: .15s;
-        text-decoration: none;
-        display: block;
-        color: inherit;
-    }
-
-    .shortcut-card:hover {
-        border-color: var(--dodo-primary);
-        background: #fdf9fb;
-        color: inherit;
-    }
-
-    .shortcut-icon {
-        width: 45px;
-        height: 45px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 9px;
-        background: #f5eaf0;
-        color: var(--dodo-primary);
-        font-size: 21px;
-        margin-bottom: 13px;
-    }
-
-    .shortcut-title {
-        font-weight: 700;
-        font-size: 14px;
-        margin-bottom: 5px;
-    }
-
-    .shortcut-description {
-        color: #888;
-        font-size: 12px;
-        margin-bottom: 0;
-    }
-
-    .table thead th {
-        background: #faf7f5;
-        color: #666;
-        font-size: 12px;
-        text-transform: uppercase;
-        padding: 14px;
-        white-space: nowrap;
-    }
-
-    .table tbody td {
-        padding: 14px;
-        vertical-align: middle;
-        font-size: 13px;
-    }
-
-    .status {
-        padding: 5px 10px;
-        border-radius: 20px;
-        font-size: 11px;
-    }
-
-    .status-pending {
-        background: #fff3df;
-        color: #b87500;
-    }
-
-    .status-completed {
-        background: #e6f5ec;
-        color: #198754;
-    }
-
-    .status-received {
-        background: #e8efff;
-        color: #315eae;
-    }
-
-    .amount {
-        color: var(--dodo-primary);
-        font-weight: 700;
-    }
-
-    .action-btn {
-        width: 32px;
-        height: 32px;
-        border: 1px solid #eee;
-        background: white;
-        border-radius: 6px;
-        color: #666;
-    }
-
-    .action-btn:hover {
-        color: var(--dodo-primary);
-        border-color: var(--dodo-primary);
-    }
-
-    @media(max-width: 768px) {
-        .compras-container {
-            padding: 15px;
-        }
-    }
-</style>
-
-
-<div class="compras-container">
-
-    <!-- ENCABEZADO -->
-
-    <div class="page-header">
-
-        <div>
-
-            <h4 class="page-title mb-1">
-                <i class="bi bi-cart-check me-2"></i>
-                Compras
-            </h4>
-
-            <small class="text-muted">
-                Gestión de compras y abastecimiento
-            </small>
+            </div>
 
         </div>
 
-        <a href="#" class="btn btn-dodo">
+        <div class="d-flex align-items-center gap-2">
 
-            <i class="bi bi-plus-lg me-2"></i>
-            Nueva compra
+            <a href="#" class="btn dodo-btn-primary">
 
-        </a>
+                <i class="bi bi-plus-lg me-1"></i>
+                Nueva compra
+
+            </a>
+
+        </div>
 
     </div>
 
 
-    <!-- ESTADÍSTICAS -->
+    <!-- INDICADORES KPI -->
 
     <div class="row g-3 mb-4">
 
-        <div class="col-md-3 col-sm-6">
+        <!-- TOTAL DE COMPRAS -->
 
-            <div class="stat-card">
+        <div class="col-12 col-sm-6 col-xl-3">
 
-                <div class="d-flex justify-content-between align-items-center">
+            <div class="card dodo-kpi-card dodo-kpi-card--accent h-100">
 
-                    <div>
-                        <div class="stat-label">Total de compras</div>
+                <div class="card-body p-3">
 
-                        <div class="stat-number">
-                            {{ total_compras|default:"0" }}
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <div class="dodo-kpi-label mb-1">
+                                Total de compras
+                            </div>
+
+                            <div class="dodo-kpi-value">
+                                {{ total_compras|default:0 }}
+                            </div>
+
                         </div>
-                    </div>
 
-                    <div class="stat-icon">
-                        <i class="bi bi-receipt"></i>
+                        <div class="dodo-kpi-icon"
+                             style="color: var(--erp-primary);">
+
+                            <i class="bi bi-receipt"></i>
+
+                        </div>
+
                     </div>
 
                 </div>
@@ -268,75 +96,236 @@ Compras | Dodo
         </div>
 
 
-        <div class="col-md-3 col-sm-6">
+        <!-- COMPRAS PENDIENTES -->
 
-            <div class="stat-card">
+        <div class="col-12 col-sm-6 col-xl-3">
 
-                <div class="d-flex justify-content-between align-items-center">
+            <div class="card dodo-kpi-card h-100"
+                 style="border-top-color: var(--erp-warning-text);">
 
-                    <div>
-                        <div class="stat-label">Compras pendientes</div>
+                <div class="card-body p-3">
 
-                        <div class="stat-number">
-                            {{ compras_pendientes|default:"0" }}
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <div class="dodo-kpi-label mb-1">
+                                Compras pendientes
+                            </div>
+
+                            <div class="dodo-kpi-value"
+                                 style="color: var(--erp-warning-text);">
+
+                                {{ compras_pendientes|default:0 }}
+
+                            </div>
+
                         </div>
+
+                        <div class="dodo-kpi-icon"
+                             style="background-color: var(--erp-warning-bg);
+                                    border-color: var(--erp-warning-border);
+                                    color: var(--erp-warning-text);">
+
+                            <i class="bi bi-clock-history"></i>
+
+                        </div>
+
                     </div>
 
-                    <div class="stat-icon">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MERCANCÍA RECIBIDA -->
+
+        <div class="col-12 col-sm-6 col-xl-3">
+
+            <div class="card dodo-kpi-card h-100"
+                 style="border-top-color: var(--erp-success-text);">
+
+                <div class="card-body p-3">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <div class="dodo-kpi-label mb-1">
+                                Mercancía recibida
+                            </div>
+
+                            <div class="dodo-kpi-value"
+                                 style="color: var(--erp-success-text);">
+
+                                {{ compras_recibidas|default:0 }}
+
+                            </div>
+
+                        </div>
+
+                        <div class="dodo-kpi-icon"
+                             style="background-color: var(--erp-success-bg);
+                                    border-color: var(--erp-success-border);
+                                    color: var(--erp-success-text);">
+
+                            <i class="bi bi-box-seam"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CUENTAS POR PAGAR -->
+
+        <div class="col-12 col-sm-6 col-xl-3">
+
+            <div class="card dodo-kpi-card h-100"
+                 style="border-top-color: var(--erp-danger-text);">
+
+                <div class="card-body p-3">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <div class="dodo-kpi-label mb-1">
+                                Cuentas por pagar
+                            </div>
+
+                            <div class="dodo-kpi-value"
+                                 style="color: var(--erp-danger-text);">
+
+                                ${{ cuentas_por_pagar|default:"0.00" }}
+
+                            </div>
+
+                        </div>
+
+                        <div class="dodo-kpi-icon"
+                             style="background-color: var(--erp-danger-bg);
+                                    border-color: var(--erp-danger-border);
+                                    color: var(--erp-danger-text);">
+
+                            <i class="bi bi-cash-stack"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESUMEN OPERATIVO -->
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-12 col-md-6">
+
+            <div class="dodo-panel p-3 h-100 d-flex align-items-center justify-content-between">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <div class="dodo-kpi-icon flex-shrink-0"
+                         style="background-color: var(--erp-warning-bg);
+                                border-color: var(--erp-warning-border);
+                                color: var(--erp-warning-text);">
+
                         <i class="bi bi-clock-history"></i>
+
+                    </div>
+
+                    <div>
+
+                        <div class="fw-semibold"
+                             style="font-size: 0.875rem;
+                                    color: var(--erp-text-primary);">
+
+                            Compras pendientes
+
+                        </div>
+
+                        <div style="font-size: 0.8125rem;
+                                    color: var(--erp-text-secondary);">
+
+                            <span class="fw-semibold erp-tabular">
+                                {{ compras_pendientes|default:0 }}
+                            </span>
+
+                            operaciones pendientes de completar.
+
+                        </div>
+
                     </div>
 
                 </div>
+
+                <span class="dodo-badge dodo-badge--warning">
+                    Pendientes
+                </span>
 
             </div>
 
         </div>
 
 
-        <div class="col-md-3 col-sm-6">
+        <div class="col-12 col-md-6">
 
-            <div class="stat-card">
+            <div class="dodo-panel p-3 h-100 d-flex align-items-center justify-content-between">
 
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
 
-                    <div>
-                        <div class="stat-label">Mercancía recibida</div>
+                    <div class="dodo-kpi-icon flex-shrink-0"
+                         style="background-color: var(--erp-success-bg);
+                                border-color: var(--erp-success-border);
+                                color: var(--erp-success-text);">
 
-                        <div class="stat-number">
-                            {{ compras_recibidas|default:"0" }}
-                        </div>
-                    </div>
-
-                    <div class="stat-icon">
                         <i class="bi bi-box-seam"></i>
+
                     </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="col-md-3 col-sm-6">
-
-            <div class="stat-card">
-
-                <div class="d-flex justify-content-between align-items-center">
 
                     <div>
-                        <div class="stat-label">Cuentas por pagar</div>
 
-                        <div class="stat-number">
-                            ${{ cuentas_por_pagar|default:"0.00" }}
+                        <div class="fw-semibold"
+                             style="font-size: 0.875rem;
+                                    color: var(--erp-text-primary);">
+
+                            Mercancía recibida
+
                         </div>
-                    </div>
 
-                    <div class="stat-icon">
-                        <i class="bi bi-cash-stack"></i>
+                        <div style="font-size: 0.8125rem;
+                                    color: var(--erp-text-secondary);">
+
+                            <span class="fw-semibold erp-tabular">
+                                {{ compras_recibidas|default:0 }}
+                            </span>
+
+                            registros de mercancía recibida.
+
+                        </div>
+
                     </div>
 
                 </div>
+
+                <span class="dodo-badge dodo-badge--success">
+                    Recibidas
+                </span>
 
             </div>
 
@@ -347,94 +336,168 @@ Compras | Dodo
 
     <!-- ACCESOS DIRECTOS -->
 
-    <div class="mb-4">
+    <div class="dodo-panel mb-4">
 
-        <h6 class="fw-bold mb-3">
-            Operaciones de compras
-        </h6>
+        <div class="px-3 py-2 d-flex align-items-center justify-content-between"
+             style="background-color: var(--erp-surface-subtle);
+                    border-bottom: 1px solid var(--erp-border);">
 
-        <div class="row g-3">
+            <h2 class="mb-0 fw-semibold"
+                style="font-size: 0.875rem;
+                       color: var(--erp-text-primary);">
 
-            <div class="col-md-3 col-sm-6">
+                Operaciones de compras
 
-                <a href="#" class="shortcut-card">
+            </h2>
 
-                    <div class="shortcut-icon">
-                        <i class="bi bi-cart-plus"></i>
-                    </div>
+            <span class="text-muted"
+                  style="font-size: 0.75rem;">
 
-                    <div class="shortcut-title">
-                        Nueva compra
-                    </div>
+                Accesos directos
 
-                    <p class="shortcut-description">
-                        Registrar productos adquiridos a proveedores.
-                    </p>
+            </span>
 
-                </a>
-
-            </div>
+        </div>
 
 
-            <div class="col-md-3 col-sm-6">
+        <div class="p-3">
 
-                <a href="#" class="shortcut-card">
+            <div class="row g-3">
 
-                    <div class="shortcut-icon">
-                        <i class="bi bi-clipboard2-check"></i>
-                    </div>
+                <!-- NUEVA COMPRA -->
 
-                    <div class="shortcut-title">
-                        Recepción de mercancía
-                    </div>
+                <div class="col-12 col-sm-6 col-xl-3">
 
-                    <p class="shortcut-description">
-                        Registrar y verificar productos recibidos.
-                    </p>
+                    <a href="#"
+                       class="dodo-panel p-3 h-100 d-block text-decoration-none">
 
-                </a>
+                        <div class="dodo-kpi-icon mb-3">
 
-            </div>
+                            <i class="bi bi-cart-plus"></i>
 
+                        </div>
 
-            <div class="col-md-3 col-sm-6">
+                        <div class="fw-semibold mb-1"
+                             style="font-size: 0.875rem;
+                                    color: var(--erp-text-primary);">
 
-                <a href="#" class="shortcut-card">
+                            Nueva compra
 
-                    <div class="shortcut-icon">
-                        <i class="bi bi-receipt"></i>
-                    </div>
+                        </div>
 
-                    <div class="shortcut-title">
-                        Historial de compras
-                    </div>
+                        <p class="mb-0"
+                           style="font-size: 0.75rem;
+                                  color: var(--erp-text-secondary);">
 
-                    <p class="shortcut-description">
-                        Consultar las compras realizadas.
-                    </p>
+                            Registrar productos adquiridos a proveedores.
 
-                </a>
+                        </p>
 
-            </div>
+                    </a>
+
+                </div>
 
 
-            <div class="col-md-3 col-sm-6">
+                <!-- RECEPCIÓN DE MERCANCÍA -->
 
-                <a href="#" class="shortcut-card">
+                <div class="col-12 col-sm-6 col-xl-3">
 
-                    <div class="shortcut-icon">
-                        <i class="bi bi-wallet2"></i>
-                    </div>
+                    <a href="#"
+                       class="dodo-panel p-3 h-100 d-block text-decoration-none">
 
-                    <div class="shortcut-title">
-                        Cuentas por pagar
-                    </div>
+                        <div class="dodo-kpi-icon mb-3">
 
-                    <p class="shortcut-description">
-                        Controlar facturas y pagos pendientes.
-                    </p>
+                            <i class="bi bi-clipboard2-check"></i>
 
-                </a>
+                        </div>
+
+                        <div class="fw-semibold mb-1"
+                             style="font-size: 0.875rem;
+                                    color: var(--erp-text-primary);">
+
+                            Recepción de mercancía
+
+                        </div>
+
+                        <p class="mb-0"
+                           style="font-size: 0.75rem;
+                                  color: var(--erp-text-secondary);">
+
+                            Registrar y verificar productos recibidos.
+
+                        </p>
+
+                    </a>
+
+                </div>
+
+
+                <!-- HISTORIAL DE COMPRAS -->
+
+                <div class="col-12 col-sm-6 col-xl-3">
+
+                    <a href="#"
+                       class="dodo-panel p-3 h-100 d-block text-decoration-none">
+
+                        <div class="dodo-kpi-icon mb-3">
+
+                            <i class="bi bi-receipt"></i>
+
+                        </div>
+
+                        <div class="fw-semibold mb-1"
+                             style="font-size: 0.875rem;
+                                    color: var(--erp-text-primary);">
+
+                            Historial de compras
+
+                        </div>
+
+                        <p class="mb-0"
+                           style="font-size: 0.75rem;
+                                  color: var(--erp-text-secondary);">
+
+                            Consultar las compras realizadas.
+
+                        </p>
+
+                    </a>
+
+                </div>
+
+
+                <!-- CUENTAS POR PAGAR -->
+
+                <div class="col-12 col-sm-6 col-xl-3">
+
+                    <a href="#"
+                       class="dodo-panel p-3 h-100 d-block text-decoration-none">
+
+                        <div class="dodo-kpi-icon mb-3">
+
+                            <i class="bi bi-wallet2"></i>
+
+                        </div>
+
+                        <div class="fw-semibold mb-1"
+                             style="font-size: 0.875rem;
+                                    color: var(--erp-text-primary);">
+
+                            Cuentas por pagar
+
+                        </div>
+
+                        <p class="mb-0"
+                           style="font-size: 0.75rem;
+                                  color: var(--erp-text-secondary);">
+
+                            Controlar facturas y pagos pendientes.
+
+                        </p>
+
+                    </a>
+
+                </div>
 
             </div>
 
@@ -445,45 +508,61 @@ Compras | Dodo
 
     <!-- ÚLTIMAS COMPRAS -->
 
-    <div class="section-card">
+    <div class="dodo-panel">
 
-        <div class="section-header">
+        <!-- ENCABEZADO DEL PANEL -->
 
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div class="px-3 py-2 d-flex align-items-center justify-content-between"
+             style="background-color: var(--erp-surface-subtle);
+                    border-bottom: 1px solid var(--erp-border);">
 
-                <div>
-                    <h6 class="fw-bold mb-1">
-                        Últimas compras
-                    </h6>
+            <div>
 
-                    <small class="text-muted">
-                        Registro de las operaciones recientes
-                    </small>
-                </div>
+                <h2 class="mb-0 fw-semibold"
+                    style="font-size: 0.875rem;
+                           color: var(--erp-text-primary);">
 
-                <a href="#" class="btn btn-sm btn-outline-secondary">
-                    Ver todas
-                    <i class="bi bi-arrow-right ms-1"></i>
-                </a>
+                    Últimas compras
+
+                </h2>
+
+                <span style="font-size: 0.75rem;
+                             color: var(--erp-text-secondary);">
+
+                    Registro de las operaciones recientes
+
+                </span>
 
             </div>
+
+            <a href="#"
+               class="btn dodo-btn-secondary">
+
+                Ver todas
+                <i class="bi bi-arrow-right ms-1"></i>
+
+            </a>
 
         </div>
 
 
+        <!-- TABLA DE COMPRAS -->
+
         <div class="table-responsive">
 
-            <table class="table table-hover mb-0">
+            <table class="table dodo-table">
 
                 <thead>
 
                     <tr>
+
                         <th>N.º Compra</th>
                         <th>Proveedor</th>
                         <th>Fecha</th>
-                        <th>Total</th>
+                        <th class="text-end">Total</th>
                         <th>Estado</th>
                         <th class="text-center">Acciones</th>
+
                     </tr>
 
                 </thead>
@@ -495,55 +574,102 @@ Compras | Dodo
 
                     <tr>
 
-                        <td class="fw-semibold">
+                        <!-- NÚMERO DE COMPRA -->
+
+                        <td class="fw-semibold erp-tabular">
+
                             {{ compra.id }}
+
                         </td>
 
-                        <td>
+
+                        <!-- PROVEEDOR -->
+
+                        <td class="fw-medium">
+
                             {{ compra.proveedor }}
+
                         </td>
 
-                        <td>
+
+                        <!-- FECHA -->
+
+                        <td class="erp-tabular"
+                            style="color: var(--erp-text-secondary);">
+
                             {{ compra.fecha|date:"d/m/Y" }}
+
                         </td>
 
-                        <td class="amount">
+
+                        <!-- TOTAL -->
+
+                        <td class="dodo-num"
+                            style="color: var(--erp-primary);">
+
                             ${{ compra.total|floatformat:2 }}
+
                         </td>
+
+
+                        <!-- ESTADO -->
 
                         <td>
 
                             {% if compra.estado == 'pendiente' %}
 
-                                <span class="status status-pending">
+                                <span class="dodo-badge dodo-badge--warning">
+
+                                    <i class="bi bi-clock-fill"
+                                       style="font-size: 0.6rem;"></i>
+
                                     Pendiente
+
                                 </span>
 
                             {% elif compra.estado == 'recibida' %}
 
-                                <span class="status status-received">
+                                <span class="dodo-badge"
+                                      style="background-color: var(--erp-info-bg);
+                                             border-color: var(--erp-info-border);
+                                             color: var(--erp-info-text);">
+
+                                    <i class="bi bi-box-seam"></i>
+
                                     Recibida
+
                                 </span>
 
                             {% elif compra.estado == 'completada' %}
 
-                                <span class="status status-completed">
+                                <span class="dodo-badge dodo-badge--success">
+
+                                    <i class="bi bi-check-circle-fill"
+                                       style="font-size: 0.65rem;"></i>
+
                                     Completada
+
                                 </span>
 
                             {% else %}
 
-                                <span class="status status-pending">
+                                <span class="dodo-badge dodo-badge--warning">
+
                                     {{ compra.estado }}
+
                                 </span>
 
                             {% endif %}
 
                         </td>
 
+
+                        <!-- ACCIONES -->
+
                         <td class="text-center">
 
-                            <a href="#" class="action-btn d-inline-flex align-items-center justify-content-center"
+                            <a href="#"
+                               class="btn dodo-btn-secondary"
                                title="Ver compra">
 
                                 <i class="bi bi-eye"></i>
@@ -554,21 +680,22 @@ Compras | Dodo
 
                     </tr>
 
+
                     {% empty %}
 
                     <tr>
 
-                        <td colspan="6" class="text-center py-5">
+                        <td colspan="6"
+                            class="text-center py-4"
+                            style="color: var(--erp-text-muted);">
 
-                            <i class="bi bi-cart-x fs-1 text-muted"></i>
+                            <i class="bi bi-inbox fs-4 d-block mb-1"></i>
 
-                            <h6 class="mt-3">
-                                No hay compras registradas
-                            </h6>
+                            No hay compras registradas.
 
-                            <p class="text-muted small">
+                            <div class="mt-1">
                                 Cuando registres una compra aparecerá aquí.
-                            </p>
+                            </div>
 
                         </td>
 
@@ -579,6 +706,25 @@ Compras | Dodo
                 </tbody>
 
             </table>
+
+        </div>
+
+
+        <!-- PIE DEL PANEL -->
+
+        <div class="px-3 py-2 d-flex justify-content-between align-items-center"
+             style="background-color: var(--erp-surface-subtle);
+                    border-top: 1px solid var(--erp-border);
+                    font-size: 0.75rem;
+                    color: var(--erp-text-muted);">
+
+            <span>
+                Control de compras y abastecimiento.
+            </span>
+
+            <span class="erp-tabular">
+                Total registros mostrados: {{ compras|length }}
+            </span>
 
         </div>
 

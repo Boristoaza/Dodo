@@ -1,3 +1,4 @@
+
 {% extends 'master.html' %}
 
 {% block title %}
@@ -6,45 +7,55 @@ Mi perfil | Dodo
 
 {% block content %}
 
-<div class="container-fluid px-4 py-4">
+<div class="container-fluid px-4 py-3">
 
     <!-- ENCABEZADO -->
-    <div class="mb-4">
-        <h3 class="fw-bold mb-1" style="color: #660033;">
-            Mi perfil
-        </h3>
-        <p class="text-muted mb-0">
-            Información personal y configuración de tu cuenta.
-        </p>
+    <div class="dodo-page-header mb-4">
+
+        <div class="d-flex align-items-center gap-3">
+
+            <a href="{% url 'core:aplicaiones' %}" class="dodo-btn-back text-decoration-none">
+                <i class="bi bi-arrow-left"></i>
+                Volver
+            </a>
+
+            <span class="dodo-header-sep"></span>
+
+            <div>
+                <h4 class="dodo-page-title">Mi perfil</h4>
+                <p class="dodo-page-subtitle mt-1">
+                    Información personal y configuración de tu cuenta
+                </p>
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="row g-4">
+    <div class="row g-3">
 
         <!-- INFORMACIÓN DEL USUARIO -->
         <div class="col-lg-4">
 
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body text-center p-4">
+            <div class="dodo-panel h-100">
 
-                    <div class="mb-3">
-                        <div class="rounded-circle d-inline-flex align-items-center justify-content-center"
-                             style="width: 100px; height: 100px; background: #fff3e0;">
-                            <i class="bi bi-person fs-1"
-                               style="color: #660033;"></i>
-                        </div>
+                <div class="p-4 text-center">
+
+                    <div class="dodo-kpi-icon mx-auto mb-3"
+                         style="width: 90px; height: 90px; font-size: 2.5rem;">
+                        <i class="bi bi-person"></i>
                     </div>
 
-                    <h5 class="fw-bold mb-1">
+                    <h5 class="fw-semibold mb-1">
                         {{ request.user.get_full_name|default:request.user.username }}
                     </h5>
 
-                    <p class="text-muted mb-3">
+                    <p class="dodo-page-subtitle mb-3">
                         {{ request.user.email }}
                     </p>
 
                     <!-- ROL -->
-                    <span class="badge px-3 py-2"
-                          style="background: #660033;">
+                    <span class="dodo-badge dodo-badge--info">
                         <i class="bi bi-shield-check me-1"></i>
                         {{ rol|default:"Usuario" }}
                     </span>
@@ -54,141 +65,159 @@ Mi perfil | Dodo
                     <!-- DATOS DE CUENTA -->
                     <div class="text-start">
 
+                        <h6 class="fw-semibold mb-3">
+                            Información de cuenta
+                        </h6>
+
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="text-muted">Estado de cuenta</span>
+                            <span class="dodo-page-subtitle">Estado de cuenta</span>
 
                             {% if request.user.is_active %}
-                                <span class="badge bg-success">Activo</span>
+                                <span class="dodo-badge dodo-badge--success">
+                                    Activo
+                                </span>
                             {% else %}
-                                <span class="badge bg-danger">Inactivo</span>
+                                <span class="dodo-badge dodo-badge--danger">
+                                    Inactivo
+                                </span>
                             {% endif %}
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="text-muted">Usuario</span>
+                            <span class="dodo-page-subtitle">Usuario</span>
                             <span class="fw-semibold">
                                 {{ request.user.username }}
                             </span>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center">
-                            <span class="text-muted">Fecha de registro</span>
-                            <span class="fw-semibold">
+                            <span class="dodo-page-subtitle">Fecha de registro</span>
+                            <span class="fw-semibold erp-tabular">
                                 {{ request.user.date_joined|date:"d/m/Y" }}
                             </span>
                         </div>
 
                     </div>
 
-                    <!-- CERRAR SESIÓN -->
                     <hr class="my-4">
 
+                    <!-- CERRAR SESIÓN -->
                     <form method="POST" action="{% url 'usuarios:logout' %}">
                         {% csrf_token %}
 
-                        <button type="submit"
-                                class="btn w-100 d-flex align-items-center justify-content-between px-3 py-2"
-                                style="background: #fff3e0; color: #660033; border: 1px solid #ff9800;">
+                        <button type="submit" class="dodo-btn-secondary w-100 d-flex align-items-center justify-content-between">
 
                             <span class="d-flex align-items-center gap-2">
-                                <i class="bi bi-box-arrow-right fs-5"></i>
-                                <span class="fw-semibold">
-                                    Cerrar sesión
-                                </span>
+                                <i class="bi bi-box-arrow-right"></i>
+                                Cerrar sesión
                             </span>
 
-                            <span class="badge text-dark px-2 py-2"
-                                  style="background: #ff9800;">
-                            </span>
+                            <i class="bi bi-arrow-right"></i>
 
                         </button>
                     </form>
 
                 </div>
+
             </div>
 
         </div>
 
-        <!-- INFORMACIÓN PERSONAL -->
+        <!-- INFORMACIÓN GENERAL -->
         <div class="col-lg-8">
 
-            <div class="card border-0 shadow-sm mb-4">
+            <!-- INFORMACIÓN PERSONAL -->
+            <div class="dodo-panel mb-3">
 
-                <div class="card-header bg-white py-3">
-                    <h6 class="fw-bold mb-0" style="color: #660033;">
-                        <i class="bi bi-person-lines-fill me-2"></i>
-                        Información personal
-                    </h6>
+                <div class="p-3 border-bottom" style="border-color: var(--erp-border) !important;">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-person-lines-fill" style="color: var(--erp-primary);"></i>
+                        <h6 class="fw-semibold mb-0">
+                            Información personal
+                        </h6>
+                    </div>
+                    <p class="dodo-page-subtitle mb-0 mt-1">
+                        Datos personales asociados a tu cuenta
+                    </p>
                 </div>
 
-                <div class="card-body p-4">
+                <div class="p-4">
 
                     <div class="row g-3">
 
                         <div class="col-md-6">
-                            <label class="form-label text-muted small">Nombres</label>
+                            <label class="dodo-kpi-label mb-2">Nombres</label>
                             <input type="text" class="form-control"
                                    value="{{ request.user.first_name }}" readonly>
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label text-muted small">Apellidos</label>
+                            <label class="dodo-kpi-label mb-2">Apellidos</label>
                             <input type="text" class="form-control"
                                    value="{{ request.user.last_name }}" readonly>
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label text-muted small">Nombre de usuario</label>
+                            <label class="dodo-kpi-label mb-2">Nombre de usuario</label>
                             <input type="text" class="form-control"
                                    value="{{ request.user.username }}" readonly>
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label text-muted small">Correo electrónico</label>
+                            <label class="dodo-kpi-label mb-2">Correo electrónico</label>
                             <input type="email" class="form-control"
                                    value="{{ request.user.email }}" readonly>
                         </div>
 
                     </div>
 
-                    <div class="text-end mt-4">
-                        <a href="#" class="btn btn-outline-secondary">
+                    <div class="d-flex justify-content-end mt-4">
+                        <a href="#" class="dodo-btn-secondary text-decoration-none">
                             <i class="bi bi-pencil me-1"></i>
                             Editar información
                         </a>
                     </div>
 
                 </div>
+
             </div>
 
             <!-- SEGURIDAD -->
-            <div class="card border-0 shadow-sm mb-4">
+            <div class="dodo-panel mb-3">
 
-                <div class="card-header bg-white py-3">
-                    <h6 class="fw-bold mb-0" style="color: #660033;">
-                        <i class="bi bi-shield-lock me-2"></i>
-                        Seguridad de la cuenta
-                    </h6>
+                <div class="p-3 border-bottom" style="border-color: var(--erp-border) !important;">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-shield-lock" style="color: var(--erp-primary);"></i>
+                        <h6 class="fw-semibold mb-0">
+                            Seguridad de la cuenta
+                        </h6>
+                    </div>
+                    <p class="dodo-page-subtitle mb-0 mt-1">
+                        Administración de acceso y seguridad
+                    </p>
                 </div>
 
-                <div class="card-body p-4">
+                <div class="p-4">
 
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
 
                         <div>
-                            <h6 class="fw-semibold mb-1">Contraseña</h6>
-                            <p class="text-muted small mb-0">
+                            <h6 class="fw-semibold mb-1">
+                                Contraseña
+                            </h6>
+                            <p class="dodo-page-subtitle mb-0">
                                 Mantén segura tu cuenta actualizando tu contraseña.
                             </p>
                         </div>
 
-                        <a href="#" class="btn btn-outline-secondary">
+                        <a href="#" class="dodo-btn-secondary text-decoration-none">
+                            <i class="bi bi-key me-1"></i>
                             Cambiar contraseña
                         </a>
 
                     </div>
 
-                    <hr>
+                    <hr class="my-4">
 
                     <div class="d-flex justify-content-between align-items-center">
 
@@ -196,48 +225,58 @@ Mi perfil | Dodo
                             <h6 class="fw-semibold mb-1">
                                 Último inicio de sesión
                             </h6>
-                            <p class="text-muted small mb-0">
+                            <p class="dodo-page-subtitle mb-0 erp-tabular">
                                 {{ request.user.last_login|date:"d/m/Y H:i"|default:"Sin registros" }}
                             </p>
                         </div>
 
-                        <i class="bi bi-clock-history fs-4 text-secondary"></i>
+                        <div class="dodo-kpi-icon">
+                            <i class="bi bi-clock-history"></i>
+                        </div>
 
                     </div>
 
                 </div>
+
             </div>
 
             <!-- CONFIGURACIÓN -->
-            <div class="card border-0 shadow-sm">
+            <div class="dodo-panel">
 
-                <div class="card-header bg-white py-3">
-                    <h6 class="fw-bold mb-0" style="color: #660033;">
-                        <i class="bi bi-gear me-2"></i>
-                        Configuración
-                    </h6>
+                <div class="p-3 border-bottom" style="border-color: var(--erp-border) !important;">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-gear" style="color: var(--erp-primary);"></i>
+                        <h6 class="fw-semibold mb-0">
+                            Configuración
+                        </h6>
+                    </div>
+                    <p class="dodo-page-subtitle mb-0 mt-1">
+                        Preferencias personales de tu cuenta
+                    </p>
                 </div>
 
-                <div class="card-body p-4">
+                <div class="p-4">
 
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
 
                         <div>
                             <h6 class="fw-semibold mb-1">
                                 Preferencias de cuenta
                             </h6>
-                            <p class="text-muted small mb-0">
+                            <p class="dodo-page-subtitle mb-0">
                                 Configuración y preferencias personales.
                             </p>
                         </div>
 
-                        <a href="#" class="btn btn-outline-secondary">
+                        <a href="#" class="dodo-btn-secondary text-decoration-none">
+                            <i class="bi bi-sliders me-1"></i>
                             Configurar
                         </a>
 
                     </div>
 
                 </div>
+
             </div>
 
         </div>
