@@ -109,7 +109,6 @@ class Roles(models.Model):
     descripcion = models.TextField(blank=True)
 
     estado = models.BooleanField(default=True)
-
     class Meta:
         verbose_name = 'Rol'
         verbose_name_plural = 'Roles'
@@ -118,7 +117,7 @@ class Roles(models.Model):
         return self.nombre
 
 class Modulos_permisos(models.Model):
-    empleado = models.ForeignKey(User, on_delete=models.CASCADE)
+    empleado = models.ForeignKey(User, on_delete=models.CASCADE , null=True , blank=True)
     modulo = models.ForeignKey(Modulos, on_delete=models.CASCADE , null=True , blank=True)
 
     consultar = models.BooleanField(default=False)
@@ -133,18 +132,18 @@ class Modulos_permisos(models.Model):
         unique_together = ('empleado', 'modulo')
 
 
-class AsignacionUsuario(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    empresa = models.ForeignKey(Empresas, on_delete=models.CASCADE)
-    sucursal = models.ForeignKey(Sucursales, on_delete=models.CASCADE)
-    rol = models.ForeignKey(Roles, on_delete=models.CASCADE)
+# class AsignacionUsuario(models.Model):
+#     usuario = models.ForeignKey(User, on_delete=models.CASCADE , null=True , blank=True)
+#     empresa = models.ForeignKey(Empresas, on_delete=models.CASCADE , null=True , blank=True)
+#     sucursal = models.ForeignKey(Sucursales, on_delete=models.CASCADE , null=True , blank=True)
+#     rol = models.ForeignKey(Roles, on_delete=models.CASCADE , null=True , blank=True)
 
-    class Meta:
-        verbose_name = 'Asignación de usuario'
-        verbose_name_plural = 'Asignaciones de usuarios'
+#     class Meta:
+#         verbose_name = 'Asignación de usuario'
+#         verbose_name_plural = 'Asignaciones de usuarios'
 
-    def __str__(self):
-        return f'{self.usuario} - {self.empresa} - {self.sucursal}'
+#     # def __str__(self):
+#     #     return f'{self.usuario} - {self.empresa} - {self.sucursal}'
 
 
 

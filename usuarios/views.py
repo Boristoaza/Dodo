@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.decorators import login_required
-from .models import AsignacionUsuario 
+# from .models import AsignacionUsuario , Modulos_permisos
 from django.contrib.auth.models import User
 def login_view(request):
     if request.method == 'POST':
@@ -26,14 +26,6 @@ def logout_view(request):
 
 @login_required
 def perfil_view(request):
-    permisos = AsignacionUsuario.objects.values()
-    # permisosModulos = PermisoModulo.objects.values()
-
-
-    print(permisos )
-
-    for i in permisos:
-        print(i)
 
     return render(request, 'perfil.html')
 
