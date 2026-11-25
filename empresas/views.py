@@ -109,3 +109,7 @@ def registrar_empleados(request):
             return redirect('empresas:listar_empleados')
 
     return render(request, 'forms/registrar_empleados.html', contexto)
+
+
+def asig_permisos(request):
+    return render(request,'views/permisos.html')

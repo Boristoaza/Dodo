@@ -52,11 +52,36 @@ class Sucursales(models.Model):
 
 
 class Empleados(models.Model):
-    empresa = models.ForeignKey(Empresas,on_delete=models.CASCADE,null=True,blank=True)
-    nombre_empleado = models.CharField(max_length=100, blank=False, null=False)
-    cargo = models.CharField(max_length=100, blank=False, null=False)  
-    sucursal = models.ForeignKey('Sucursales', on_delete=models.CASCADE, blank=False, null=False) 
-    salario = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+
+    usuario = models.OneToOneField(
+        User,
+        on_delete=models.PROTECT,
+        related_name='empleado',
+        null=True,
+        blank=True
+    )
+
+    empresa = models.ForeignKey(
+        Empresas,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    nombre_empleado = models.CharField(max_length=100)
+    cargo = models.CharField(max_length=100)
+
+    sucursal = models.ForeignKey(
+        Sucursales,
+        on_delete=models.CASCADE
+    )
+
+    salario = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0.00
+    )
+
     fecha = models.DateTimeField(auto_now_add=True)
 
     class Meta:
