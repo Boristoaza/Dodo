@@ -47,32 +47,19 @@ def crear_sucursal_view(request):
 @login_required
 def listar_empleados(request):
 
-    empresa = Empresas.objects.get(usuario=request.user)
-
-    sucursal = Sucursales.objects.filter(empresa=empresa)
-
-    empleados = Empleados.objects.filter(
-        empresa=empresa
-    ).select_related('sucursal')
-
-    contexto = {
-        'empleados': empleados,
-        'sucursales': sucursal,
-    }
-
-    return render(request, 'views/listar_empleados.html', contexto)
+    return render(request, 'views/listar_empleados.html')
 
 
 @login_required
 def registrar_empleados(request):
 
-    empresa = Empresas.objects.get(usuario=request.user)
+    # empresa = Empresas.objects.get(usuario=request.user)
 
-    sucursales = Sucursales.objects.filter(empresa=empresa)
+    # sucursales = Sucursales.objects.filter(empresa=empresa)
 
-    contexto = {
-        'sucursales': sucursales,
-    }
+    # contexto = {
+    #     'sucursales': sucursales,
+    # }
 
     if request.method == 'POST':
 
@@ -108,8 +95,8 @@ def registrar_empleados(request):
 
             return redirect('empresas:listar_empleados')
 
-    return render(request, 'forms/registrar_empleados.html', contexto)
+    return render(request, 'forms/registrar_empleados.html')
 
 
 def asig_permisos(request):
-    return render(request,'views/permisos.html')
+    return render(request,'views/modulos_permisos.html')

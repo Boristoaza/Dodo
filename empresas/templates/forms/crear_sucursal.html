@@ -6,143 +6,273 @@ Registrar sucursal | Dodo
 
 {% block content %}
 
-<div class="container-fluid px-4 py-4">
+<div class="container-fluid px-4 py-3">
 
-    <!-- ENCABEZADO -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h3 class="fw-bold mb-1" style="color: #660033;">
-                Registrar nueva sucursal
-            </h3>
-            <p class="text-muted mb-0">
-                Registra un nuevo establecimiento de tu empresa.
-            </p>
+    <!-- ENCABEZADO OBLIGATORIO CON BOTÓN VOLVER -->
+    <div class="dodo-page-header">
+
+        <div class="dodo-page-header-left">
+
+            <a href="{% url 'core:aplicaiones' %}"
+               class="dodo-btn-back"
+               title="Volver a Aplicaciones"
+               aria-label="Volver a Aplicaciones">
+                <i class="bi bi-arrow-left"></i>
+                <span>Volver</span>
+            </a>
+
+            <div class="dodo-header-sep d-none d-sm-block"></div>
+
+            <div>
+                <h1 class="dodo-page-title">Registrar sucursal</h1>
+                <p class="dodo-page-subtitle">
+                    Registra un nuevo establecimiento de tu empresa y configura sus datos generales.
+                </p>
+            </div>
+
         </div>
 
-        <a href="" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left me-1"></i>
-            Volver
-        </a>
     </div>
+
 
     <!-- MENSAJES -->
     {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show"
+
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-3"
                  role="alert">
+
                 {{ message }}
-                <button type="button" class="btn-close"
-                        data-bs-dismiss="alert"></button>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert">
+                </button>
+
             </div>
+
         {% endfor %}
     {% endif %}
+
 
     <form method="POST">
         {% csrf_token %}
 
-        <!-- INFORMACIÓN DE LA SUCURSAL -->
-        <div class="card border-0 shadow-sm mb-4">
+        <!-- PANEL DE INFORMACIÓN -->
+        <div class="dodo-panel">
 
-            <div class="card-header bg-white border-0 px-4 pt-4 pb-3">
-                <div class="d-flex align-items-center">
+            <!-- CABECERA DEL PANEL -->
+            <div class="px-3 py-3"
+                 style="background-color: var(--erp-surface-subtle); border-bottom: 1px solid var(--erp-border);">
 
-                    <div class="rounded-2 p-2 me-3"
-                         style="background-color: #fff3e0;">
-                        <i class="bi bi-shop fs-4"
-                           style="color: #ff9800;"></i>
+                <div class="d-flex align-items-center gap-3">
+
+                    <div class="dodo-kpi-icon"
+                         style="background-color: #e6faf4; border-color: #b8eddd; color: #087b5a;">
+
+                        <i class="bi bi-shop"></i>
+
                     </div>
 
                     <div>
-                        <h5 class="fw-bold mb-1" style="color: #660033;">
+
+                        <h2 class="mb-1 fw-semibold"
+                            style="font-size: 0.875rem; color: var(--erp-text-primary);">
+
                             Información de la sucursal
-                        </h5>
-                        <small class="text-muted">
-                            Datos generales del establecimiento
-                        </small>
+
+                        </h2>
+
+                        <p class="mb-0"
+                           style="font-size: 0.8125rem; color: var(--erp-text-muted);">
+
+                            Datos generales y ubicación del establecimiento.
+
+                        </p>
+
                     </div>
 
                 </div>
+
             </div>
 
-            <div class="card-body px-4 pb-4">
-                <hr class="mt-0 mb-4">
 
-                <div class="row">
+            <!-- CAMPOS DEL FORMULARIO -->
+            <div class="p-3 p-md-4">
+
+                <div class="row g-3">
 
                     <!-- NOMBRE -->
-                    <div class="col-md-6 mb-3">
-                        <label for="nombre_sucursal" class="form-label fw-semibold">
+                    <div class="col-12 col-md-6">
+
+                        <label for="nombre_sucursal"
+                               class="form-label fw-semibold small"
+                               style="color: var(--erp-text-secondary);">
+
                             Nombre de la sucursal
+                            <span style="color: var(--erp-primary);">*</span>
+
                         </label>
-                        <input type="text"
-                               name="nombre_sucursal"
-                               id="nombre_sucursal"
-                               class="form-control"
-                               placeholder="Ej. Sucursal Centro"
-                               maxlength="150"
-                               required>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text"
+                                  style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
+
+                                <i class="bi bi-shop"></i>
+
+                            </span>
+
+                            <input type="text"
+                                   name="nombre_sucursal"
+                                   id="nombre_sucursal"
+                                   class="form-control"
+                                   placeholder="Ej. Sucursal Centro"
+                                   maxlength="150"
+                                   required>
+
+                        </div>
+
                     </div>
+
 
                     <!-- TELEFONO -->
-                    <div class="col-md-6 mb-3">
-                        <label for="telefono" class="form-label fw-semibold">
+                    <div class="col-12 col-md-6">
+
+                        <label for="telefono"
+                               class="form-label fw-semibold small"
+                               style="color: var(--erp-text-secondary);">
+
                             Teléfono
+                            <span style="color: var(--erp-primary);">*</span>
+
                         </label>
-                        <input type="tel"
-                               name="telefono"
-                               id="telefono"
-                               class="form-control"
-                               placeholder="Número de contacto"
-                               maxlength="15"
-                               required>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text"
+                                  style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
+
+                                <i class="bi bi-telephone"></i>
+
+                            </span>
+
+                            <input type="tel"
+                                   name="telefono"
+                                   id="telefono"
+                                   class="form-control"
+                                   placeholder="Número de contacto"
+                                   maxlength="15"
+                                   required>
+
+                        </div>
+
                     </div>
+
 
                     <!-- CIUDAD -->
-                    <div class="col-md-6 mb-3">
-                        <label for="ciudad" class="form-label fw-semibold">
+                    <div class="col-12 col-md-6">
+
+                        <label for="ciudad"
+                               class="form-label fw-semibold small"
+                               style="color: var(--erp-text-secondary);">
+
                             Ciudad
+                            <span style="color: var(--erp-primary);">*</span>
+
                         </label>
-                        <input type="text"
-                               name="ciudad"
-                               id="ciudad"
-                               class="form-control"
-                               placeholder="Ciudad donde se encuentra"
-                               maxlength="100"
-                               required>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text"
+                                  style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
+
+                                <i class="bi bi-geo-alt"></i>
+
+                            </span>
+
+                            <input type="text"
+                                   name="ciudad"
+                                   id="ciudad"
+                                   class="form-control"
+                                   placeholder="Ciudad donde se encuentra"
+                                   maxlength="100"
+                                   required>
+
+                        </div>
+
                     </div>
 
+
                     <!-- DIRECCION -->
-                    <div class="col-md-6 mb-3">
-                        <label for="direccion" class="form-label fw-semibold">
+                    <div class="col-12 col-md-6">
+
+                        <label for="direccion"
+                               class="form-label fw-semibold small"
+                               style="color: var(--erp-text-secondary);">
+
                             Dirección
+                            <span style="color: var(--erp-primary);">*</span>
+
                         </label>
-                        <input type="text"
-                               name="direccion"
-                               id="direccion"
-                               class="form-control"
-                               placeholder="Dirección del establecimiento"
-                               maxlength="200"
-                               required>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text"
+                                  style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
+
+                                <i class="bi bi-signpost-2"></i>
+
+                            </span>
+
+                            <input type="text"
+                                   name="direccion"
+                                   id="direccion"
+                                   class="form-control"
+                                   placeholder="Dirección del establecimiento"
+                                   maxlength="200"
+                                   required>
+
+                        </div>
+
                     </div>
 
                 </div>
+
             </div>
-        </div>
 
-        <!-- ACCIONES -->
-        <div class="d-flex justify-content-end gap-2 mb-4">
 
-            <a href=""
-               class="btn btn-outline-secondary px-4">
-                Cancelar
-            </a>
+            <!-- PIE DEL PANEL -->
+            <div class="px-3 py-3 d-flex flex-wrap justify-content-between align-items-center gap-2"
+                 style="background-color: var(--erp-surface-subtle); border-top: 1px solid var(--erp-border);">
 
-            <button type="submit"
-                    class="btn px-4 fw-semibold"
-                    style="background-color: #ff9800; color: #660033;">
-                <i class="bi bi-shop me-1"></i>
-                Registrar sucursal
-            </button>
+                <span style="font-size: 0.75rem; color: var(--erp-text-muted);">
+
+                    <i class="bi bi-info-circle me-1"></i>
+                    Los campos marcados con * son obligatorios.
+
+                </span>
+
+                <div class="d-flex gap-2">
+
+                    <a href="{% url 'core:aplicaiones' %}"
+                       class="btn dodo-btn-secondary">
+
+                        Cancelar
+
+                    </a>
+
+                    <button type="submit"
+                            class="btn dodo-btn-primary" style="background-color: #FF9800; border: #FF9800;">
+
+                        <i class="bi bi-shop me-1"></i>
+                        Registrar sucursal
+
+                    </button>
+
+                </div>
+
+            </div>
 
         </div>
 
