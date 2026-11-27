@@ -13,10 +13,8 @@ Sucursales | Dodo
 
         <div class="dodo-page-header-left">
 
-            <a href="{% url 'core:aplicaiones' %}"
-               class="dodo-btn-back"
-               title="Volver a Mi Empresa"
-               aria-label="Volver a Mi Empresa">
+            <a href="{% url 'core:aplicaiones' %}" class="dodo-btn-back" title="Volver a Mi Empresa"
+                aria-label="Volver a Mi Empresa">
                 <i class="bi bi-arrow-left"></i>
                 <span>Volver</span>
             </a>
@@ -34,8 +32,7 @@ Sucursales | Dodo
 
         <div class="d-flex align-items-center gap-2">
 
-            <a href="{% url 'empresas:crear_sucursal' %}"
-               class="btn dodo-btn-primary">
+            <a href="{% url 'empresas:crear_sucursal' %}" class="btn dodo-btn-primary">
                 <i class="bi bi-plus-lg me-1"></i>
                 Nueva sucursal
             </a>
@@ -79,8 +76,7 @@ Sucursales | Dodo
 
         <div class="col-12 col-sm-6 col-xl-4">
 
-            <div class="card dodo-kpi-card h-100"
-                 style="border-top-color: var(--erp-success-text);">
+            <div class="card dodo-kpi-card h-100" style="border-top-color: var(--erp-success-text);">
 
                 <div class="card-body p-3">
 
@@ -91,14 +87,17 @@ Sucursales | Dodo
                                 Empresa
                             </div>
 
-                            <div class="dodo-kpi-value"
-                                 style="font-size: 1rem; color: var(--erp-success-text);">
-                                {{ empresa.nombre_empresa }}
+                            {% for empresa in empresas %}
+
+                            <div class="dodo-kpi-value" style="font-size: 1rem; color: var(--erp-success-text);">
+                                {{ empresa }}
                             </div>
+                            {% endfor %}
+
                         </div>
 
                         <div class="dodo-kpi-icon"
-                             style="background-color: var(--erp-success-bg); border-color: var(--erp-success-border); color: var(--erp-success-text);">
+                            style="background-color: var(--erp-success-bg); border-color: var(--erp-success-border); color: var(--erp-success-text);">
                             <i class="bi bi-building"></i>
                         </div>
 
@@ -116,15 +115,13 @@ Sucursales | Dodo
     <div class="dodo-panel">
 
         <div class="px-3 py-2 d-flex justify-content-between align-items-center"
-             style="background-color: var(--erp-surface-subtle); border-bottom: 1px solid var(--erp-border);">
+            style="background-color: var(--erp-surface-subtle); border-bottom: 1px solid var(--erp-border);">
 
-            <h2 class="mb-0 fw-semibold"
-                style="font-size: 0.875rem; color: var(--erp-text-primary);">
+            <h2 class="mb-0 fw-semibold" style="font-size: 0.875rem; color: var(--erp-text-primary);">
                 Establecimientos registrados
             </h2>
 
-            <span class="fw-semibold"
-                  style="font-size: 0.8125rem; color: var(--erp-primary);">
+            <span class="fw-semibold" style="font-size: 0.8125rem; color: var(--erp-primary);">
                 {{ sucursales.count }} registros
             </span>
 
@@ -145,32 +142,28 @@ Sucursales | Dodo
                             <!-- ENCABEZADO DE TARJETA -->
                             <div class="d-flex justify-content-between align-items-center mb-3">
 
-                                <div class="dodo-kpi-icon"
-                                     style="color: var(--erp-primary);">
+                                <div class="dodo-kpi-icon" style="color: var(--erp-primary);">
                                     <i class="bi bi-shop"></i>
                                 </div>
 
                                 <span class="dodo-badge dodo-badge--success">
-                                    <i class="bi bi-circle-fill"
-                                       style="font-size: 0.45rem;"></i>
+                                    <i class="bi bi-circle-fill" style="font-size: 0.45rem;"></i>
                                     Activa
                                 </span>
 
                             </div>
 
                             <!-- NOMBRE -->
-                            <h5 class="fw-bold mb-3"
-                                style="font-size: 1rem; color: var(--erp-text-primary);">
+                            <h5 class="fw-bold mb-3" style="font-size: 1rem; color: var(--erp-text-primary);">
                                 {{ sucursal.nombre_sucursal }}
                             </h5>
 
                             <!-- INFORMACIÓN -->
                             <div class="d-flex flex-column gap-2 small flex-grow-1 mb-3"
-                                 style="color: var(--erp-text-secondary);">
+                                style="color: var(--erp-text-secondary);">
 
                                 <div class="d-flex align-items-start gap-2">
-                                    <i class="bi bi-geo-alt"
-                                       style="color: var(--erp-text-muted);"></i>
+                                    <i class="bi bi-geo-alt" style="color: var(--erp-text-muted);"></i>
 
                                     <span>
                                         {{ sucursal.direccion|default:"Sin dirección registrada" }}
@@ -179,8 +172,7 @@ Sucursales | Dodo
 
                                 {% if sucursal.ciudad %}
                                 <div class="d-flex align-items-center gap-2">
-                                    <i class="bi bi-building"
-                                       style="color: var(--erp-text-muted);"></i>
+                                    <i class="bi bi-building" style="color: var(--erp-text-muted);"></i>
 
                                     <span>{{ sucursal.ciudad }}</span>
                                 </div>
@@ -188,8 +180,7 @@ Sucursales | Dodo
 
                                 {% if sucursal.telefono %}
                                 <div class="d-flex align-items-center gap-2">
-                                    <i class="bi bi-telephone"
-                                       style="color: var(--erp-text-muted);"></i>
+                                    <i class="bi bi-telephone" style="color: var(--erp-text-muted);"></i>
 
                                     <span>{{ sucursal.telefono }}</span>
                                 </div>
@@ -199,10 +190,9 @@ Sucursales | Dodo
 
                             <!-- ACCIÓN -->
                             <div class="pt-3 d-flex justify-content-end"
-                                 style="border-top: 1px solid var(--erp-border);">
+                                style="border-top: 1px solid var(--erp-border);">
 
-                                <a href="#"
-                                   class="btn dodo-btn-secondary btn-sm">
+                                <a href="#" class="btn dodo-btn-secondary btn-sm">
                                     Gestionar
                                     <i class="bi bi-chevron-right ms-1"></i>
                                 </a>
@@ -223,22 +213,19 @@ Sucursales | Dodo
                     <div class="text-center py-5">
 
                         <div class="dodo-kpi-icon mx-auto mb-3"
-                             style="width: 56px; height: 56px; color: var(--erp-text-muted);">
+                            style="width: 56px; height: 56px; color: var(--erp-text-muted);">
                             <i class="bi bi-shop-window fs-3"></i>
                         </div>
 
-                        <h6 class="fw-bold mb-1"
-                            style="color: var(--erp-text-primary);">
+                        <h6 class="fw-bold mb-1" style="color: var(--erp-text-primary);">
                             No hay sucursales registradas
                         </h6>
 
-                        <p class="small mb-4"
-                           style="color: var(--erp-text-muted);">
+                        <p class="small mb-4" style="color: var(--erp-text-muted);">
                             Comienza registrando el primer punto de venta o establecimiento para tu empresa.
                         </p>
 
-                        <a href="{% url 'empresas:crear_sucursal' %}"
-                           class="btn dodo-btn-primary">
+                        <a href="{% url 'empresas:crear_sucursal' %}" class="btn dodo-btn-primary">
                             <i class="bi bi-plus-lg me-1"></i>
                             Registrar sucursal
                         </a>
@@ -255,7 +242,7 @@ Sucursales | Dodo
 
         <!-- PIE DEL PANEL -->
         <div class="px-3 py-2 d-flex justify-content-between align-items-center"
-             style="background-color: var(--erp-surface-subtle); border-top: 1px solid var(--erp-border); font-size: 0.75rem; color: var(--erp-text-muted);">
+            style="background-color: var(--erp-surface-subtle); border-top: 1px solid var(--erp-border); font-size: 0.75rem; color: var(--erp-text-muted);">
 
             <span>Administración de establecimientos de Dodo.</span>
 

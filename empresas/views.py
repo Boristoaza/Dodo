@@ -17,8 +17,9 @@ def empresa_view(request):
 @login_required
 def sucursal_view(request):
     sucursales = Sucursales.objects.all()
+    empresa = Empresas.objects.filter(usuario_id=request.user)
 
-    contexto = {'sucursales':sucursales}
+    contexto = {'sucursales':sucursales , 'empresas':empresa}
     return render(request, 'views/sucursal.html' , contexto)
 
 
@@ -51,33 +52,36 @@ def crear_sucursal_view(request):
 
 @login_required
 def listar_empleados(request):
-
-    return render(request, 'views/listar_empleados.html')
+    empleado = Empleados.objects.all() 
+    contexto = {'empleados':empleado}
+    return render(request, 'views/listar_empleados.html',contexto)
 
 
 @login_required
 def registrar_empleados(request):
 
     empresa = Empresas.objects.filter(usuario_id=request.user)
-    roles = Roles.objects.all().exclude(
-    codigo=Roles.Tipos.SUPERUSUARIO
-    )
-
-    print(f"roles {roles}")
 
 
-    contexto = {'empresas':empresa , 'roles':roles}
-    
+    contexto = {'empresas': empresa }
 
     if request.method == 'POST':
 
         nombre_empleado = request.POST.get('nombre_empleado')
         correo = request.POST.get('correo')
         password = request.POST.get('password')
-        cargo = request.POST.get('cargo')
         sucursal = request.POST.get('sucursal')
         salario = request.POST.get('salario')
         username = request.POST.get('username')
+
+        print("========== DATOS RECIBIDOS ==========")
+        print(f"Nombre: {nombre_empleado}")
+        print(f"Correo: {correo}")
+        print(f"Password: {password}")
+        print(f"Sucursal: {sucursal}")
+        print(f"Salario: {salario}")
+        print(f"Username: {username}")
+        print("=====================================")
 
         if User.objects.filter(username=username).exists():
 
@@ -85,16 +89,16 @@ def registrar_empleados(request):
 
         else:
 
-            User.objects.create_user(
+            usuario = User.objects.create_user(
                 username=username,
                 email=correo,
                 password=password
             )
 
             Empleados.objects.create(
-                empresa=empresa,
+                usuario=usuario,
+                empresa=empresa.first(),
                 nombre_empleado=nombre_empleado,
-                cargo=cargo,
                 sucursal_id=sucursal,
                 salario=salario
             )
