@@ -4,7 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 
-from .models import Empresas, Sucursales, Empleados
+from .models import Empresas, Sucursales, Empleados 
+from usuarios.models import Roles
+
 
 
 @login_required
@@ -14,7 +16,10 @@ def empresa_view(request):
 
 @login_required
 def sucursal_view(request):
-    return render(request, 'views/sucursal.html')
+    sucursales = Sucursales.objects.all()
+
+    contexto = {'sucursales':sucursales}
+    return render(request, 'views/sucursal.html' , contexto)
 
 
 @login_required
@@ -53,13 +58,16 @@ def listar_empleados(request):
 @login_required
 def registrar_empleados(request):
 
-    # empresa = Empresas.objects.get(usuario=request.user)
+    empresa = Empresas.objects.filter(usuario_id=request.user)
+    roles = Roles.objects.all().exclude(
+    codigo=Roles.Tipos.SUPERUSUARIO
+    )
 
-    # sucursales = Sucursales.objects.filter(empresa=empresa)
+    print(f"roles {roles}")
 
-    # contexto = {
-    #     'sucursales': sucursales,
-    # }
+
+    contexto = {'empresas':empresa , 'roles':roles}
+    
 
     if request.method == 'POST':
 
@@ -95,7 +103,7 @@ def registrar_empleados(request):
 
             return redirect('empresas:listar_empleados')
 
-    return render(request, 'forms/registrar_empleados.html')
+    return render(request, 'forms/registrar_empleados.html', contexto)
 
 
 def asig_permisos(request):

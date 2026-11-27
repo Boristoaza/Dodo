@@ -49,45 +49,6 @@ class Modulos(models.Model):
         return self.nombre
 
 
-# class Permisos(models.Model):
-
-#     class Acciones(models.TextChoices):
-#         CONSULTAR = "view", _("Consultar")
-#         CREAR = "add", _("Crear")
-#         EDITAR = "change", _("Editar")
-#         ELIMINAR = "delete", _("Eliminar")
-#         APROBAR = "approve", _("Aprobar")
-#         ANULAR = "cancel", _("Anular")
-#         EXPORTAR = "export", _("Exportar")
-
-#     modulo = models.ForeignKey(
-#         Modulos,
-#         on_delete=models.PROTECT,
-#         related_name="permisos"
-#     )
-
-#     nombre = models.CharField(max_length=100)
-#     codigo = models.CharField(max_length=100, unique=True)
-#     accion = models.CharField(
-#         max_length=10,
-#         choices=Acciones.choices
-#     )
-
-#     class Meta:
-#         verbose_name = 'Permiso'
-#         verbose_name_plural = 'Permisos'
-
-#         constraints = [
-#             models.UniqueConstraint(
-#                 fields=["modulo", "accion"],
-#                 name="unique_permiso_modulo_accion"
-#             )
-#         ]
-
-#     def __str__(self):
-#         return f"{self.modulo.nombre} - {self.nombre}"
-
-
 class Roles(models.Model):
 
     class Tipos(models.TextChoices):
@@ -132,18 +93,7 @@ class Modulos_permisos(models.Model):
         unique_together = ('empleado', 'modulo')
 
 
-# class AsignacionUsuario(models.Model):
-#     usuario = models.ForeignKey(User, on_delete=models.CASCADE , null=True , blank=True)
-#     empresa = models.ForeignKey(Empresas, on_delete=models.CASCADE , null=True , blank=True)
-#     sucursal = models.ForeignKey(Sucursales, on_delete=models.CASCADE , null=True , blank=True)
-#     rol = models.ForeignKey(Roles, on_delete=models.CASCADE , null=True , blank=True)
 
-#     class Meta:
-#         verbose_name = 'Asignación de usuario'
-#         verbose_name_plural = 'Asignaciones de usuarios'
-
-#     # def __str__(self):
-#     #     return f'{self.usuario} - {self.empresa} - {self.sucursal}'
 
 
 

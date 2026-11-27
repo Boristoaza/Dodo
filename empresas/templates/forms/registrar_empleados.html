@@ -13,10 +13,8 @@ Registrar empleado | Dodo
 
         <div class="dodo-page-header-left">
 
-            <a href="{% url 'core:aplicaiones' %}"
-               class="dodo-btn-back"
-               title="Volver a Aplicaciones"
-               aria-label="Volver a Aplicaciones">
+            <a href="{% url 'core:aplicaiones' %}" class="dodo-btn-back" title="Volver a Aplicaciones"
+                aria-label="Volver a Aplicaciones">
                 <i class="bi bi-arrow-left"></i>
                 <span>Volver</span>
             </a>
@@ -42,16 +40,14 @@ Registrar empleado | Dodo
 
             <!-- CABECERA DEL FORMULARIO -->
             <div class="px-3 py-3"
-                 style="background-color: var(--erp-surface-subtle); border-bottom: 1px solid var(--erp-border);">
+                style="background-color: var(--erp-surface-subtle); border-bottom: 1px solid var(--erp-border);">
 
-                <h2 class="mb-1 fw-semibold"
-                    style="font-size: 0.875rem; color: var(--erp-text-primary);">
+                <h2 class="mb-1 fw-semibold" style="font-size: 0.875rem; color: var(--erp-text-primary);">
                     <i class="bi bi-person-vcard me-2" style="color: var(--erp-primary);"></i>
                     Información del empleado
                 </h2>
 
-                <p class="mb-0"
-                   style="font-size: 0.8125rem; color: var(--erp-text-muted);">
+                <p class="mb-0" style="font-size: 0.8125rem; color: var(--erp-text-muted);">
                     Completa los datos personales, credenciales y asignación laboral.
                 </p>
 
@@ -65,22 +61,18 @@ Registrar empleado | Dodo
                     <div class="col-12">
 
                         <label for="nombre_empleado" class="form-label fw-semibold small"
-                               style="color: var(--erp-text-secondary);">
+                            style="color: var(--erp-text-secondary);">
                             Nombre completo <span style="color: var(--erp-primary);">*</span>
                         </label>
 
                         <div class="input-group">
                             <span class="input-group-text"
-                                  style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
+                                style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
                                 <i class="bi bi-person"></i>
                             </span>
 
-                            <input type="text"
-                                   name="nombre_empleado"
-                                   id="nombre_empleado"
-                                   class="form-control"
-                                   placeholder="Ej. Juan Pérez González"
-                                   required>
+                            <input type="text" name="nombre_empleado" id="nombre_empleado" class="form-control"
+                                placeholder="Ej. Juan Pérez González" required>
                         </div>
 
                     </div>
@@ -89,22 +81,18 @@ Registrar empleado | Dodo
                     <div class="col-12 col-md-6">
 
                         <label for="username" class="form-label fw-semibold small"
-                               style="color: var(--erp-text-secondary);">
+                            style="color: var(--erp-text-secondary);">
                             Nombre de usuario <span style="color: var(--erp-primary);">*</span>
                         </label>
 
                         <div class="input-group">
                             <span class="input-group-text"
-                                  style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
+                                style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
                                 <i class="bi bi-at"></i>
                             </span>
 
-                            <input type="text"
-                                   name="username"
-                                   id="username"
-                                   class="form-control"
-                                   placeholder="juanperez"
-                                   required>
+                            <input type="text" name="username" id="username" class="form-control"
+                                placeholder="juanperez" required>
                         </div>
 
                     </div>
@@ -113,22 +101,18 @@ Registrar empleado | Dodo
                     <div class="col-12 col-md-6">
 
                         <label for="correo" class="form-label fw-semibold small"
-                               style="color: var(--erp-text-secondary);">
+                            style="color: var(--erp-text-secondary);">
                             Correo electrónico <span style="color: var(--erp-primary);">*</span>
                         </label>
 
                         <div class="input-group">
                             <span class="input-group-text"
-                                  style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
+                                style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
                                 <i class="bi bi-envelope"></i>
                             </span>
 
-                            <input type="email"
-                                   name="correo"
-                                   id="correo"
-                                   class="form-control"
-                                   placeholder="correo@empresa.com"
-                                   required>
+                            <input type="email" name="correo" id="correo" class="form-control"
+                                placeholder="correo@empresa.com" required>
                         </div>
 
                     </div>
@@ -137,22 +121,18 @@ Registrar empleado | Dodo
                     <div class="col-12">
 
                         <label for="password" class="form-label fw-semibold small"
-                               style="color: var(--erp-text-secondary);">
+                            style="color: var(--erp-text-secondary);">
                             Contraseña <span style="color: var(--erp-primary);">*</span>
                         </label>
 
                         <div class="input-group">
                             <span class="input-group-text"
-                                  style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
+                                style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
                                 <i class="bi bi-lock"></i>
                             </span>
 
-                            <input type="password"
-                                   name="password"
-                                   id="password"
-                                   class="form-control"
-                                   placeholder="••••••••"
-                                   required>
+                            <input type="password" name="password" id="password" class="form-control"
+                                placeholder="••••••••" required>
                         </div>
 
                     </div>
@@ -165,14 +145,12 @@ Registrar empleado | Dodo
                 <!-- INFORMACIÓN LABORAL -->
                 <div class="mb-3">
 
-                    <h2 class="mb-1 fw-semibold"
-                        style="font-size: 0.875rem; color: var(--erp-text-primary);">
+                    <h2 class="mb-1 fw-semibold" style="font-size: 0.875rem; color: var(--erp-text-primary);">
                         <i class="bi bi-briefcase me-2" style="color: var(--erp-primary);"></i>
                         Información laboral
                     </h2>
 
-                    <p class="mb-0"
-                       style="font-size: 0.8125rem; color: var(--erp-text-muted);">
+                    <p class="mb-0" style="font-size: 0.8125rem; color: var(--erp-text-muted);">
                         Define el cargo, salario y sucursal del colaborador.
                     </p>
 
@@ -180,47 +158,38 @@ Registrar empleado | Dodo
 
                 <div class="row g-3">
 
-                    <!-- CARGO -->
+                    <!-- ROL -->
                     <div class="col-12 col-md-6">
 
-                        <label for="cargo" class="form-label fw-semibold small"
-                               style="color: var(--erp-text-secondary);">
-                            Cargo / Puesto <span style="color: var(--erp-primary);">*</span>
+                        <label for="rol" class="form-label fw-semibold small" style="color: var(--erp-text-secondary);">
+                            Rol <span style="color: var(--erp-primary);">*</span>
                         </label>
 
-                        <select name="cargo" id="cargo" class="form-select" required>
-                            <option value="">Seleccione un cargo</option>
+                        <select name="rol" id="rol" class="form-select" required>
 
-                            {% for codigo, nombre in cargos %}
-                                <option value="{{ codigo }}">{{ nombre }}</option>
-                            {% endfor %}
+                            <option value="ADM">Administrador de empresa</option>
+                            <option value="ASL">Supervisor</option>
+                            <option value="EMP" selected>Empleado</option>
 
                         </select>
 
                     </div>
-
                     <!-- SALARIO -->
                     <div class="col-12 col-md-6">
 
                         <label for="salario" class="form-label fw-semibold small"
-                               style="color: var(--erp-text-secondary);">
+                            style="color: var(--erp-text-secondary);">
                             Salario <span style="color: var(--erp-primary);">*</span>
                         </label>
 
                         <div class="input-group">
                             <span class="input-group-text fw-bold"
-                                  style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
+                                style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
                                 $
                             </span>
 
-                            <input type="number"
-                                   step="0.01"
-                                   min="0"
-                                   name="salario"
-                                   id="salario"
-                                   class="form-control"
-                                   placeholder="0.00"
-                                   required>
+                            <input type="number" step="0.01" min="0" name="salario" id="salario" class="form-control"
+                                placeholder="0.00" required>
                         </div>
 
                     </div>
@@ -229,27 +198,27 @@ Registrar empleado | Dodo
                     <div class="col-12">
 
                         <label for="sucursal" class="form-label fw-semibold small"
-                               style="color: var(--erp-text-secondary);">
-                            Sucursal asignada <span style="color: var(--erp-primary);">*</span>
+                            style="color: var(--erp-text-secondary);">
+                            Empresa <span style="color: var(--erp-primary);">*</span>
                         </label>
 
                         <div class="input-group">
 
                             <span class="input-group-text"
-                                  style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
+                                style="background-color: var(--erp-surface-subtle); border-color: var(--erp-input-border);">
                                 <i class="bi bi-geo-alt"></i>
                             </span>
 
                             <select name="sucursal" id="sucursal" class="form-select" required>
 
                                 <option value="" disabled selected>
-                                    Seleccione una sucursal
+                                    Seleccione su empresa
                                 </option>
 
-                                {% for sucursal in sucursales %}
-                                    <option value="{{ sucursal.id }}">
-                                        {{ sucursal.nombre_sucursal }}
-                                    </option>
+                                {% for empresa in empresas %}
+                                <option value="{{ empresa.id }}">
+                                    {{ empresa }}
+                                </option>
                                 {% endfor %}
 
                             </select>
@@ -264,7 +233,7 @@ Registrar empleado | Dodo
 
             <!-- PIE DEL FORMULARIO -->
             <div class="px-3 py-3 d-flex flex-wrap justify-content-between align-items-center gap-2"
-                 style="background-color: var(--erp-surface-subtle); border-top: 1px solid var(--erp-border);">
+                style="background-color: var(--erp-surface-subtle); border-top: 1px solid var(--erp-border);">
 
                 <span style="font-size: 0.75rem; color: var(--erp-text-muted);">
                     <i class="bi bi-info-circle me-1"></i>
