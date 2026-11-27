@@ -13,10 +13,8 @@ Personal de la empresa | Dodo
 
         <div class="dodo-page-header-left">
 
-            <a href="{% url 'core:aplicaiones' %}"
-               class="dodo-btn-back"
-               title="Volver a Aplicaciones"
-               aria-label="Volver a Aplicaciones">
+            <a href="{% url 'core:aplicaiones' %}" class="dodo-btn-back" title="Volver a Aplicaciones"
+                aria-label="Volver a Aplicaciones">
                 <i class="bi bi-arrow-left"></i>
                 <span>Volver</span>
             </a>
@@ -33,6 +31,10 @@ Personal de la empresa | Dodo
         </div>
 
         <div class="d-flex align-items-center gap-2">
+            <a href="{% url 'empresas:modulos_permisos' %}" class="btn dodo-btn-primary">
+                <i class="bi bi-shield-lock me-1"></i>
+                Asignar módulos y permisos
+            </a>
 
             <a href="{% url 'empresas:registrar_empleado' %}" class="btn dodo-btn-primary">
                 <i class="bi bi-person-plus me-1"></i>
@@ -40,6 +42,7 @@ Personal de la empresa | Dodo
             </a>
 
         </div>
+
 
     </div>
 
@@ -80,8 +83,7 @@ Personal de la empresa | Dodo
 
         <div class="col-12 col-sm-6 col-xl-8">
 
-            <div class="card dodo-kpi-card h-100"
-                 style="border-top-color: var(--erp-success-text);">
+            <div class="card dodo-kpi-card h-100" style="border-top-color: var(--erp-success-text);">
 
                 <div class="card-body p-3">
 
@@ -92,8 +94,7 @@ Personal de la empresa | Dodo
                                 Gestión del personal
                             </div>
 
-                            <div class="fw-semibold"
-                                 style="font-size: 0.875rem; color: var(--erp-text-primary);">
+                            <div class="fw-semibold" style="font-size: 0.875rem; color: var(--erp-text-primary);">
                                 Administración de colaboradores
                             </div>
 
@@ -103,7 +104,7 @@ Personal de la empresa | Dodo
                         </div>
 
                         <div class="dodo-kpi-icon"
-                             style="background-color: var(--erp-success-bg); border-color: var(--erp-success-border); color: var(--erp-success-text);">
+                            style="background-color: var(--erp-success-bg); border-color: var(--erp-success-border); color: var(--erp-success-text);">
                             <i class="bi bi-shop"></i>
                         </div>
 
@@ -123,18 +124,16 @@ Personal de la empresa | Dodo
 
         <!-- CABECERA DE TABLA -->
         <div class="px-3 py-2 d-flex justify-content-between align-items-center"
-             style="background-color: var(--erp-surface-subtle); border-bottom: 1px solid var(--erp-border);">
+            style="background-color: var(--erp-surface-subtle); border-bottom: 1px solid var(--erp-border);">
 
-            <h2 class="mb-0 fw-semibold"
-                style="font-size: 0.875rem; color: var(--erp-text-primary);">
+            <h2 class="mb-0 fw-semibold" style="font-size: 0.875rem; color: var(--erp-text-primary);">
 
                 <i class="bi bi-person-lines-fill me-2"></i>
                 Lista de empleados
 
             </h2>
 
-            <span class="erp-tabular"
-                  style="font-size: 0.75rem; color: var(--erp-text-muted);">
+            <span class="erp-tabular" style="font-size: 0.75rem; color: var(--erp-text-muted);">
                 {{ empleados|length }} registros
             </span>
 
@@ -168,7 +167,7 @@ Personal de la empresa | Dodo
                             <div class="d-flex align-items-center gap-2">
 
                                 <div class="d-flex align-items-center justify-content-center rounded-circle"
-                                     style="width: 36px; height: 36px; background-color: var(--erp-surface-subtle); color: var(--erp-primary); border: 1px solid var(--erp-border);">
+                                    style="width: 36px; height: 36px; background-color: var(--erp-surface-subtle); color: var(--erp-primary); border: 1px solid var(--erp-border);">
 
                                     <i class="bi bi-person"></i>
 
@@ -194,8 +193,7 @@ Personal de la empresa | Dodo
                         <!-- SUCURSAL -->
                         <td>
 
-                            <i class="bi bi-shop me-1"
-                               style="color: var(--erp-primary);"></i>
+                            <i class="bi bi-shop me-1" style="color: var(--erp-primary);"></i>
 
                             {{ empleado.sucursal }}
 
@@ -217,30 +215,30 @@ Personal de la empresa | Dodo
 
                             {% if empleado.estado == 'ACTIVO' %}
 
-                                <span class="dodo-badge dodo-badge--success">
-                                    <i class="bi bi-circle-fill" style="font-size: 0.45rem;"></i>
-                                    Activo
-                                </span>
+                            <span class="dodo-badge dodo-badge--success">
+                                <i class="bi bi-circle-fill" style="font-size: 0.45rem;"></i>
+                                Activo
+                            </span>
 
                             {% elif empleado.estado == 'VACACIONES' %}
 
-                                <span class="dodo-badge dodo-badge--warning">
-                                    <i class="bi bi-calendar-check"></i>
-                                    Vacaciones
-                                </span>
+                            <span class="dodo-badge dodo-badge--warning">
+                                <i class="bi bi-calendar-check"></i>
+                                Vacaciones
+                            </span>
 
                             {% elif empleado.estado == 'INACTIVO' %}
 
-                                <span class="dodo-badge">
-                                    <i class="bi bi-dash-circle"></i>
-                                    Inactivo
-                                </span>
+                            <span class="dodo-badge">
+                                <i class="bi bi-dash-circle"></i>
+                                Inactivo
+                            </span>
 
                             {% else %}
 
-                                <span class="dodo-badge">
-                                    {{ empleado.estado|default:"Sin estado" }}
-                                </span>
+                            <span class="dodo-badge">
+                                {{ empleado.estado|default:"Sin estado" }}
+                            </span>
 
                             {% endif %}
 
@@ -253,13 +251,11 @@ Personal de la empresa | Dodo
 
                     <tr>
 
-                        <td colspan="5" class="text-center py-5"
-                            style="color: var(--erp-text-muted);">
+                        <td colspan="5" class="text-center py-5" style="color: var(--erp-text-muted);">
 
                             <i class="bi bi-people fs-2 d-block mb-2"></i>
 
-                            <div class="fw-semibold mb-1"
-                                 style="color: var(--erp-text-primary);">
+                            <div class="fw-semibold mb-1" style="color: var(--erp-text-primary);">
                                 No hay empleados registrados
                             </div>
 
@@ -267,8 +263,7 @@ Personal de la empresa | Dodo
                                 Registra tu primer colaborador para comenzar.
                             </p>
 
-                            <a href="{% url 'empresas:registrar_empleado' %}"
-                               class="btn dodo-btn-primary">
+                            <a href="{% url 'empresas:registrar_empleado' %}" class="btn dodo-btn-primary">
 
                                 <i class="bi bi-person-plus me-1"></i>
                                 Registrar empleado
@@ -290,7 +285,7 @@ Personal de la empresa | Dodo
 
         <!-- PIE DE TABLA -->
         <div class="px-3 py-2 d-flex justify-content-between align-items-center"
-             style="background-color: var(--erp-surface-subtle); border-top: 1px solid var(--erp-border); font-size: 0.75rem; color: var(--erp-text-muted);">
+            style="background-color: var(--erp-surface-subtle); border-top: 1px solid var(--erp-border); font-size: 0.75rem; color: var(--erp-text-muted);">
 
             <span>
                 Personal registrado en Dodo.

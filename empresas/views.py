@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 
 from .models import Empresas, Sucursales, Empleados 
-from usuarios.models import Roles
+from usuarios.models import Roles , Modulos
+
 
 
 
@@ -110,5 +111,38 @@ def registrar_empleados(request):
     return render(request, 'forms/registrar_empleados.html', contexto)
 
 
-def asig_permisos(request):
-    return render(request,'views/modulos_permisos.html')
+def asig_modulos_permisos(request):
+    modulos = Modulos.objects.filter(estado=True)
+    
+    if request.method == 'POST':
+
+        for modulo in modulos:
+
+            modulo_activo = request.POST.get(f'modulo_{modulo.id}')
+
+            consultar = request.POST.get(f'consultar_{modulo.id}')
+            crear = request.POST.get(f'crear_{modulo.id}')
+            editar = request.POST.get(f'editar_{modulo.id}')
+            eliminar = request.POST.get(f'eliminar_{modulo.id}')
+            aprobar = request.POST.get(f'aprobar_{modulo.id}')
+            anular = request.POST.get(f'anular_{modulo.id}')
+            exportar = request.POST.get(f'exportar_{modulo.id}')
+
+            print(f'Módulo: {modulo.nombre}')
+            print(f'Activo: {modulo_activo}')
+            print(f'Consultar: {consultar}')
+            print(f'Crear: {crear}')
+            print(f'Editar: {editar}')
+            print(f'Eliminar: {eliminar}')
+            print(f'Aprobar: {aprobar}')
+            print(f'Anular: {anular}')
+            print(f'Exportar: {exportar}')
+            print('---------------------------')
+
+    contexto = {
+        'modulos': modulos
+    }
+
+
+
+    return render(request,'views/modulos_permisos.html', contexto)
